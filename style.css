@@ -203,8 +203,8 @@ button {
     overflow: hidden;
     background: var(--soft-yellow);
 
-    border-top: 3px solid var(--black);
-    border-bottom: 3px solid var(--black);
+    border-top: 2px solid var(--black);
+    border-bottom: 2px solid var(--black);
 }
 
 .marquee {
@@ -217,11 +217,11 @@ button {
     align-items: center;
     width: max-content;
 
-    padding: 18px 0;
+    padding: 8px 0;
 
     white-space: nowrap;
 
-    animation: marquee-scroll 22s linear infinite;
+    animation: marquee-scroll 20s linear infinite;
 }
 
 .marquee-content span {
@@ -229,12 +229,14 @@ button {
 
     font-family: "DM Mono", monospace;
 
-    font-size: clamp(1.8rem, 4vw, 4.5rem);
+    font-size: clamp(1rem, 2vw, 2rem);
     font-weight: 700;
 
     color: grey;
 
-    letter-spacing: -2px;
+    letter-spacing: -1px;
+
+    padding-right: 60px;
 }
 
 @keyframes marquee-scroll {
@@ -256,12 +258,13 @@ button {
 @media (max-width: 700px) {
 
     .marquee-content {
-        padding: 13px 0;
+        padding: 6px 0;
         animation-duration: 18s;
     }
 
     .marquee-content span {
-        font-size: 2rem;
+        font-size: 1.1rem;
+        padding-right: 40px;
     }
 }
 
