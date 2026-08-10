@@ -10,13 +10,26 @@
 
     /* COLOR PALETTE */
 
-    --banner-blue-top: #B7CAE5;
-    --banner-blue-bottom: #C7D6EA;
+    :root {
+
+    /* MAIN BANNER / WEBSITE BLUE */
+    --sky-blue: #C5DFFC;
+    --sky-blue-light: #C5DFFC;
+
+    /* DARKER BLUE ACCENTS */
     --ocean-blue: #1F5F8B;
+    --deep-ocean: #0B3558;
+
     --soft-yellow: #FFF1A8;
+
     --white: #FFFFFF;
+    --off-white: #F8FBFC;
+
     --black: #111111;
-    --orange: #FF6719;
+
+    --orange: #F47732;
+
+}
 
 
     /* UI */
@@ -41,17 +54,20 @@ html {
 }
 
 body {
+
     margin: 0;
 
-    background: linear-gradient(
-        to bottom,
-        #B7CAE5 0%,
-        #C7D6EA 100%
-    );
+    background: #C5DFFC;
 
     color: var(--black);
-}
 
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    overflow-x: hidden;
+
+}
 button,
 input {
     font: inherit;
@@ -125,17 +141,17 @@ button {
 ========================================= */
 
 .site-header {
-    background: linear-gradient(
-        to bottom,
-        #B7CAE5 0%,
-        #C7D6EA 100%
-    );
 
-    padding: 35px 8vw 25px;
+    background: #C5DFFC;
+
+    padding:
+        35px
+        8vw
+        25px;
 
     border-bottom: var(--border);
-}
 
+}
 
 /* =========================================
    LOGO
@@ -304,13 +320,17 @@ button {
 ========================================= */
 
 .hero {
-    background: linear-gradient(
-        to bottom,
-        #B7CAE5 0%,
-        #C7D6EA 100%
-    );
-}
 
+    min-height: 650px;
+
+    padding:
+        80px
+        8vw
+        90px;
+
+    background: #C5DFFC;
+
+}
 
 .hero-intro {
 
@@ -752,7 +772,7 @@ button {
         8vw
         100px;
 
-    background: var(--sky-blue);
+    background: #C5DFFC;
 
 }
 
