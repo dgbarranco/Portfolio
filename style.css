@@ -194,17 +194,18 @@ button {
 }
 
 
-/* =========================================
-   JUMBO MARQUEE
+//* =========================================
+   PORTFOLIO MARQUEE
 ========================================= */
 
 .marquee-section {
     width: 100%;
     overflow: hidden;
-    background: var(--soft-yellow);
 
-    border-top: 2px solid var(--black);
-    border-bottom: 2px solid var(--black);
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+
+    margin: 8px 0;
 }
 
 .marquee {
@@ -212,34 +213,39 @@ button {
     overflow: hidden;
 }
 
-.marquee-content {
+.marquee-track {
     display: flex;
     align-items: center;
-    width: max-content;
 
-    padding: 8px 0;
+    width: max-content;
 
     white-space: nowrap;
 
-    animation: marquee-scroll 20s linear infinite;
+    animation: marquee-scroll 25s linear infinite;
 }
 
-.marquee-content span {
+.marquee-track span {
     flex-shrink: 0;
 
     font-family: "Roboto", sans-serif;
 
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     font-weight: 500;
 
     color: grey;
 
     letter-spacing: 0;
 
-    padding-right: 45px;
+    padding: 5px 45px;
 }
 
+
+/* =========================================
+   ANIMATION
+========================================= */
+
 @keyframes marquee-scroll {
+
     from {
         transform: translateX(0);
     }
@@ -247,27 +253,17 @@ button {
     to {
         transform: translateX(-50%);
     }
+
 }
 
-/* Pause animation when hovered */
-.marquee:hover .marquee-content {
+
+/* =========================================
+   PAUSE ON HOVER
+========================================= */
+
+.marquee:hover .marquee-track {
     animation-play-state: paused;
 }
-
-/* MOBILE */
-@media (max-width: 700px) {
-
-    .marquee-content {
-        padding: 6px 0;
-        animation-duration: 18s;
-    }
-
-    .marquee-content span {
-        font-size: 1.1rem;
-        padding-right: 40px;
-    }
-}
-
 /* =========================================
    NAVIGATION
 ========================================= */
