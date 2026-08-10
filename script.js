@@ -1,455 +1,806 @@
-/* =================================
-CLOCK
-================================= */
+/* =========================================
+   DREW PORTFOLIO
+   script.js
+========================================= */
 
-function updateClock() {
 
-```
-const clock = document.getElementById("clock");
+/* =========================================
+   CURRENT YEAR
+========================================= */
 
-const now = new Date();
+const yearElement = document.getElementById("year");
 
-const time = now.toLocaleTimeString(
-    "en-US",
-    {
-        hour12: false
-    }
-);
-
-clock.textContent = time;
-```
-
+if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
 }
 
-updateClock();
 
-setInterval(updateClock, 1000);
+/* =========================================
+   INTERACTIVE TERMINAL
+========================================= */
 
-/* =================================
-FOOTER YEAR
-================================= */
+const terminalInput = document.getElementById("terminal-input");
+const terminalOutput = document.getElementById("terminal-output");
 
-document.getElementById("year").textContent =
-new Date().getFullYear();
-
-/* =================================
-DESKTOP WINDOWS
-================================= */
-
-const directoryCards =
-document.querySelectorAll(".directory-card");
-
-const windows =
-document.querySelectorAll(".desktop-window");
-
-const closeButtons =
-document.querySelectorAll(".close-window");
-
-directoryCards.forEach(card => {
-
-```
-card.addEventListener("click", () => {
-
-    const windowId =
-        card.dataset.window;
-
-    const targetWindow =
-        document.getElementById(windowId);
-
-    windows.forEach(windowElement => {
-
-        windowElement.classList.remove("active");
-
-    });
-
-    targetWindow.classList.add("active");
-
-    bringToFront(targetWindow);
-
-});
-```
-
-});
-
-closeButtons.forEach(button => {
-
-```
-button.addEventListener("click", () => {
-
-    const windowElement =
-        button.closest(".desktop-window");
-
-    windowElement.classList.remove("active");
-
-});
-```
-
-});
-
-/* =================================
-WINDOW Z-INDEX
-================================= */
-
-let highestZIndex = 300;
-
-function bringToFront(windowElement) {
-
-```
-highestZIndex++;
-
-windowElement.style.zIndex =
-    highestZIndex;
-```
-
-}
-
-/* =================================
-DRAGGABLE WINDOWS
-================================= */
-
-windows.forEach(windowElement => {
-
-```
-const titlebar =
-    windowElement.querySelector(".window-titlebar");
-
-let isDragging = false;
-
-let startX = 0;
-let startY = 0;
-
-let initialLeft = 0;
-let initialTop = 0;
-
-
-titlebar.addEventListener(
-    "mousedown",
-    event => {
-
-        if (
-            event.target.classList.contains(
-                "close-window"
-            )
-        ) {
-            return;
-        }
-
-        isDragging = true;
-
-        bringToFront(windowElement);
-
-        const rect =
-            windowElement.getBoundingClientRect();
-
-        startX = event.clientX;
-        startY = event.clientY;
-
-        initialLeft = rect.left;
-        initialTop = rect.top;
-
-        windowElement.style.left =
-            rect.left + "px";
-
-        windowElement.style.top =
-            rect.top + "px";
-
-        windowElement.style.transform =
-            "none";
-
-    }
-);
-
-
-document.addEventListener(
-    "mousemove",
-    event => {
-
-        if (!isDragging) {
-            return;
-        }
-
-        const deltaX =
-            event.clientX - startX;
-
-        const deltaY =
-            event.clientY - startY;
-
-        windowElement.style.left =
-            initialLeft + deltaX + "px";
-
-        windowElement.style.top =
-            initialTop + deltaY + "px";
-
-    }
-);
-
-
-document.addEventListener(
-    "mouseup",
-    () => {
-
-        isDragging = false;
-
-    }
-);
-
-
-windowElement.addEventListener(
-    "mousedown",
-    () => {
-
-        bringToFront(windowElement);
-
-    }
-);
-```
-
-});
-
-/* =================================
-INTERACTIVE TERMINAL
-================================= */
-
-const terminalInput =
-document.getElementById("terminal-input");
-
-const terminalOutput =
-document.getElementById("terminal-output");
 
 const commands = {
 
-```
-help: `
-    <p>Available commands:</p>
-    <p>
-    help — display commands<br>
-    whoami — learn about Drew<br>
-    projects — list projects<br>
-    currently — current status<br>
-    politics — political interests<br>
-    skills — technical skills<br>
-    clear — clear terminal<br>
-    secret — ???
-    </p>
-`,
+    help: `
+        <p class="terminal-welcome">
+            AVAILABLE COMMANDS:
+        </p>
 
-whoami: `
-    <p class="terminal-welcome">
-        Drew Barranco Landa
-    </p>
+        <p>
+            <span class="green">whoami</span>
+            — learn about Drew
+        </p>
 
-    <p>
-        Politics × Computer Science
-    </p>
+        <p>
+            <span class="green">projects</span>
+            — see what I've built
+        </p>
 
-    <p>
-        Building at the intersection
-        of technology, society, and policy.
-    </p>
-`,
+        <p>
+            <span class="green">writing</span>
+            — read my thoughts
+        </p>
 
-projects: `
-    <p>
-        PROJECT_DIRECTORY/
-    </p>
+        <p>
+            <span class="green">leadership</span>
+            — see what I'm involved in
+        </p>
 
-    <p>
-        ├── TheMajorly.app<br>
-        ├── NGramModel.java<br>
-        ├── LLM_StoryTeller.exe<br>
-        ├── Citrus_Analysis.mat<br>
-        └── AI_Meme_Finder.py
-    </p>
-`,
+        <p>
+            <span class="green">currently</span>
+            — what I'm doing right now
+        </p>
 
-currently: `
-    <p>
-        READING → political theory<br>
-        BUILDING → TheMajorly<br>
-        LEARNING → computer systems<br>
-        WRITING → hot takes<br>
-        RUNNING → on matcha
-    </p>
-`,
+        <p>
+            <span class="green">contact</span>
+            — ways to reach me
+        </p>
 
-politics: `
-    <p>
-        Interested in:
-    </p>
+        <p>
+            <span class="green">clear</span>
+            — clear the terminal
+        </p>
+    `,
 
-    <p>
-        AI governance<br>
-        technology policy<br>
-        privacy<br>
-        public policy<br>
-        political theory<br>
-        law
-    </p>
-`,
 
-skills: `
-    <p>
-        LANGUAGES/
-    </p>
+    whoami: `
+        <p>
+            Drew Barranco Landa.
+        </p>
 
-    <p>
-        Java<br>
-        JavaScript<br>
-        C<br>
-        SQL<br>
-        HTML/CSS
-    </p>
-`,
+        <p>
+            Politics
+            <span class="orange-text">×</span>
+            Computer Science.
+        </p>
 
-secret: `
-    <p class="terminal-welcome">
-        you found the secret.
-    </p>
+        <p>
+            I like building things,
+            writing about things,
+            organizing things,
+            and occasionally arguing
+            about things.
+        </p>
+    `,
 
-    <p>
-        unfortunately there is no prize.
-    </p>
 
-    <p>
-        except this:
-        ★ keep building weird things ★
-    </p>
-`
-```
+    projects: `
+        <p class="terminal-welcome">
+            PROJECTS/
+        </p>
 
+        <p>
+            ├── TheMajorly
+        </p>
+
+        <p>
+            ├── LLM Projects
+        </p>
+
+        <p>
+            ├── Java + Systems
+        </p>
+
+        <p>
+            └── Data + AI Experiments
+        </p>
+    `,
+
+
+    writing: `
+        <p class="terminal-welcome">
+            WRITING/
+        </p>
+
+        <p>
+            > political theory
+        </p>
+
+        <p>
+            > capitalism
+        </p>
+
+        <p>
+            > feminism
+        </p>
+
+        <p>
+            > technology
+        </p>
+
+        <p>
+            > AI + policy
+        </p>
+
+        <p>
+            Status:
+            <span class="orange-text">
+                opinions still loading...
+            </span>
+        </p>
+    `,
+
+
+    leadership: `
+        <p class="terminal-welcome">
+            LEADERSHIP/
+        </p>
+
+        <p>
+            [01] Vice President — Model United Nations
+        </p>
+
+        <p>
+            [02] Vice President — ACM
+        </p>
+
+        <p>
+            [03] ASUSF College of Arts & Sciences Representative
+        </p>
+
+        <p>
+            [04] Director General — BAYMUN
+        </p>
+    `,
+
+
+    currently: `
+        <p class="terminal-welcome">
+            CURRENTLY.LOG
+        </p>
+
+        <p>
+            + studying computer science
+        </p>
+
+        <p>
+            + reading political theory
+        </p>
+
+        <p>
+            + building TheMajorly
+        </p>
+
+        <p>
+            + writing hot takes
+        </p>
+
+        <p>
+            + consuming questionable amounts of matcha
+        </p>
+    `,
+
+
+    contact: `
+        <p class="terminal-welcome">
+            CONTACT/
+        </p>
+
+        <p>
+            EMAIL:
+            dgbarrancolanda@dons.usfca.edu
+        </p>
+
+        <p>
+            LINKEDIN:
+            linkedin.com/in/drew-barranco
+        </p>
+
+        <p>
+            GITHUB:
+            github.com/dgbarranco
+        </p>
+    `,
+
+
+    about: `
+        <p>
+            Try typing:
+        </p>
+
+        <p>
+            <span class="green">whoami</span>,
+            <span class="green">projects</span>,
+            or
+            <span class="green">help</span>
+        </p>
+    `,
+
+
+    matcha: `
+        <p class="terminal-welcome">
+            MATCHA DETECTED.
+        </p>
+
+        <p>
+            caffeine levels: concerning
+        </p>
+
+        <p>
+            productivity levels: unpredictable
+        </p>
+    `,
+
+
+    capitalism: `
+        <p>
+            ERROR 418:
+        </p>
+
+        <p>
+            <span class="orange-text">
+                system currently questioning
+                the economic system.
+            </span>
+        </p>
+    `,
+
+
+    patriarchy: `
+        <p>
+            Opening:
+        </p>
+
+        <p class="terminal-welcome">
+            womb_envy_theory.exe
+        </p>
+
+        <p>
+            Warning:
+            this may start an argument.
+        </p>
+    `,
+
+
+    coffee: `
+        <p>
+            ERROR:
+        </p>
+
+        <p>
+            Wrong command.
+        </p>
+
+        <p class="terminal-welcome">
+            Try: matcha
+        </p>
+    `
 };
 
-terminalInput.addEventListener(
-"keydown",
-event => {
 
-```
-    if (event.key !== "Enter") {
+/* =========================================
+   TERMINAL COMMAND HANDLER
+========================================= */
+
+function runTerminalCommand(command) {
+
+    if (!terminalOutput) {
         return;
     }
 
-    const command =
-        terminalInput.value
-            .trim()
-            .toLowerCase();
+
+    const cleanCommand = command
+        .trim()
+        .toLowerCase();
 
 
-    if (command === "") {
+    if (cleanCommand === "") {
         return;
     }
 
+
+    /* SHOW USER COMMAND */
 
     terminalOutput.innerHTML += `
         <p>
-            <span style="color:#84d78f">
+            <span class="green">
                 drew@internet:~$
             </span>
-            ${command}
+
+            ${cleanCommand}
         </p>
     `;
 
 
-    if (command === "clear") {
+    /* CLEAR TERMINAL */
 
-        terminalOutput.innerHTML = "";
+    if (cleanCommand === "clear") {
+
+        terminalOutput.innerHTML = `
+            <p class="terminal-welcome">
+                Terminal cleared.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    /* COMMAND FOUND */
+
+    if (commands[cleanCommand]) {
+
+        terminalOutput.innerHTML += commands[cleanCommand];
 
     }
 
-    else if (commands[command]) {
 
-        terminalOutput.innerHTML +=
-            commands[command];
-
-    }
+    /* UNKNOWN COMMAND */
 
     else {
 
         terminalOutput.innerHTML += `
             <p>
                 command not found:
-                ${command}
+                <span class="orange-text">
+                    ${cleanCommand}
+                </span>
             </p>
 
             <p>
-                type "help"
+                Type
+                <span class="terminal-command">
+                    help
+                </span>
+                for available commands.
             </p>
         `;
 
     }
 
 
-    terminalInput.value = "";
+    /* AUTO SCROLL */
 
     terminalOutput.scrollTop =
         terminalOutput.scrollHeight;
 
 }
-```
 
-);
 
-/* =================================
-ESC CLOSES WINDOWS
-================================= */
+/* =========================================
+   LISTEN FOR ENTER
+========================================= */
+
+if (terminalInput) {
+
+    terminalInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Enter") {
+
+                const command =
+                    terminalInput.value;
+
+                runTerminalCommand(command);
+
+                terminalInput.value = "";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   PROJECT WINDOW
+========================================= */
+
+const directoryCards =
+    document.querySelectorAll(
+        "[data-window]"
+    );
+
+
+directoryCards.forEach(function (card) {
+
+    card.addEventListener(
+        "click",
+        function () {
+
+            const windowId =
+                card.dataset.window;
+
+            const targetWindow =
+                document.getElementById(
+                    windowId
+                );
+
+
+            if (targetWindow) {
+
+                targetWindow.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   CLOSE WINDOWS
+========================================= */
+
+const closeButtons =
+    document.querySelectorAll(
+        ".close-window"
+    );
+
+
+closeButtons.forEach(function (button) {
+
+    button.addEventListener(
+        "click",
+        function () {
+
+            const window =
+                button.closest(
+                    ".desktop-window"
+                );
+
+
+            if (window) {
+
+                window.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   CLOSE WINDOW WITH ESC
+========================================= */
 
 document.addEventListener(
-"keydown",
-event => {
+    "keydown",
+    function (event) {
 
-```
-    if (event.key === "Escape") {
+        if (event.key === "Escape") {
 
-        windows.forEach(windowElement => {
+            const activeWindows =
+                document.querySelectorAll(
+                    ".desktop-window.active"
+                );
 
-            windowElement.classList.remove("active");
 
-        });
+            activeWindows.forEach(
+                function (window) {
+
+                    window.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
 
     }
-
-}
-```
-
 );
 
-/* =================================
-RANDOM TERMINAL STATUS
-================================= */
 
-const statusMessages = [
+/* =========================================
+   DRAGGABLE WINDOWS
+========================================= */
 
-```
-"thinking too much...",
-"compiling opinions...",
-"reading political theory...",
-"debugging reality...",
-"probably drinking matcha...",
-"running on questionable sleep...",
-"asking why capitalism did this..."
-```
+const desktopWindows =
+    document.querySelectorAll(
+        ".desktop-window"
+    );
 
-];
 
-const typingLine =
-document.querySelector(".typing-line");
+desktopWindows.forEach(function (window) {
 
-setInterval(() => {
+    const titlebar =
+        window.querySelector(
+            ".window-titlebar"
+        );
 
-```
-if (!typingLine) {
-    return;
+
+    if (!titlebar) {
+        return;
+    }
+
+
+    let isDragging = false;
+
+    let startX = 0;
+    let startY = 0;
+
+    let initialX = 0;
+    let initialY = 0;
+
+
+    titlebar.addEventListener(
+        "mousedown",
+        function (event) {
+
+            /* Don't drag when closing */
+
+            if (
+                event.target.closest(
+                    ".close-window"
+                )
+            ) {
+                return;
+            }
+
+
+            isDragging = true;
+
+
+            const rect =
+                window.getBoundingClientRect();
+
+
+            startX = event.clientX;
+
+            startY = event.clientY;
+
+            initialX = rect.left;
+
+            initialY = rect.top;
+
+
+            window.style.transform =
+                "none";
+
+            window.style.left =
+                `${initialX}px`;
+
+            window.style.top =
+                `${initialY}px`;
+
+        }
+    );
+
+
+    document.addEventListener(
+        "mousemove",
+        function (event) {
+
+            if (!isDragging) {
+                return;
+            }
+
+
+            const moveX =
+                event.clientX - startX;
+
+            const moveY =
+                event.clientY - startY;
+
+
+            window.style.left =
+                `${initialX + moveX}px`;
+
+            window.style.top =
+                `${initialY + moveY}px`;
+
+        }
+    );
+
+
+    document.addEventListener(
+        "mouseup",
+        function () {
+
+            isDragging = false;
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   SMOOTH ACTIVE NAVIGATION
+========================================= */
+
+const navLinks =
+    document.querySelectorAll(
+        ".main-nav a"
+    );
+
+
+navLinks.forEach(function (link) {
+
+    link.addEventListener(
+        "click",
+        function () {
+
+            navLinks.forEach(
+                function (navLink) {
+
+                    navLink.classList.remove(
+                        "nav-active"
+                    );
+
+                }
+            );
+
+
+            link.classList.add(
+                "nav-active"
+            );
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   ACTIVE SECTION OBSERVER
+========================================= */
+
+const sections =
+    document.querySelectorAll(
+        "main section[id]"
+    );
+
+
+const observer = new IntersectionObserver(
+    function (entries) {
+
+        entries.forEach(
+            function (entry) {
+
+                if (
+                    entry.isIntersecting
+                ) {
+
+                    const sectionId =
+                        entry.target.id;
+
+
+                    navLinks.forEach(
+                        function (link) {
+
+                            const href =
+                                link.getAttribute(
+                                    "href"
+                                );
+
+
+                            if (
+                                href ===
+                                `#${sectionId}`
+                            ) {
+
+                                navLinks.forEach(
+                                    function (navLink) {
+
+                                        navLink.classList.remove(
+                                            "nav-active"
+                                        );
+
+                                    }
+                                );
+
+
+                                link.classList.add(
+                                    "nav-active"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+    },
+
+    {
+
+        rootMargin:
+            "-30% 0px -60% 0px"
+
+    }
+);
+
+
+sections.forEach(function (section) {
+
+    observer.observe(section);
+
+});
+
+
+/* =========================================
+   SMALL FUN HERO INTERACTION
+========================================= */
+
+const doodle =
+    document.querySelector(
+        ".doodle-circle"
+    );
+
+
+if (doodle) {
+
+    doodle.addEventListener(
+        "click",
+        function () {
+
+            doodle.style.transform =
+                "rotate(350deg) scale(1.1)";
+
+
+            setTimeout(
+                function () {
+
+                    doodle.style.transform =
+                        "rotate(-10deg) scale(1)";
+
+                },
+                300
+            );
+
+        }
+    );
+
 }
 
-const randomMessage =
-    statusMessages[
-        Math.floor(
-            Math.random() *
-            statusMessages.length
-        )
-    ];
 
-typingLine.textContent =
-    randomMessage;
-```
+/* =========================================
+   CONSOLE EASTER EGG
+========================================= */
 
-}, 4500);
+console.log(
+    "%cHello, internet.",
+    `
+        color: #FF6719;
+        font-size: 24px;
+        font-weight: bold;
+    `
+);
+
+
+console.log(
+    "%cYou found the source code. Nice.",
+    `
+        color: #1F5F8B;
+        font-size: 14px;
+    `
+);
