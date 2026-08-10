@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>DREW_BARRANCO.exe</title>
+<meta name="description"
+      content="Drew Barranco Landa — Politics, Computer Science, Technology, Theory, and Things Happening in Her Brain.">
+
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+
+```
+<!-- CUSTOM CURSOR -->
+<div class="cursor-dot"></div>
+
+<!-- BACKGROUND -->
+<div class="noise"></div>
+<div class="grid-background"></div>
+
+<!-- TOP STATUS BAR -->
+<header class="top-bar">
+    <div class="system-status">
+        <span class="status-light"></span>
+        SYSTEM ONLINE
+    </div>
+
+    <div class="top-name">
+        DREW_BARRANCO.EXE
+    </div>
+
+    <div class="clock" id="clock">
+        00:00:00
+    </div>
+</header>
+
+
+<!-- HERO -->
+<main>
+
+    <section class="hero">
+
+        <div class="hero-stamp">
+            EST. CENTRAL VALLEY → SAN FRANCISCO
+        </div>
+
+        <p class="eyebrow">
+            POLITICS × COMPUTER SCIENCE × THEORY × DESIGN
+        </p>
+
+        <h1>
+            DREW<br>
+            <span>BARRANCO</span><br>
+            LANDA
+        </h1>
+
+        <div class="hero-bottom">
+
+            <div class="terminal-preview">
+                <div class="terminal-header">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    TERMINAL
+                </div>
+
+                <div class="terminal-content">
+                    <p>> whoami</p>
+                    <p class="terminal-output">
+                        Politics + Computer Science student.
+                    </p>
+
+                    <p>> location</p>
+                    <p class="terminal-output">
+                        San Francisco, CA
+                    </p>
+
+                    <p>> current_status</p>
+                    <p class="terminal-output typing-line">
+                        thinking too much...
+                    </p>
+                </div>
+            </div>
+
+            <div class="hero-description">
+                <p>
+                    I build things, write about things,
+                    argue about things, and occasionally
+                    make all of those things connect.
+                </p>
+
+                <a href="#explore" class="explore-button">
+                    ENTER SYSTEM ↓
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MARQUEE -->
+    <section class="marquee">
+        <div class="marquee-track">
+            <span>POLITICS</span>
+            <span>✦</span>
+            <span>TECHNOLOGY</span>
+            <span>✦</span>
+            <span>POLITICAL THEORY</span>
+            <span>✦</span>
+            <span>AI GOVERNANCE</span>
+            <span>✦</span>
+            <span>COMPUTER SCIENCE</span>
+            <span>✦</span>
+
+            <span>POLITICS</span>
+            <span>✦</span>
+            <span>TECHNOLOGY</span>
+            <span>✦</span>
+            <span>POLITICAL THEORY</span>
+            <span>✦</span>
+            <span>AI GOVERNANCE</span>
+            <span>✦</span>
+            <span>COMPUTER SCIENCE</span>
+            <span>✦</span>
+        </div>
+    </section>
+
+
+    <!-- NAVIGATION -->
+    <section id="explore" class="explore-section">
+
+        <div class="section-label">
+            <span>01</span>
+            EXPLORE DIRECTORY
+        </div>
+
+        <div class="directory-grid">
+
+            <button class="directory-card red-card"
+                    data-window="about-window">
+                <span class="card-icon">👤</span>
+                <span class="file-name">ABOUT_ME.TXT</span>
+                <span class="file-description">
+                    background.exe
+                </span>
+            </button>
+
+            <button class="directory-card blue-card"
+                    data-window="projects-window">
+                <span class="card-icon">💻</span>
+                <span class="file-name">PROJECTS/</span>
+                <span class="file-description">
+                    things_i_built.zip
+                </span>
+            </button>
+
+            <button class="directory-card yellow-card"
+                    data-window="writing-window">
+                <span class="card-icon">✎</span>
+                <span class="file-name">WRITING.md</span>
+                <span class="file-description">
+                    opinions_unfiltered.txt
+                </span>
+            </button>
+
+            <button class="directory-card dark-card"
+                    data-window="leadership-window">
+                <span class="card-icon">⚑</span>
+                <span class="file-name">LEADERSHIP.SYS</span>
+                <span class="file-description">
+                    campus_mode.exe
+                </span>
+            </button>
+
+            <button class="directory-card green-card"
+                    data-window="currently-window">
+                <span class="card-icon">◉</span>
+                <span class="file-name">CURRENTLY.LOG</span>
+                <span class="file-description">
+                    live_status.txt
+                </span>
+            </button>
+
+            <button class="directory-card purple-card"
+                    data-window="contact-window">
+                <span class="card-icon">@</span>
+                <span class="file-name">CONTACT.EXE</span>
+                <span class="file-description">
+                    send_message.sh
+                </span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- INTERACTIVE TERMINAL -->
+    <section class="terminal-section">
+
+        <div class="section-label">
+            <span>02</span>
+            INTERACTIVE TERMINAL
+        </div>
+
+        <div class="big-terminal">
+
+            <div class="big-terminal-header">
+                <div class="window-controls">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                drew@internet:~
+            </div>
+
+            <div class="big-terminal-content"
+                 id="terminal-output">
+
+                <p class="terminal-welcome">
+                    Welcome to DREW_OS v1.0
+                </p>
+
+                <p>
+                    Type <strong>help</strong> to see available commands.
+                </p>
+
+            </div>
+
+            <div class="terminal-input-row">
+                <span>drew@internet:~$</span>
+
+                <input
+                    id="terminal-input"
+                    type="text"
+                    autocomplete="off"
+                    autofocus
+                >
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROJECT PREVIEW -->
+    <section class="featured-section">
+
+        <div class="section-label">
+            <span>03</span>
+            FEATURED ARTIFACTS
+        </div>
+
+        <div class="artifact-grid">
+
+            <article class="artifact">
+
+                <div class="artifact-number">
+                    001
+                </div>
+
+                <h2>TheMajorly</h2>
+
+                <p>
+                    A platform exploring how AI can
+                    help students navigate their
+                    academic experience.
+                </p>
+
+                <div class="artifact-tags">
+                    <span>JAVA</span>
+                    <span>AI</span>
+                    <span>WEB</span>
+                </div>
+
+            </article>
+
+
+            <article class="artifact">
+
+                <div class="artifact-number">
+                    002
+                </div>
+
+                <h2>AI & Human Thinking</h2>
+
+                <p>
+                    An ongoing exploration of
+                    intelligence, capitalism,
+                    technology, and what happens
+                    when they collide.
+                </p>
+
+                <div class="artifact-tags">
+                    <span>THEORY</span>
+                    <span>AI</span>
+                    <span>POLITICS</span>
+                </div>
+
+            </article>
+
+
+            <article class="artifact">
+
+                <div class="artifact-number">
+                    003
+                </div>
+
+                <h2>Citrus Analysis</h2>
+
+                <p>
+                    Analyzing thermal imaging data
+                    to explore patterns in
+                    agricultural disease.
+                </p>
+
+                <div class="artifact-tags">
+                    <span>JAVA</span>
+                    <span>MATLAB</span>
+                    <span>DATA</span>
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div>
+            © <span id="year"></span>
+            DREW BARRANCO LANDA
+        </div>
+
+        <div class="footer-links">
+            <a href="https://github.com/dgbarranco"
+               target="_blank">
+                GITHUB
+            </a>
+
+            <a href="https://www.linkedin.com/in/drew-barranco/"
+               target="_blank">
+                LINKEDIN
+            </a>
+
+            <a href="mailto:dgbarrancolanda@dons.usfca.edu">
+                EMAIL
+            </a>
+        </div>
+
+    </footer>
+
+</main>
+
+
+<!-- ========================= -->
+<!-- DESKTOP WINDOWS -->
+<!-- ========================= -->
+
+
+<!-- ABOUT -->
+<section class="desktop-window"
+         id="about-window">
+
+    <div class="window-titlebar">
+
+        <span>ABOUT_ME.TXT</span>
+
+        <button class="close-window">
+            ×
+        </button>
+
+    </div>
+
+    <div class="window-body about-content">
+
+        <p class="window-kicker">
+            USER PROFILE
+        </p>
+
+        <h2>
+            Hi, I'm Drew.
+        </h2>
+
+        <p>
+            I'm a student at the University of San Francisco
+            studying Politics and Computer Science.
+        </p>
+
+        <p>
+            I'm interested in the intersection of technology,
+            law, artificial intelligence, public policy,
+            and the systems that quietly shape our lives.
+        </p>
+
+        <p>
+            When I'm not writing code or reading political
+            theory, I'm probably working on a student
+            organization, building something, writing an
+            unnecessarily strong opinion, or looking for
+            a good matcha.
+        </p>
+
+        <div class="system-specs">
+
+            <div>
+                <span>CLASS</span>
+                HUMAN
+            </div>
+
+            <div>
+                <span>LOCATION</span>
+                SAN FRANCISCO
+            </div>
+
+            <div>
+                <span>STATUS</span>
+                CHRONICALLY BUSY
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROJECTS -->
+<section class="desktop-window"
+         id="projects-window">
+
+    <div class="window-titlebar">
+
+        <span>PROJECTS/</span>
+
+        <button class="close-window">
+            ×
+        </button>
+
+    </div>
+
+    <div class="window-body">
+
+        <div class="project-file">
+
+            <div class="file-symbol">
+                📁
+            </div>
+
+            <div>
+                <h3>TheMajorly</h3>
+                <p>
+                    AI-powered academic exploration
+                    and student support.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="project-file">
+
+            <div class="file-symbol">
+                ◈
+            </div>
+
+            <div>
+                <h3>NGramModel.java</h3>
+                <p>
+                    Language modeling and text generation.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="project-file">
+
+            <div class="file-symbol">
+                ◉
+            </div>
+
+            <div>
+                <h3>LLM_StoryTeller.exe</h3>
+                <p>
+                    Interactive storytelling powered by AI.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="project-file">
+
+            <div class="file-symbol">
+                ▣
+            </div>
+
+            <div>
+                <h3>Citrus_Analysis.mat</h3>
+                <p>
+                    Thermal image analysis and
+                    agricultural data exploration.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WRITING -->
+<section class="desktop-window"
+         id="writing-window">
+
+    <div class="window-titlebar">
+
+        <span>WRITING.md</span>
+
+        <button class="close-window">
+            ×
+        </button>
+
+    </div>
+
+    <div class="window-body">
+
+        <p class="window-kicker">
+            ARCHIVE OF THOUGHTS
+        </p>
+
+        <div class="essay">
+
+            <span>01</span>
+
+            <div>
+                <h3>
+                    The American Dream as Cultural Infrastructure
+                </h3>
+
+                <p>
+                    On capitalism, conflict, and the cultural
+                    systems holding America together.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="essay">
+
+            <span>02</span>
+
+            <div>
+                <h3>
+                    Is the Patriarchy Rooted in Womb Envy?
+                </h3>
+
+                <p>
+                    Freud, religion, gender, and a question
+                    that may get me yelled at.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="essay">
+
+            <span>03</span>
+
+            <div>
+                <h3>
+                    AI, Capitalism & Human Thought
+                </h3>
+
+                <p>
+                    What happens when intelligence becomes
+                    another resource to optimize?
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LEADERSHIP -->
+<section class="desktop-window"
+         id="leadership-window">
+
+    <div class="window-titlebar">
+
+        <span>LEADERSHIP.SYS</span>
+
+        <button class="close-window">
+            ×
+        </button>
+
+    </div>
+
+    <div class="window-body">
+
+        <div class="leadership-item">
+
+            <span>01</span>
+
+            <div>
+                <h3>
+                    USF Model United Nations
+                </h3>
+
+                <p>
+                    Vice President
+                </p>
+            </div>
+
+        </div>
+
+        <div class="leadership-item">
+
+            <span>02</span>
+
+            <div>
+                <h3>
+                    Association for Computing Machinery
+                </h3>
+
+                <p>
+                    Vice President
+                </p>
+            </div>
+
+        </div>
+
+        <div class="leadership-item">
+
+            <span>03</span>
+
+            <div>
+                <h3>
+                    BAYMUN
+                </h3>
+
+                <p>
+                    Director General
+                </p>
+            </div>
+
+        </div>
+
+        <div class="leadership-item">
+
+            <span>04</span>
+
+            <div>
+                <h3>
+                    ASUSF Senate
+                </h3>
+
+                <p>
+                    College of Arts & Sciences Representative
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CURRENTLY -->
+<section class="desktop-window"
+         id="currently-window">
+
+    <div class="window-titlebar">
+
+        <span>CURRENTLY.LOG</span>
+
+        <button class="close-window">
+            ×
+        </button>
+
+    </div>
+
+    <div class="window-body currently-content">
+
+        <p>
+            <span>READING:</span>
+            political theory and whatever assignment
+            I should probably already be doing.
+        </p>
+
+        <p>
+            <span>BUILDING:</span>
+            TheMajorly and other strange ideas.
+        </p>
+
+        <p>
+            <span>LEARNING:</span>
+            systems, algorithms, and how computers
+            actually work.
+        </p>
+
+        <p>
+            <span>WRITING:</span>
+            opinions with varying levels of
+            academic acceptability.
+        </p>
+
+        <p>
+            <span>RUNNING:</span>
+            mostly on matcha.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section class="desktop-window"
+         id="contact-window">
+
+    <div class="window-titlebar">
+
+        <span>CONTACT.EXE</span>
+
+        <button class="close-window">
+            ×
+        </button>
+
+    </div>
+
+    <div class="window-body contact-content">
+
+        <p class="window-kicker">
+            ESTABLISH CONNECTION
+        </p>
+
+        <h2>
+            Let's build something.
+        </h2>
+
+        <a href="mailto:dgbarrancolanda@dons.usfca.edu">
+            SEND EMAIL ↗
+        </a>
+
+        <a href="https://github.com/dgbarranco"
+           target="_blank">
+            GITHUB ↗
+        </a>
+
+        <a href="https://www.linkedin.com/in/drew-barranco/"
+           target="_blank">
+            LINKEDIN ↗
+        </a>
+
+    </div>
+
+</section>
+
+
+<script src="script.js"></script>
+```
+
+</body>
+</html>
