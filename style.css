@@ -227,16 +227,16 @@ button {
 .marquee-content span {
     flex-shrink: 0;
 
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Roboto", sans-serif;
 
-    font-size: clamp(1rem, 2vw, 2rem);
-    font-weight: 700;
+    font-size: 0.75rem;
+    font-weight: 500;
 
     color: grey;
 
-    letter-spacing: -1px;
+    letter-spacing: 0;
 
-    padding-right: 60px;
+    padding-right: 45px;
 }
 
 @keyframes marquee-scroll {
