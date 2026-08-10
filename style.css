@@ -10,21 +10,12 @@
 
     /* COLOR PALETTE */
 
-    --sky-blue: #B7CAE5;
-    --sky-blue-light: #C7D6EA;
-
+    --banner-blue-top: #B7CAE5;
+    --banner-blue-bottom: #C7D6EA;
     --ocean-blue: #1F5F8B;
-    --deep-ocean: #0B3558;
-
     --soft-yellow: #FFF1A8;
-
     --white: #FFFFFF;
-    --off-white: #F8FBFC;
-
     --black: #111111;
-
-    /* Substack-inspired accent */
-
     --orange: #FF6719;
 
 
@@ -50,19 +41,15 @@ html {
 }
 
 body {
-
     margin: 0;
 
-    background: var(--sky-blue);
+    background: linear-gradient(
+        to bottom,
+        #B7CAE5 0%,
+        #C7D6EA 100%
+    );
 
     color: var(--black);
-
-    font-family:
-        "Space Grotesk",
-        sans-serif;
-
-    overflow-x: hidden;
-
 }
 
 button,
@@ -138,16 +125,15 @@ button {
 ========================================= */
 
 .site-header {
+    background: linear-gradient(
+        to bottom,
+        #B7CAE5 0%,
+        #C7D6EA 100%
+    );
 
-    background: var(--sky-blue);
-
-    padding:
-        35px
-        8vw
-        25px;
+    padding: 35px 8vw 25px;
 
     border-bottom: var(--border);
-
 }
 
 
@@ -350,16 +336,11 @@ button {
 ========================================= */
 
 .hero {
-
-    min-height: 650px;
-
-    padding:
-        80px
-        8vw
-        90px;
-
-    background: var(--sky-blue);
-
+    background: linear-gradient(
+        to bottom,
+        #B7CAE5 0%,
+        #C7D6EA 100%
+    );
 }
 
 
