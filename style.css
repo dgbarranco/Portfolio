@@ -232,7 +232,7 @@ button {
     font-size: 0.9rem;
     font-weight: 500;
 
-    color: grey;
+    color: var(--black);
 
     letter-spacing: 0;
 
