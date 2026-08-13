@@ -3188,7 +3188,7 @@ footer {
 .about-photo {
     width: 100%;
 
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 3 / 5;
 
     overflow: hidden;
 
@@ -3283,7 +3283,7 @@ footer {
     }
 
     .about-photo {
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 3 / 5;
     }
 
 }
