@@ -194,17 +194,15 @@ button {
 }
 
 
-//* =========================================
+/* =========================================
    PORTFOLIO MARQUEE
 ========================================= */
 
 .marquee-section {
     width: 100%;
     overflow: hidden;
-
     border-top: 1px solid grey;
     border-bottom: 1px solid grey;
-
     margin: 8px 0;
 }
 
@@ -215,20 +213,23 @@ button {
 
 .marquee-track {
     display: flex;
-    align-items: center;
-
     width: max-content;
-
-    white-space: nowrap;
-
-    animation: marquee-scroll 25s linear infinite;
+    flex-shrink: 0;
+    animation: marquee-scroll 18s linear infinite;
+    will-change: transform;
 }
 
-.marquee-track span {
+.marquee-content {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.marquee-content span {
     flex-shrink: 0;
 
     font-family: "Roboto", sans-serif;
-
     font-size: 0.9rem;
     font-weight: 500;
 
@@ -239,6 +240,31 @@ button {
     padding: 5px 45px;
 }
 
+
+/* =========================================
+   MARQUEE ANIMATION
+========================================= */
+
+@keyframes marquee-scroll {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* =========================================
+   PAUSE ON HOVER
+========================================= */
+
+.marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
 
 /* =========================================
    ANIMATION
