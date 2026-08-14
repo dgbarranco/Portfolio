@@ -3122,7 +3122,9 @@ footer {
     padding: 70px 6% 100px;
 
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 55px;
 }
 
 .about-box {
@@ -3134,6 +3136,50 @@ footer {
     border-radius: 24px;
 
     padding: 45px;
+}
+
+/* =========================================
+   SECONDARY HOMEPAGE BOXES
+========================================= */
+
+.secondary-about-grid {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 35px;
+}
+
+.secondary-about-grid .about-box {
+    min-height: 300px;
+    padding: 35px;
+    margin: 0;
+
+    box-shadow:
+        8px 8px 0 rgba(0, 0, 0, 0.12);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.secondary-about-grid .about-box:first-child {
+    transform: rotate(-0.7deg);
+}
+
+.secondary-about-grid .about-box:last-child {
+    transform: rotate(0.7deg);
+}
+
+.secondary-about-grid .about-box:hover {
+    transform: translateY(-5px) rotate(0deg);
+
+    box-shadow:
+        10px 10px 0 rgba(0, 0, 0, 0.14);
 }
 
 
