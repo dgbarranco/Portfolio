@@ -342,7 +342,7 @@ button {
 
 .main-nav a:hover {
 
-    color: var(--orange);
+    color: #666666;
 
     transform: translateY(-2px);
 
@@ -3117,19 +3117,32 @@ footer {
    ABOUT ME HOMEPAGE
 ========================================= */
 
-.about-section {
+.hero {
     width: 100%;
-    padding: 70px 6% 100px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+
     gap: 55px;
+
+    padding: 70px 6% 100px;
+
+    box-sizing: border-box;
 }
 
-.about-box {
+
+/* =========================================
+   MAIN ABOUT BOX
+========================================= */
+
+.hero > .about-box {
     width: 100%;
     max-width: 1100px;
+
+    margin: 0 auto;
+
+    box-sizing: border-box;
 
     background: #fff7c7;
 
@@ -3137,6 +3150,7 @@ footer {
 
     padding: 45px;
 }
+
 
 /* =========================================
    SECONDARY HOMEPAGE BOXES
@@ -3149,15 +3163,27 @@ footer {
     margin: 0 auto;
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 35px;
+
+    box-sizing: border-box;
 }
 
+
 .secondary-about-grid .about-box {
+    width: 100%;
+    min-width: 0;
+
     min-height: 300px;
-    padding: 35px;
+
     margin: 0;
+    padding: 35px;
+
+    box-sizing: border-box;
+
+    background: #fff7c7;
+    border-radius: 24px;
 
     box-shadow:
         8px 8px 0 rgba(0, 0, 0, 0.12);
@@ -3167,13 +3193,16 @@ footer {
         box-shadow 0.2s ease;
 }
 
+
 .secondary-about-grid .about-box:first-child {
     transform: rotate(-0.7deg);
 }
 
+
 .secondary-about-grid .about-box:last-child {
     transform: rotate(0.7deg);
 }
+
 
 .secondary-about-grid .about-box:hover {
     transform: translateY(-5px) rotate(0deg);
@@ -3195,11 +3224,13 @@ footer {
     margin-bottom: 40px;
 }
 
+
 .about-title span {
     font-family: "DM Mono", monospace;
     font-size: 0.8rem;
     color: #666;
 }
+
 
 .about-title h1 {
     margin: 0;
@@ -3218,7 +3249,6 @@ footer {
 
 .about-content {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
 
     gap: 55px;
@@ -3241,6 +3271,7 @@ footer {
     border-radius: 18px;
 }
 
+
 .about-photo img {
     width: 100%;
     height: 100%;
@@ -3259,6 +3290,7 @@ footer {
     max-width: 500px;
 }
 
+
 .about-text h2 {
     margin: 0 0 25px;
 
@@ -3271,6 +3303,7 @@ footer {
     letter-spacing: -1px;
 }
 
+
 .about-text p {
     font-family: "Roboto", sans-serif;
 
@@ -3282,6 +3315,7 @@ footer {
 
     margin-bottom: 18px;
 }
+
 
 .about-link {
     display: inline-block;
@@ -3299,37 +3333,88 @@ footer {
     text-underline-offset: 4px;
 }
 
+
 .about-link:hover {
     opacity: 0.6;
 }
 
 
 /* =========================================
-   MOBILE
+   ABOUT HOMEPAGE — MOBILE
 ========================================= */
 
 @media (max-width: 700px) {
 
-    .about-section {
-        padding: 35px 20px 70px;
+    .hero {
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 45px 20px 70px;
+
+        gap: 40px;
+
+        box-sizing: border-box;
     }
 
-    .about-box {
-        padding: 25px;
-        border-radius: 18px;
+
+    .hero > .about-box {
+        width: 100%;
+        max-width: 1100px;
+
+        padding: 30px;
     }
+
 
     .about-title {
         margin-bottom: 25px;
     }
+
 
     .about-content {
         grid-template-columns: 1fr;
         gap: 30px;
     }
 
+
     .about-photo {
         aspect-ratio: 3 / 5;
+    }
+
+
+    .secondary-about-grid {
+        width: 100%;
+
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
+
+
+    .secondary-about-grid .about-box {
+        min-height: auto;
+
+        padding: 30px;
+    }
+
+
+    .secondary-about-grid .about-box:first-child,
+    .secondary-about-grid .about-box:last-child {
+        transform: rotate(0deg);
+    }
+
+}
+
+
+/* =========================================
+   ABOUT HOMEPAGE — SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .hero {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
 }
