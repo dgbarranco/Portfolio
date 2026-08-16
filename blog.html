@@ -4,6 +4,7 @@
 
 <head>
 
+
 <meta charset="UTF-8">
 
 <meta
@@ -62,11 +63,11 @@
 
 
 <!-- ===================================== -->
-<!-- GOOGLE FONTS -->
+<!-- FONTS -->
 <!-- ===================================== -->
 
 <link
-    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700;900&family=Unbounded:wght@400;500;700;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@400;500;700;900&display=swap"
     rel="stylesheet"
 >
 
@@ -300,7 +301,10 @@
 <main>
 
 
-    <section class="blog-page">
+    <section
+        class="blog-page"
+        id="blog"
+    >
 
 
         <!-- ================================= -->
@@ -345,49 +349,67 @@
 
 
         <!-- ================================= -->
-        <!-- BLOG POSTS -->
+        <!-- LATEST POSTS -->
         <!-- ================================= -->
 
-        <div class="blog-posts">
+        <div class="blog-latest">
 
 
             <!-- ================================= -->
-            <!-- POST 01 -->
+            <!-- SECTION HEADER -->
             <!-- ================================= -->
 
-            <a
-                href="#"
-                class="blog-post-box"
-            >
+            <div class="blog-latest-heading">
+
+                <span>
+                    01.
+                </span>
+
+                LATEST
+
+            </div>
 
 
-                <div class="blog-post-header">
+            <!-- ================================= -->
+            <!-- BLOG POST 01 -->
+            <!-- ================================= -->
+
+            <article class="blog-entry">
 
 
-                    <span class="blog-post-number">
+                <div class="blog-entry-number">
 
-                        01.
-
-                    </span>
-
-
-                    <span class="blog-post-date">
-
-                        AUGUST 14, 2026
-
-                    </span>
-
+                    01
 
                 </div>
 
 
-                <div class="blog-post-content">
+                <div class="blog-entry-main">
+
+
+                    <div class="blog-entry-meta">
+
+                        <span>
+                            POLITICAL THEORY
+                        </span>
+
+                        <span>
+                            AUGUST 14, 2026
+                        </span>
+
+                    </div>
 
 
                     <h2>
 
-                        IS THE PATRIARCHY
-                        ROOTED IN WOMB ENVY?
+                        <a
+                            href="posts/womb-envy.html"
+                        >
+
+                            IS THE PATRIARCHY
+                            ROOTED IN WOMB ENVY?
+
+                        </a>
 
                     </h2>
 
@@ -395,9 +417,9 @@
                     <p>
 
                         An exploration of reproduction,
-                        religion, patriarchy, and the ways
-                        societies have historically assigned
-                        political meaning to the womb.
+                        religion, patriarchy, and the
+                        political meaning attached to
+                        the womb.
 
                     </p>
 
@@ -405,76 +427,69 @@
                 </div>
 
 
-                <div class="blog-post-footer">
+                <a
+                    href="posts/womb-envy.html"
+                    class="blog-entry-arrow"
+                    aria-label="Read Is the Patriarchy Rooted in Womb Envy?"
+                >
+
+                    ↗
+
+                </a>
 
 
-                    <span>
-
-                        POLITICAL THEORY
-
-                    </span>
+            </article>
 
 
-                    <span class="blog-post-arrow">
+            <!-- ================================= -->
+            <!-- BLOG POST 02 -->
+            <!-- ================================= -->
 
-                        ↗
+            <article class="blog-entry">
 
-                    </span>
 
+                <div class="blog-entry-number">
+
+                    02
 
                 </div>
 
 
-            </a>
+                <div class="blog-entry-main">
 
 
-            <!-- ================================= -->
-            <!-- POST 02 -->
-            <!-- ================================= -->
+                    <div class="blog-entry-meta">
 
-            <a
-                href="#"
-                class="blog-post-box"
-            >
+                        <span>
+                            POLITICS
+                        </span>
 
+                        <span>
+                            AUGUST 08, 2026
+                        </span>
 
-                <div class="blog-post-header">
-
-
-                    <span class="blog-post-number">
-
-                        02.
-
-                    </span>
-
-
-                    <span class="blog-post-date">
-
-                        AUGUST 08, 2026
-
-                    </span>
-
-
-                </div>
-
-
-                <div class="blog-post-content">
+                    </div>
 
 
                     <h2>
 
-                        THE AMERICAN DREAM
-                        ISN'T WHAT WE THINK IT IS
+                        <a
+                            href="posts/american-dream.html"
+                        >
+
+                            THE AMERICAN DREAM
+
+                        </a>
 
                     </h2>
 
 
                     <p>
 
-                        An exploration of American culture,
-                        capitalism, and the contradictions
-                        built into the idea of the American
-                        Dream.
+                        An exploration of American
+                        culture, capitalism, and the
+                        contradictions built into the
+                        American Dream.
 
                     </p>
 
@@ -482,66 +497,60 @@
                 </div>
 
 
-                <div class="blog-post-footer">
+                <a
+                    href="posts/american-dream.html"
+                    class="blog-entry-arrow"
+                    aria-label="Read The American Dream"
+                >
+
+                    ↗
+
+                </a>
 
 
-                    <span>
-
-                        POLITICS
-
-                    </span>
+            </article>
 
 
-                    <span class="blog-post-arrow">
+            <!-- ================================= -->
+            <!-- BLOG POST 03 -->
+            <!-- ================================= -->
 
-                        ↗
+            <article class="blog-entry">
 
-                    </span>
 
+                <div class="blog-entry-number">
+
+                    03
 
                 </div>
 
 
-            </a>
+                <div class="blog-entry-main">
 
 
-            <!-- ================================= -->
-            <!-- POST 03 -->
-            <!-- ================================= -->
+                    <div class="blog-entry-meta">
 
-            <a
-                href="#"
-                class="blog-post-box"
-            >
+                        <span>
+                            TECHNOLOGY
+                        </span>
 
+                        <span>
+                            JULY 29, 2026
+                        </span>
 
-                <div class="blog-post-header">
-
-
-                    <span class="blog-post-number">
-
-                        03.
-
-                    </span>
-
-
-                    <span class="blog-post-date">
-
-                        JULY 29, 2026
-
-                    </span>
-
-
-                </div>
-
-
-                <div class="blog-post-content">
+                    </div>
 
 
                     <h2>
 
-                        WHY I LIKE
-                        BUILDING THINGS
+                        <a
+                            href="posts/building-things.html"
+                        >
+
+                            WHY I LIKE
+                            BUILDING THINGS
+
+                        </a>
 
                     </h2>
 
@@ -549,9 +558,8 @@
                     <p>
 
                         A reflection on programming,
-                        creativity, and why I keep making
-                        things even when I don't know exactly
-                        where they will lead.
+                        creativity, and why I keep
+                        making things.
 
                     </p>
 
@@ -559,27 +567,18 @@
                 </div>
 
 
-                <div class="blog-post-footer">
+                <a
+                    href="posts/building-things.html"
+                    class="blog-entry-arrow"
+                    aria-label="Read Why I Like Building Things"
+                >
+
+                    ↗
+
+                </a>
 
 
-                    <span>
-
-                        TECHNOLOGY
-
-                    </span>
-
-
-                    <span class="blog-post-arrow">
-
-                        ↗
-
-                    </span>
-
-
-                </div>
-
-
-            </a>
+            </article>
 
 
         </div>
@@ -611,19 +610,16 @@
 
     <div class="footer-center">
 
-
     </div>
 
 
     <div class="footer-links">
 
-
         <a href="index.html">
 
-            ↑ TOP
+            ↑ HOME
 
         </a>
-
 
     </div>
 
