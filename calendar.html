@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Meeting — Drew Barranco</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --blue: #c3dcf8;
+      --blue-dark: #a9caf0;
+      --yellow: #fff3bf;
+      --yellow-dark: #f5e6a4;
+      --black: #080808;
+      --gray: #777777;
+      --line: rgba(8, 8, 8, 0.42);
+      --white: rgba(255, 255, 255, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--black);
+      background: var(--blue);
+      font-family: "Inter", Arial, sans-serif;
+    }
+
+    /* ===== Portfolio-style top area ===== */
+
+    .page {
+      width: min(1360px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 55px 0 80px;
+    }
+
+    .logo-area {
+      height: 285px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .logo {
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: clamp(74px, 10vw, 150px);
+      letter-spacing: -0.13em;
+      transform: rotate(-2deg);
+      line-height: 1;
+      position: relative;
+    }
+
+    .logo::before {
+      content: "✦";
+      position: absolute;
+      font-size: 27px;
+      left: -38px;
+      top: 18px;
+      transform: rotate(-10deg);
+    }
+
+    .logo::after {
+      content: "×";
+      position: absolute;
+      font-size: 24px;
+      right: -30px;
+      bottom: -20px;
+    }
+
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+      font-size: 17px;
+      font-weight: 600;
+      padding: 8px 0;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      animation: marquee 24s linear infinite;
+    }
+
+    .marquee span {
+      margin-right: 60px;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: clamp(22px, 4vw, 62px);
+      padding: 35px 0 25px;
+      font-family: "DM Mono", monospace;
+      font-size: 14px;
+    }
+
+    nav a {
+      color: var(--black);
+      text-decoration: none;
+      transition: opacity .2s ease;
+    }
+
+    nav a:hover {
+      opacity: .5;
+    }
+
+    .identity {
+      text-align: center;
+      font-family: "DM Mono", monospace;
+      font-size: 14px;
+      letter-spacing: .08em;
+      padding-bottom: 50px;
+    }
+
+    .x {
+      padding: 0 12px;
+      font-weight: 700;
+    }
+
+    /* ===== Booking section ===== */
+
+    .booking-card {
+      background: var(--yellow);
+      border-radius: 38px;
+      padding: clamp(28px, 5vw, 70px);
+      max-width: 1120px;
+      margin: 0 auto;
+      box-shadow: 0 14px 0 rgba(8, 8, 8, .04);
+    }
+
+    .section-number {
+      font-family: "DM Mono", monospace;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .booking-title {
+      margin: 0;
+      font-size: clamp(46px, 7vw, 92px);
+      line-height: .95;
+      letter-spacing: -.055em;
+      font-weight: 800;
+    }
+
+    .booking-intro {
+      max-width: 700px;
+      margin: 22px 0 42px;
+      font-family: "DM Mono", monospace;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 35px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      background: rgba(255,255,255,.17);
+    }
+
+    .panel-title {
+      font-family: "DM Mono", monospace;
+      font-size: 13px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-family: "DM Mono", monospace;
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(255,255,255,.42);
+      color: var(--black);
+      padding: 12px;
+      font: 14px "DM Mono", monospace;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--black);
+      background: rgba(255,255,255,.7);
+    }
+
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .slot {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(255,255,255,.32);
+      padding: 13px;
+      cursor: pointer;
+      color: var(--black);
+      font: 500 13px "DM Mono", monospace;
+      transition: .18s ease;
+    }
+
+    .slot:hover {
+      background: var(--black);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      font: 13px "DM Mono", monospace;
+      color: var(--gray);
+      padding: 25px 5px;
+    }
+
+    .selected {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-family: "DM Mono", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .book-button {
+      width: 100%;
+      margin-top: 15px;
+      border: 1px solid var(--black);
+      border-radius: 9px;
+      padding: 14px;
+      background: var(--black);
+      color: white;
+      cursor: pointer;
+      font: 500 13px "DM Mono", monospace;
+      transition: .18s ease;
+    }
+
+    .book-button:hover {
+      background: transparent;
+      color: var(--black);
+    }
+
+    .info {
+      font-family: "DM Mono", monospace;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .info p {
+      margin: 0 0 20px;
+    }
+
+    .availability-status {
+      padding: 13px;
+      border: 1px dashed var(--line);
+      border-radius: 9px;
+      font-size: 12px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(8,8,8,.38);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      width: min(500px, 100%);
+      background: var(--yellow);
+      border: 1px solid var(--black);
+      border-radius: 24px;
+      padding: 30px;
+    }
+
+    .modal h2 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: -.04em;
+    }
+
+    .modal-copy {
+      font: 12px "DM Mono", monospace;
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .modal input {
+      margin-bottom: 12px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .modal-actions button {
+      flex: 1;
+      border: 1px solid var(--black);
+      border-radius: 9px;
+      padding: 13px;
+      cursor: pointer;
+      font: 500 12px "DM Mono", monospace;
+    }
+
+    #cancelButton {
+      background: transparent;
+    }
+
+    #confirmButton {
+      background: var(--black);
+      color: white;
+    }
+
+    .status {
+      margin-top: 12px;
+      font: 12px "DM Mono", monospace;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 45px 0 0;
+      font: 12px "DM Mono", monospace;
+    }
+
+    @media (max-width: 800px) {
+      .page {
+        width: min(100% - 28px, 1360px);
+        padding-top: 25px;
+      }
+
+      .logo-area {
+        height: 190px;
+      }
+
+      nav {
+        gap: 16px 24px;
+        font-size: 12px;
+      }
+
+      .booking-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .slots {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .booking-card {
+        border-radius: 25px;
+        padding: 24px 18px;
+      }
+
+      .booking-title {
+        font-size: 48px;
+      }
+
+      .logo {
+        font-size: 75px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <header>
+      <div class="logo-area">
+        <div class="logo">DREW</div>
+      </div>
+
+      <div class="marquee">
+        <div class="marquee-track">
+          <span>☆☆☆ HELLO WORLD! ☆☆☆ Drew's Portfolio site</span>
+          <span>☆☆☆ HELLO WORLD! ☆☆☆ Drew's Portfolio site</span>
+          <span>☆☆☆ HELLO WORLD! ☆☆☆ Drew's Portfolio site</span>
+          <span>☆☆☆ HELLO WORLD! ☆☆☆ Drew's Portfolio site</span>
+        </div>
+      </div>
+
+      <nav>
+        <a href="/">00. ABOUT DREW</a>
+        <a href="/#currently">01. CURRENTLY</a>
+        <a href="/#projects">02. PROJECTS</a>
+        <a href="/#publishings">03. PUBLISHINGS</a>
+        <a href="/#blog">04. BLOG</a>
+        <a href="/#contact">05. CONTACT</a>
+      </nav>
+
+      <div class="identity">
+        Software Engineer <span class="x">×</span>
+        Product Management <span class="x">×</span>
+        Technology Law
+      </div>
+    </header>
+
+    <section class="booking-card">
+
+      <div class="section-number">06.</div>
+      <h1 class="booking-title">LET'S MEET.</h1>
+
+      <p class="booking-intro">
+        Pick a time that works for you. This calendar automatically checks
+        my Google Calendar and only shows times when I am actually available.
+      </p>
+
+      <div class="booking-layout">
+
+        <div class="panel">
+
+          <div class="panel-title">01. Choose a time</div>
+
+          <div class="controls">
+            <div>
+              <label for="date">DATE</label>
+              <input id="date" type="date">
+            </div>
+
+            <div>
+              <label for="duration">DURATION</label>
+              <select id="duration">
+                <option value="30">30 MIN</option>
+                <option value="45">45 MIN</option>
+                <option value="60" selected>60 MIN</option>
+                <option value="90">90 MIN</option>
+              </select>
+            </div>
+          </div>
+
+          <label>AVAILABLE TIMES</label>
+
+          <div id="slots" class="slots">
+            <div class="empty">Choose a date to see available times.</div>
+          </div>
+
+          <div id="selected" class="selected" style="display:none;">
+            <strong>SELECTED:</strong>
+            <div id="selectedText"></div>
+            <button class="book-button" id="bookButton">CONTINUE →</button>
+          </div>
+
+        </div>
+
+        <div class="panel">
+
+          <div class="panel-title">02. Meeting details</div>
+
+          <div class="info">
+            <p>
+              Meetings are added directly to my Google Calendar after
+              confirmation.
+            </p>
+
+            <p>
+              Your calendar availability remains private. The booking page
+              only receives the free/busy information necessary to show
+              available times.
+            </p>
+
+            <div class="availability-status">
+              <strong>CALENDAR STATUS</strong><br><br>
+              <span id="calendarStatus">Waiting for date selection...</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      © Drew Barranco · drewbarranco.com
+    </footer>
+
+  </main>
+
+  <!-- Booking modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+
+      <h2>ONE LAST THING.</h2>
+
+      <div class="modal-copy" id="modalTime">
+        Confirm your meeting details below.
+      </div>
+
+      <label for="name">NAME</label>
+      <input id="name" type="text" placeholder="Your name">
+
+      <label for="email">EMAIL</label>
+      <input id="email" type="email" placeholder="you@example.com">
+
+      <label for="title">MEETING TITLE</label>
+      <input id="title" type="text" placeholder="Meeting with Drew">
+
+      <div class="modal-actions">
+        <button id="cancelButton">CANCEL</button>
+        <button id="confirmButton">BOOK IT →</button>
+      </div>
+
+      <div id="modalStatus" class="status"></div>
+
+    </div>
+  </div>
+
+  <script>
+    /*
+     * ==============================================================
+     * GOOGLE CALENDAR CONNECTION
+     * ==============================================================
+     *
+     * IMPORTANT:
+     * Do NOT put your Google OAuth credentials in this HTML file.
+     *
+     * Deploy a Google Apps Script Web App that provides:
+     *
+     * GET:
+     *   ?action=availability&date=YYYY-MM-DD&duration=60
+     *
+     * POST:
+     *   {
+     *     action: "book",
+     *     date: "YYYY-MM-DD",
+     *     start: "09:00",
+     *     duration: 60,
+     *     name: "...",
+     *     email: "...",
+     *     title: "..."
+     *   }
+     *
+     * Then paste the deployed Web App URL below.
+     */
+
+    const API_URL =
+      "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+    const dateInput = document.getElementById("date");
+    const durationInput = document.getElementById("duration");
+    const slots = document.getElementById("slots");
+    const selected = document.getElementById("selected");
+    const selectedText = document.getElementById("selectedText");
+    const calendarStatus = document.getElementById("calendarStatus");
+
+    const modal = document.getElementById("modal");
+    const modalTime = document.getElementById("modalTime");
+    const modalStatus = document.getElementById("modalStatus");
+
+    let selectedSlot = null;
+
+    // Prevent booking dates in the past.
+    const today = new Date();
+    const localToday =
+      today.getFullYear() + "-" +
+      String(today.getMonth() + 1).padStart(2, "0") + "-" +
+      String(today.getDate()).padStart(2, "0");
+
+    dateInput.min = localToday;
+
+    dateInput.addEventListener("change", loadAvailability);
+    durationInput.addEventListener("change", loadAvailability);
+
+    async function loadAvailability() {
+      selected.style.display = "none";
+      selectedSlot = null;
+
+      if (!dateInput.value) {
+        slots.innerHTML =
+          '<div class="empty">Choose a date to see available times.</div>';
+        calendarStatus.textContent = "Waiting for date selection...";
+        return;
+      }
+
+      if (API_URL.includes("PASTE_YOUR")) {
+        showDemoAvailability();
+        return;
+      }
+
+      calendarStatus.textContent = "Checking Google Calendar...";
+      slots.innerHTML =
+        '<div class="empty">Checking availability...</div>';
+
+      try {
+        const params = new URLSearchParams({
+          action: "availability",
+          date: dateInput.value,
+          duration: durationInput.value
+        });
+
+        const response = await fetch(`${API_URL}?${params}`);
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.error || "Unable to load availability.");
+        }
+
+        renderSlots(data.availableTimes || []);
+        calendarStatus.textContent =
+          `${data.availableTimes.length} available time(s)`;
+      } catch (error) {
+        slots.innerHTML =
+          `<div class="empty">Unable to load availability.</div>`;
+        calendarStatus.textContent = error.message;
+      }
+    }
+
+    function showDemoAvailability() {
+      /*
+       * Demo times so the design can be previewed before connecting
+       * Google Calendar.
+       */
+      const demoTimes = [
+        "09:00", "10:00", "11:30",
+        "13:00", "14:00", "15:30",
+        "16:00"
+      ];
+
+      renderSlots(demoTimes);
+      calendarStatus.textContent =
+        "Demo mode — connect Google Calendar to use live availability.";
+    }
+
+    function renderSlots(times) {
+      if (!times.length) {
+        slots.innerHTML =
+          '<div class="empty">No available times for this date.</div>';
+        return;
+      }
+
+      slots.innerHTML = "";
+
+      times.forEach(time => {
+        const button = document.createElement("button");
+        button.className = "slot";
+        button.textContent = formatTime(time);
+
+        button.addEventListener("click", () => {
+          selectedSlot = time;
+
+          selectedText.textContent =
+            `${formatDate(dateInput.value)} · ${formatTime(time)} · ${durationInput.value} min`;
+
+          selected.style.display = "block";
+
+          document.querySelectorAll(".slot").forEach(slot => {
+            slot.style.background = "";
+            slot.style.color = "";
+          });
+
+          button.style.background = "var(--black)";
+          button.style.color = "white";
+        });
+
+        slots.appendChild(button);
+      });
+    }
+
+    document.getElementById("bookButton").addEventListener("click", () => {
+      if (!selectedSlot) return;
+
+      modalTime.textContent =
+        `${formatDate(dateInput.value)} at ${formatTime(selectedSlot)} for ${durationInput.value} minutes.`;
+
+      modalStatus.textContent = "";
+      modal.classList.add("open");
+    });
+
+    document.getElementById("cancelButton").addEventListener("click", () => {
+      modal.classList.remove("open");
+    });
+
+    document.getElementById("confirmButton").addEventListener(
+      "click",
+      bookMeeting
+    );
+
+    async function bookMeeting() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const title =
+        document.getElementById("title").value.trim() ||
+        "Meeting with Drew";
+
+      if (!name || !email) {
+        modalStatus.textContent =
+          "Please enter your name and email.";
+        return;
+      }
+
+      if (API_URL.includes("PASTE_YOUR")) {
+        modalStatus.textContent =
+          "Demo mode: connect the Google Apps Script URL before booking.";
+        return;
+      }
+
+      modalStatus.textContent = "Creating calendar event...";
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify({
+            action: "book",
+            date: dateInput.value,
+            start: selectedSlot,
+            duration: Number(durationInput.value),
+            name,
+            email,
+            title
+          })
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.error || "Unable to create meeting.");
+        }
+
+        modalStatus.textContent =
+          "Booked! The meeting has been added to the calendar.";
+
+        setTimeout(() => {
+          modal.classList.remove("open");
+          loadAvailability();
+        }, 1600);
+
+      } catch (error) {
+        modalStatus.textContent = error.message;
+      }
+    }
+
+    function formatTime(time) {
+      const [hour, minute] = time.split(":").map(Number);
+      const suffix = hour >= 12 ? "PM" : "AM";
+      const displayHour = hour % 12 || 12;
+      return `${displayHour}:${String(minute).padStart(2, "0")} ${suffix}`;
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString + "T12:00:00");
+
+      return date.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+      });
+    }
+  </script>
+
+</body>
+</html>
