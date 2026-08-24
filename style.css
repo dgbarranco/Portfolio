@@ -709,127 +709,776 @@ button {
 
 
 /* =========================================
-   CURRENTLY CARD
+   CURRENTLY PAGE
 ========================================= */
 
-.currently-card {
+.currently-page {
+
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding:
+        70px
+        6%
+        100px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =========================================
+   PAGE INTRO
+========================================= */
+
+.currently-intro {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin:
+        0
+        auto
+        55px;
+
+    text-align: center;
+
+}
+
+
+.currently-intro .section-label {
+
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+.currently-intro h1 {
+
+    margin:
+        0
+        0
+        18px;
+
+    font-family:
+        "Roboto",
+        sans-serif;
+
+    font-size:
+        clamp(
+            2.5rem,
+            6vw,
+            5rem
+        );
+
+    font-weight: 700;
+
+    letter-spacing: -3px;
+
+}
+
+
+.currently-intro p {
+
+    max-width: 600px;
+
+    margin:
+        0
+        auto;
+
+    font-family:
+        "Roboto",
+        sans-serif;
+
+    font-size: 1rem;
+
+    line-height: 1.7;
+
+    color: #333;
+
+}
+
+
+/* =========================================
+   CURRENT PROJECT GRID
+========================================= */
+
+.currently-grid {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin:
+        0
+        auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 35px;
+
+    align-items: stretch;
+
+}
+
+
+/* =========================================
+   CURRENT PROJECT BOX
+========================================= */
+
+.currently-box {
 
     position: relative;
 
-    background: var(--soft-yellow);
+    width: 100%;
 
-    border: 2px solid var(--black);
+    min-height: 330px;
 
-    padding:
-        40px
-        32px
-        45px;
+    padding: 35px;
 
-    min-height: 340px;
+    box-sizing: border-box;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: #fff7c7;
+
+    border-radius: 24px;
 
     box-shadow:
         8px
         8px
         0
-        rgba(0, 0, 0, 0.16);
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
 
-    transform: rotate(1deg);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 
 }
 
 
-/* FAKE TAPE */
-
-.tape {
-
-    position: absolute;
-
-    width: 145px;
-
-    height: 32px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.6
-        );
-
-    top: -17px;
-
-    left: 50%;
+.currently-box:hover {
 
     transform:
-        translateX(-50%)
-        rotate(-4deg);
+        translateY(-5px)
+        rotate(0deg);
 
-    border:
-        1px solid
+    box-shadow:
+        10px
+        10px
+        0
         rgba(
             0,
             0,
             0,
-            0.06
+            0.14
         );
 
 }
 
 
-.currently-card h2 {
+/* =========================================
+   FEATURED PROJECT
+========================================= */
 
-    display: inline-block;
+.currently-featured {
 
-    margin:
-        0
-        0
-        25px;
+    grid-column:
+        1 / -1;
 
-    padding-bottom: 6px;
+    min-height: 380px;
 
-    border-bottom:
-        2px solid
-        var(--black);
+}
+
+
+.currently-box:nth-child(1) {
+
+    transform:
+        rotate(-0.6deg);
+
+}
+
+
+.currently-box:nth-child(2) {
+
+    transform:
+        rotate(0.7deg);
+
+}
+
+
+.currently-box:nth-child(3) {
+
+    transform:
+        rotate(-0.5deg);
+
+}
+
+
+/* =========================================
+   NUMBER
+========================================= */
+
+.currently-number {
 
     font-family:
         "DM Mono",
         monospace;
 
-    font-size: 16px;
+    font-size: 0.8rem;
+
+    color: #666;
+
+}
+
+
+/* =========================================
+   ICON
+========================================= */
+
+.currently-icon {
+
+    margin-top: auto;
+
+    margin-bottom: 25px;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 60px;
+
+    line-height: 1;
+
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.currently-content {
+
+    width: 100%;
+
+}
+
+
+.currently-kicker {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 1.5px;
+
+    color: #777;
+
+}
+
+
+.currently-content h2 {
+
+    margin:
+        0
+        10px;
+
+    font-family:
+        "Unbounded",
+        sans-serif;
+
+    font-size:
+        clamp(
+            1.15rem,
+            3vw,
+            2rem
+        );
+
+    line-height: 1.2;
+
+    letter-spacing: -1px;
+
+}
+
+
+.currently-content p {
+
+    margin: 0;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 0.7rem;
 
     letter-spacing: 1px;
 
-    transform: rotate(-2deg);
+    color: #555;
 
 }
 
 
-.currently-list p {
+/* =========================================
+   ARROW
+========================================= */
 
-    margin:
-        14px
-        0;
+.currently-arrow {
+
+    position: absolute;
+
+    right: 30px;
+
+    bottom: 25px;
 
     font-family:
         "DM Mono",
         monospace;
 
-    font-size: 12px;
+    font-size: 28px;
 
-    line-height: 1.5;
+    transition:
+        transform 0.2s ease;
 
 }
 
 
-.currently-list span {
+.currently-box:hover .currently-arrow {
 
-    color: var(--orange);
+    transform:
+        translateX(6px);
 
-    font-size: 18px;
+}
 
-    margin-right: 8px;
 
-    font-weight: bold;
+/* =========================================
+   CURRENT UPDATE BOX
+========================================= */
+
+.current-update-box {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    min-height: 320px;
+
+    margin:
+        75px
+        auto
+        0;
+
+    padding: 45px;
+
+    box-sizing: border-box;
+
+    background: #fff7c7;
+
+    border-radius: 24px;
+
+    box-shadow:
+        8px
+        8px
+        0
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+
+    transform:
+        rotate(0.5deg);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.current-update-box:hover {
+
+    transform:
+        translateY(-5px)
+        rotate(0deg);
+
+    box-shadow:
+        10px
+        10px
+        0
+        rgba(
+            0,
+            0,
+            0,
+            0.14
+        );
+
+}
+
+
+/* =========================================
+   UPDATE HEADING
+========================================= */
+
+.current-update-heading {
+
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-bottom: 35px;
+
+    text-align: center;
+
+}
+
+
+.current-update-heading span {
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 0.8rem;
+
+    color: #666;
+
+}
+
+
+.current-update-heading h2 {
+
+    margin: 0;
+
+    font-family:
+        "Roboto",
+        sans-serif;
+
+    font-size:
+        clamp(
+            1.7rem,
+            4vw,
+            3rem
+        );
+
+    font-weight: 700;
+
+    letter-spacing: -1px;
+
+}
+
+
+/* =========================================
+   UPDATE CONTENT
+========================================= */
+
+.current-update-content {
+
+    width: 100%;
+
+    max-width: 850px;
+
+    min-height: 130px;
+
+    margin:
+        0
+        auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+}
+
+
+.current-update-placeholder {
+
+    margin: 0;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 0.7rem;
+
+    letter-spacing: 1px;
+
+    color: #888;
+
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .currently-page {
+
+        padding:
+            55px
+            30px
+            80px;
+
+    }
+
+
+    .currently-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+    }
+
+
+    .currently-featured {
+
+        grid-column: auto;
+
+    }
+
+
+    .currently-box {
+
+        min-height: 300px;
+
+    }
+
+
+    .currently-box:nth-child(1),
+    .currently-box:nth-child(2),
+    .currently-box:nth-child(3) {
+
+        transform:
+            rotate(0deg);
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .currently-page {
+
+        width: 100%;
+
+        padding:
+            45px
+            20px
+            70px;
+
+    }
+
+
+    .currently-intro {
+
+        margin-bottom: 40px;
+
+    }
+
+
+    .currently-intro .section-label {
+
+        text-align: center;
+
+    }
+
+
+    .currently-intro h1 {
+
+        font-size: 2.7rem;
+
+        letter-spacing: -2px;
+
+    }
+
+
+    .currently-intro p {
+
+        font-size: 0.95rem;
+
+    }
+
+
+    .currently-box {
+
+        min-height: 280px;
+
+        padding: 30px;
+
+    }
+
+
+    .currently-featured {
+
+        min-height: 310px;
+
+    }
+
+
+    .currently-icon {
+
+        font-size: 50px;
+
+    }
+
+
+    .currently-content {
+
+        text-align: center;
+
+    }
+
+
+    .currently-kicker {
+
+        text-align: center;
+
+    }
+
+
+    .currently-content h2 {
+
+        font-size: 1.2rem;
+
+    }
+
+
+    .currently-content p {
+
+        text-align: center;
+
+    }
+
+
+    .currently-arrow {
+
+        right: 25px;
+
+        bottom: 20px;
+
+    }
+
+
+    .current-update-box {
+
+        width: 100%;
+
+        min-height: 280px;
+
+        margin-top: 60px;
+
+        padding: 30px;
+
+        transform:
+            rotate(0deg);
+
+    }
+
+
+    .current-update-heading {
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 8px;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .current-update-heading h2 {
+
+        font-size: 1.6rem;
+
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .currently-page {
+
+        padding-left: 18px;
+
+        padding-right: 18px;
+
+    }
+
+
+    .currently-box {
+
+        padding: 25px;
+
+    }
+
+
+    .current-update-box {
+
+        padding: 25px;
+
+    }
+
+
+    .currently-intro h1 {
+
+        font-size: 2.35rem;
+
+    }
+
+
+    .current-update-heading h2 {
+
+        font-size: 1.4rem;
+
+    }
 
 }
 
