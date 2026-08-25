@@ -1482,6 +1482,601 @@ button {
 
 }
 
+/* =========================================
+   PROJECTS PAGE
+========================================= */
+
+.projects-page {
+
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding:
+        70px
+        6%
+        100px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =========================================
+   PROJECT INTRO
+========================================= */
+
+.projects-intro {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin:
+        0
+        auto
+        55px;
+
+}
+
+
+.projects-intro .section-label {
+
+    margin-bottom: 30px;
+
+}
+
+
+.projects-intro-box {
+
+    width: 100%;
+
+    min-height: 280px;
+
+    padding: 45px;
+
+    box-sizing: border-box;
+
+    background: #fff7c7;
+
+    border-radius: 24px;
+
+    box-shadow:
+        8px
+        8px
+        0
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+
+    transform:
+        rotate(-0.5deg);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.projects-intro-box:hover {
+
+    transform:
+        translateY(-5px)
+        rotate(0deg);
+
+    box-shadow:
+        10px
+        10px
+        0
+        rgba(
+            0,
+            0,
+            0,
+            0.14
+        );
+
+}
+
+
+.projects-intro-number {
+
+    display: block;
+
+    margin-bottom: 25px;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 0.8rem;
+
+    color: #666;
+
+}
+
+
+.projects-intro-box h1 {
+
+    max-width: 800px;
+
+    margin:
+        0
+        0
+        20px;
+
+    font-family:
+        "Roboto",
+        sans-serif;
+
+    font-size:
+        clamp(
+            2rem,
+            5vw,
+            4rem
+        );
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+
+}
+
+
+.projects-intro-box p {
+
+    max-width: 700px;
+
+    margin: 0;
+
+    font-family:
+        "Roboto",
+        sans-serif;
+
+    font-size: 1rem;
+
+    line-height: 1.7;
+
+    color: #444;
+
+}
+
+
+/* =========================================
+   PROJECT DIRECTORY
+========================================= */
+
+.project-directory {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin:
+        0
+        auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 35px;
+
+}
+
+
+/* =========================================
+   PROJECT CATEGORY BOX
+========================================= */
+
+.project-category-box {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 300px;
+
+    padding: 35px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    flex-direction: column;
+
+    text-decoration: none;
+
+    color: var(--black);
+
+    background: #fff7c7;
+
+    border-radius: 24px;
+
+    box-shadow:
+        8px
+        8px
+        0
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+/* =========================================
+   PLAYFUL ROTATION
+========================================= */
+
+.project-category-box:nth-child(odd) {
+
+    transform:
+        rotate(-0.6deg);
+
+}
+
+
+.project-category-box:nth-child(even) {
+
+    transform:
+        rotate(0.6deg);
+
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.project-category-box:hover {
+
+    transform:
+        translateY(-5px)
+        rotate(0deg);
+
+    box-shadow:
+        10px
+        10px
+        0
+        rgba(
+            0,
+            0,
+            0,
+            0.14
+        );
+
+}
+
+
+/* =========================================
+   NUMBER
+========================================= */
+
+.project-category-number {
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 0.8rem;
+
+    color: #666;
+
+}
+
+
+/* =========================================
+   ICON
+========================================= */
+
+.project-category-icon {
+
+    margin-top: auto;
+
+    margin-bottom: 25px;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 55px;
+
+    line-height: 1;
+
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.project-category-content {
+
+    padding-right: 35px;
+
+}
+
+
+.project-category-content h2 {
+
+    margin:
+        0
+        10px;
+
+    font-family:
+        "Unbounded",
+        sans-serif;
+
+    font-size:
+        clamp(
+            1.1rem,
+            2.5vw,
+            1.7rem
+        );
+
+    line-height: 1.2;
+
+    letter-spacing: -1px;
+
+}
+
+
+.project-category-content p {
+
+    margin: 0;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 0.65rem;
+
+    line-height: 1.6;
+
+    letter-spacing: 1px;
+
+    color: #666;
+
+}
+
+
+/* =========================================
+   ARROW
+========================================= */
+
+.project-category-arrow {
+
+    position: absolute;
+
+    right: 28px;
+
+    bottom: 22px;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 28px;
+
+    transition:
+        transform 0.2s ease;
+
+}
+
+
+.project-category-box:hover
+.project-category-arrow {
+
+    transform:
+        translateX(6px);
+
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .projects-page {
+
+        padding:
+            55px
+            30px
+            80px;
+
+    }
+
+
+    .project-directory {
+
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+    }
+
+
+    .project-category-box {
+
+        min-height: 280px;
+
+    }
+
+
+    .project-category-box:nth-child(odd),
+    .project-category-box:nth-child(even) {
+
+        transform:
+            rotate(0deg);
+
+    }
+
+
+    .project-category-box:hover {
+
+        transform:
+            translateY(-5px);
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .projects-page {
+
+        padding:
+            45px
+            20px
+            70px;
+
+    }
+
+
+    .projects-intro {
+
+        margin-bottom: 40px;
+
+    }
+
+
+    .projects-intro-box {
+
+        min-height: 260px;
+
+        padding: 30px;
+
+    }
+
+
+    .projects-intro-box h1 {
+
+        font-size: 2.3rem;
+
+        letter-spacing: -1.5px;
+
+    }
+
+
+    .projects-intro-box p {
+
+        font-size: 0.9rem;
+
+    }
+
+
+    .project-category-box {
+
+        min-height: 270px;
+
+        padding: 30px;
+
+    }
+
+
+    .project-category-icon {
+
+        font-size: 48px;
+
+    }
+
+
+    .project-category-content {
+
+        text-align: center;
+
+        padding-right: 0;
+
+    }
+
+
+    .project-category-content h2 {
+
+        font-size: 1.15rem;
+
+    }
+
+
+    .project-category-content p {
+
+        text-align: center;
+
+    }
+
+
+    .project-category-arrow {
+
+        right: 24px;
+
+        bottom: 18px;
+
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .projects-page {
+
+        padding-left: 18px;
+
+        padding-right: 18px;
+
+    }
+
+
+    .projects-intro-box {
+
+        padding: 25px;
+
+    }
+
+
+    .projects-intro-box h1 {
+
+        font-size: 2rem;
+
+    }
+
+
+    .project-category-box {
+
+        padding: 25px;
+
+        min-height: 250px;
+
+    }
+
+}
+
 
 .smiley {
 
