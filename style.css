@@ -17,9 +17,9 @@
 
     --sky-blue-light: #C5DFFC;
 
-    --ocean-blue: #1F5F8B;
+    --ocean-blue: #3A3A3A;
 
-    --deep-ocean: #0B3558;
+    --deep-ocean: #292929;
 
     --soft-yellow: #FFF1A8;
 
@@ -29,7 +29,7 @@
 
     --black: #111111;
 
-    --orange: #F47732;
+    --orange: #3A3A3A;
 
 
     /* =====================================
@@ -586,7 +586,7 @@ button {
         55px;
 
     align-items:
-        center;
+        start;
 
 }
 
