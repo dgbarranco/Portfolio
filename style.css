@@ -586,7 +586,7 @@ button {
         55px;
 
     align-items:
-        start;
+        center;
 
 }
 
@@ -2937,6 +2937,13 @@ footer {
 
         max-width:
             none;
+
+    }
+
+    .about-left {
+
+        width:
+            100%;
 
     }
 
