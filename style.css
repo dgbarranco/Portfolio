@@ -479,14 +479,28 @@ button {
 
     max-width: 1100px;
 
-    min-height: 600px;
+    min-height: 0;
 
     margin:
         0
         auto;
 
     padding:
-        45px;
+        42px 45px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        335px;
+
+    grid-template-rows:
+        auto
+        auto;
+
+    column-gap: 55px;
+
+    align-items: start;
 
     background:
         #fff7c7;
@@ -516,6 +530,9 @@ button {
 ========================================= */
 
 .about-title {
+
+    grid-column: 1;
+    grid-row: 1;
 
     display: flex;
 
@@ -575,31 +592,34 @@ button {
 ========================================= */
 
 .about-content {
-    display: grid;
 
-    grid-template-columns:
-        minmax(0, 1fr)
-        220px;
+    display: contents;
 
-    gap: 40px;
-
-    align-items: stretch;
 }
 
 
 .about-photo {
+
     width: 100%;
-    max-width: 220px;
+    max-width: 335px;
+    aspect-ratio: 1 / 1;
+
+    grid-column: 2;
+    grid-row: 1 / span 2;
 
     overflow: hidden;
 
     border-radius: 24px;
 
     justify-self: end;
+
+    align-self: stretch;
+
 }
 
 
 .about-photo img {
+
     display: block;
 
     width: 100%;
@@ -608,6 +628,7 @@ button {
     object-fit: cover;
 
     border-radius: 24px;
+
 }
 
 
@@ -616,6 +637,9 @@ button {
 ========================================= */
 
 .about-text {
+
+    grid-column: 1;
+    grid-row: 2;
 
     width: 100%;
 
@@ -2636,13 +2660,13 @@ footer {
 
     /* ABOUT */
 
-    .about-content {
+    .hero > .about-box {
 
         grid-template-columns:
             minmax(0, 1fr)
             220px;
 
-        gap:
+        column-gap:
             35px;
 
     }
@@ -2951,22 +2975,33 @@ footer {
     }
 
 
-    .about-content {
+    .hero > .about-box {
 
         grid-template-columns:
             minmax(0, 1fr)
             160px;
 
-        gap:
+        column-gap:
             20px;
 
-        align-items:
-            start;
+        row-gap:
+            0;
+
+    }
+
+
+    .about-title {
+
+        grid-column: 1;
+        grid-row: 1;
 
     }
 
 
     .about-text {
+
+        grid-column: 1;
+        grid-row: 2;
 
         max-width:
             none;
@@ -2990,13 +3025,16 @@ footer {
             160px;
 
         aspect-ratio:
-            4 / 5;
+            1 / 1;
 
         border-radius:
             20px;
 
         justify-self:
             end;
+
+        align-self:
+            stretch;
 
     }
 
@@ -3437,33 +3475,6 @@ footer {
 
 
 /* =========================================
-   NARROW MOBILE — STACK ABOUT CONTENT
-========================================= */
-
-@media (max-width: 500px) {
-
-    .about-content {
-
-        grid-template-columns:
-            1fr;
-
-        gap:
-            30px;
-
-    }
-
-
-    .about-photo {
-
-        aspect-ratio:
-            4 / 5;
-
-    }
-
-}
-
-
-/* =========================================
    SMALL MOBILE
 ========================================= */
 
@@ -3530,10 +3541,43 @@ footer {
     }
 
 
+    .hero > .about-box {
+
+        grid-template-columns:
+            1fr;
+
+        row-gap:
+            30px;
+
+    }
+
+
+    .about-title {
+
+        grid-column: 1;
+        grid-row: 1;
+
+    }
+
+
+    .about-text {
+
+        grid-column: 1;
+        grid-row: 2;
+
+    }
+
+
     .about-photo {
 
+        grid-column: 1;
+        grid-row: 3;
+
         aspect-ratio:
-            4 / 5;
+            1 / 1;
+
+        max-width:
+            100%;
 
     }
 
