@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 
 <html lang="en">
@@ -659,6 +658,15 @@
 }
 
 
+.booking-actions button:disabled {
+
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+}
+
+
 .booking-message {
 
     font-family: "DM Mono", monospace;
@@ -954,7 +962,7 @@
 
                     <label for="meeting-date">
 
-                        DATE
+                        PREFERRED DATE
 
                     </label>
 
@@ -1114,7 +1122,7 @@
 
         <p id="modal-selected-time">
 
-            Confirm your information below.
+            Confirm your information below. Your request will be sent for approval rather than automatically booked.
 
         </p>
 
@@ -1300,23 +1308,15 @@
 
 /*
 ============================================================
-GOOGLE CALENDAR CONFIGURATION
+GOOGLE CALENDAR BACKEND
 ============================================================
 
-DO NOT put Google OAuth credentials in this HTML file.
+The browser never receives Google Calendar credentials or
+Twilio credentials. Those stay inside the Google Apps Script
+backend, stored in Script Properties.
 
-The calendar will communicate with a Google Apps Script
-Web App.
-
-Once the backend is created, replace:
-
-PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE
-
-with your deployed Apps Script Web App URL.
-
-============================================================
+Paste the deployed Apps Script Web App URL below.
 */
-
 
 const CALENDAR_API =
     "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
@@ -1328,77 +1328,53 @@ ELEMENTS
 ============================================================
 */
 
-
 const dateInput =
-    document.getElementById(
-        "meeting-date"
-    );
-
+    document.getElementById("meeting-date");
 
 const durationInput =
-    document.getElementById(
-        "meeting-duration"
-    );
-
+    document.getElementById("meeting-duration");
 
 const timeSlots =
-    document.getElementById(
-        "time-slots"
-    );
-
+    document.getElementById("time-slots");
 
 const calendarStatus =
-    document.getElementById(
-        "calendar-status"
-    );
-
+    document.getElementById("calendar-status");
 
 const selectedMeeting =
-    document.getElementById(
-        "selected-meeting"
-    );
-
+    document.getElementById("selected-meeting");
 
 const selectedTime =
-    document.getElementById(
-        "selected-time"
-    );
-
+    document.getElementById("selected-time");
 
 const continueButton =
-    document.getElementById(
-        "continue-button"
-    );
-
+    document.getElementById("continue-button");
 
 const bookingModal =
-    document.getElementById(
-        "booking-modal"
-    );
-
+    document.getElementById("booking-modal");
 
 const cancelButton =
-    document.getElementById(
-        "cancel-button"
-    );
-
+    document.getElementById("cancel-button");
 
 const confirmButton =
-    document.getElementById(
-        "confirm-button"
-    );
-
+    document.getElementById("confirm-button");
 
 const modalSelectedTime =
-    document.getElementById(
-        "modal-selected-time"
-    );
-
+    document.getElementById("modal-selected-time");
 
 const bookingMessage =
-    document.getElementById(
-        "booking-message"
-    );
+    document.getElementById("booking-message");
+
+const nameInput =
+    document.getElementById("guest-name");
+
+const emailInput =
+    document.getElementById("guest-email");
+
+const reasonInput =
+    document.getElementById("meeting-reason");
+
+const honeypotInput =
+    document.getElementById("website");
 
 
 /*
@@ -1406,7 +1382,6 @@ const bookingMessage =
 STATE
 ============================================================
 */
-
 
 let selectedSlot = null;
 
@@ -1417,23 +1392,15 @@ MINIMUM DATE
 ============================================================
 */
 
-
 const today =
     new Date();
 
-
 const todayString =
-
     today.getFullYear() +
     "-" +
-    String(
-        today.getMonth() + 1
-    ).padStart(2, "0") +
+    String(today.getMonth() + 1).padStart(2, "0") +
     "-" +
-    String(
-        today.getDate()
-    ).padStart(2, "0");
-
+    String(today.getDate()).padStart(2, "0");
 
 dateInput.min =
     todayString;
@@ -1445,16 +1412,57 @@ EVENT LISTENERS
 ============================================================
 */
 
-
 dateInput.addEventListener(
     "change",
     loadAvailability
 );
 
-
 durationInput.addEventListener(
     "change",
     loadAvailability
+);
+
+continueButton.addEventListener(
+    "click",
+    function() {
+
+        if (!selectedSlot) {
+            return;
+        }
+
+        modalSelectedTime.textContent =
+            `${formatDate(dateInput.value)} at ` +
+            `${formatTime(selectedSlot)} for ` +
+            `${durationInput.value} minutes.`;
+
+        bookingMessage.textContent = "";
+
+        bookingModal.classList.add("active");
+
+    }
+);
+
+cancelButton.addEventListener(
+    "click",
+    function() {
+        bookingModal.classList.remove("active");
+    }
+);
+
+bookingModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (event.target === bookingModal) {
+            bookingModal.classList.remove("active");
+        }
+
+    }
+);
+
+confirmButton.addEventListener(
+    "click",
+    submitMeetingRequest
 );
 
 
@@ -1464,203 +1472,99 @@ LOAD AVAILABILITY
 ============================================================
 */
 
-
 async function loadAvailability() {
 
-
     selectedSlot = null;
-
-
-    selectedMeeting.style.display =
-        "none";
-
+    selectedMeeting.style.display = "none";
 
     if (!dateInput.value) {
 
-
         timeSlots.innerHTML = `
-
             <div class="no-times">
-
                 SELECT A DATE TO SEE<br>
-
                 AVAILABLE MEETING TIMES.
-
             </div>
-
         `;
-
 
         calendarStatus.textContent =
             "SELECT A DATE";
 
-
         return;
-
     }
 
+    if (CALENDAR_API.includes("PASTE_YOUR_GOOGLE")) {
 
-    /*
-    --------------------------------------------------------
-    DEMO MODE
-    --------------------------------------------------------
-    */
+        timeSlots.innerHTML = `
+            <div class="no-times">
+                CALENDAR NOT CONNECTED YET.<br>
+                PLEASE TRY AGAIN LATER.
+            </div>
+        `;
 
-
-    if (
-        CALENDAR_API.includes(
-            "PASTE_YOUR_GOOGLE"
-        )
-    ) {
-
-
-        showDemoTimes();
-
+        calendarStatus.textContent =
+            "NOT CONNECTED";
 
         return;
-
     }
-
-
-    /*
-    --------------------------------------------------------
-    REAL GOOGLE CALENDAR REQUEST
-    --------------------------------------------------------
-    */
-
 
     calendarStatus.textContent =
-        "CHECKING CALENDAR...";
-
+        "CHECKING CALENDARS...";
 
     timeSlots.innerHTML = `
-
         <div class="no-times">
-
-            CHECKING GOOGLE CALENDAR...
-
+            CHECKING AVAILABILITY...
         </div>
-
     `;
-
 
     try {
 
-
         const params =
             new URLSearchParams({
-
-                action:
-                    "availability",
-
-                date:
-                    dateInput.value,
-
-                duration:
-                    durationInput.value
-
+                action: "availability",
+                date: dateInput.value,
+                duration: durationInput.value
             });
-
 
         const response =
             await fetch(
-                `${CALENDAR_API}?${params.toString()}`
+                `${CALENDAR_API}?${params.toString()}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                }
             );
-
 
         const data =
             await response.json();
 
-
         if (!data.success) {
-
-
             throw new Error(
                 data.error ||
                 "Unable to load availability."
             );
-
-
         }
 
-
-        renderTimes(
-            data.availableTimes || []
-        );
-
+        renderTimes(data.availableTimes || []);
 
         calendarStatus.textContent =
-            `${data.availableTimes.length} TIME(S) AVAILABLE`;
-
+            `${(data.availableTimes || []).length} TIME(S) AVAILABLE`;
 
     } catch (error) {
 
-
-        console.error(
-            error
-        );
-
+        console.error(error);
 
         timeSlots.innerHTML = `
-
             <div class="no-times">
-
                 UNABLE TO LOAD CALENDAR.<br>
-
                 PLEASE TRY AGAIN.
-
             </div>
-
         `;
-
 
         calendarStatus.textContent =
             "CALENDAR ERROR";
-
-
     }
-
-}
-
-
-/*
-============================================================
-DEMO AVAILABILITY
-============================================================
-*/
-
-
-function showDemoTimes() {
-
-
-    const demoTimes = [
-
-        "09:00",
-
-        "10:00",
-
-        "11:30",
-
-        "13:00",
-
-        "14:00",
-
-        "15:30",
-
-        "16:00"
-
-    ];
-
-
-    renderTimes(
-        demoTimes
-    );
-
-
-    calendarStatus.textContent =
-        "DEMO MODE";
-
-
 }
 
 
@@ -1670,84 +1574,41 @@ RENDER TIMES
 ============================================================
 */
 
-
-function renderTimes(
-    times
-) {
-
+function renderTimes(times) {
 
     if (!times.length) {
 
-
         timeSlots.innerHTML = `
-
             <div class="no-times">
-
                 NO AVAILABLE TIMES<br>
-
                 FOR THIS DATE.
-
             </div>
-
         `;
 
-
         return;
-
     }
 
+    timeSlots.innerHTML = "";
 
-    timeSlots.innerHTML =
-        "";
+    times.forEach(function(time) {
 
+        const button =
+            document.createElement("button");
 
-    times.forEach(
-        function(time) {
+        button.type = "button";
+        button.className = "time-slot";
+        button.textContent = formatTime(time);
 
+        button.addEventListener(
+            "click",
+            function() {
+                selectTime(time, button);
+            }
+        );
 
-            const button =
-                document.createElement(
-                    "button"
-                );
+        timeSlots.appendChild(button);
 
-
-            button.type =
-                "button";
-
-
-            button.className =
-                "time-slot";
-
-
-            button.textContent =
-                formatTime(
-                    time
-                );
-
-
-            button.addEventListener(
-                "click",
-                function() {
-
-
-                    selectTime(
-                        time,
-                        button
-                    );
-
-
-                }
-            );
-
-
-            timeSlots.appendChild(
-                button
-            );
-
-
-        }
-    );
-
+    });
 }
 
 
@@ -1757,399 +1618,158 @@ SELECT TIME
 ============================================================
 */
 
+function selectTime(time, button) {
 
-function selectTime(
-    time,
-    button
-) {
-
-
-    selectedSlot =
-        time;
-
+    selectedSlot = time;
 
     document
-        .querySelectorAll(
-            ".time-slot"
-        )
-        .forEach(
-            function(slot) {
+        .querySelectorAll(".time-slot")
+        .forEach(function(slot) {
+            slot.classList.remove("selected");
+        });
 
-
-                slot.classList.remove(
-                    "selected"
-                );
-
-
-            }
-        );
-
-
-    button.classList.add(
-        "selected"
-    );
-
+    button.classList.add("selected");
 
     selectedTime.textContent =
-
         `${formatDate(dateInput.value)} · ` +
         `${formatTime(time)} · ` +
         `${durationInput.value} MIN`;
 
-
-    selectedMeeting.style.display =
-        "block";
-
-
+    selectedMeeting.style.display = "block";
 }
 
 
 /*
 ============================================================
-OPEN MODAL
+SUBMIT MEETING REQUEST
 ============================================================
 */
 
-
-continueButton.addEventListener(
-    "click",
-    function() {
-
-
-        if (!selectedSlot) {
-
-            return;
-
-        }
-
-
-        modalSelectedTime.textContent =
-
-            `${formatDate(dateInput.value)} at ` +
-            `${formatTime(selectedSlot)} ` +
-            `for ${durationInput.value} minutes.`;
-
-
-        bookingMessage.textContent =
-            "";
-
-
-        bookingModal.classList.add(
-            "active"
-        );
-
-
-    }
-);
-
-
-/*
-============================================================
-CLOSE MODAL
-============================================================
-*/
-
-
-cancelButton.addEventListener(
-    "click",
-    function() {
-
-
-        bookingModal.classList.remove(
-            "active"
-        );
-
-
-    }
-);
-
-
-/*
-============================================================
-CLICK OUTSIDE MODAL
-============================================================
-*/
-
-
-bookingModal.addEventListener(
-    "click",
-    function(event) {
-
-
-        if (
-            event.target ===
-            bookingModal
-        ) {
-
-
-            bookingModal.classList.remove(
-                "active"
-            );
-
-
-        }
-
-
-    }
-);
-
-
-/*
-============================================================
-BOOK MEETING
-============================================================
-*/
-
-
-confirmButton.addEventListener(
-    "click",
-    bookMeeting
-);
-
-
-async function bookMeeting() {
-
+async function submitMeetingRequest() {
 
     const name =
-        document
-            .getElementById(
-                "guest-name"
-            )
-            .value
-            .trim();
-
+        nameInput.value.trim();
 
     const email =
-        document
-            .getElementById(
-                "guest-email"
-            )
-            .value
-            .trim();
+        emailInput.value.trim();
 
-
-    const title =
-        document
-            .getElementById(
-                "meeting-title"
-            )
-            .value
-            .trim() ||
-        "Meeting with Drew";
-
-
-    const message =
-        document
-            .getElementById(
-                "meeting-message"
-            )
-            .value
-            .trim();
-
-
-    /*
-    --------------------------------------------------------
-    VALIDATION
-    --------------------------------------------------------
-    */
-
+    const reason =
+        reasonInput.value.trim();
 
     if (!name) {
-
-
         bookingMessage.textContent =
             "PLEASE ENTER YOUR NAME.";
-
-
         return;
-
     }
-
 
     if (!email) {
-
-
         bookingMessage.textContent =
             "PLEASE ENTER YOUR EMAIL.";
-
-
         return;
-
     }
 
-
-    if (!selectedSlot) {
-
-
+    if (!isValidEmail(email)) {
         bookingMessage.textContent =
-            "PLEASE SELECT A TIME.";
-
-
+            "PLEASE ENTER A VALID EMAIL.";
         return;
-
     }
 
-
-    /*
-    --------------------------------------------------------
-    DEMO MODE
-    --------------------------------------------------------
-    */
-
-
-    if (
-        CALENDAR_API.includes(
-            "PASTE_YOUR_GOOGLE"
-        )
-    ) {
-
-
+    if (!reason) {
         bookingMessage.textContent =
-
-            "DEMO MODE — CONNECT GOOGLE CALENDAR " +
-            "TO ENABLE REAL BOOKINGS.";
-
-
+            "PLEASE TELL ME THE REASON FOR THE MEETING.";
         return;
-
     }
 
+    if (!selectedSlot || !dateInput.value) {
+        bookingMessage.textContent =
+            "PLEASE SELECT A DATE AND TIME.";
+        return;
+    }
 
-    /*
-    --------------------------------------------------------
-    SEND BOOKING
-    --------------------------------------------------------
-    */
+    if (honeypotInput && honeypotInput.value.trim()) {
+        bookingMessage.textContent =
+            "REQUEST REJECTED.";
+        return;
+    }
 
+    if (CALENDAR_API.includes("PASTE_YOUR_GOOGLE")) {
+        bookingMessage.textContent =
+            "CALENDAR CONNECTION IS NOT CONFIGURED YET.";
+        return;
+    }
 
     bookingMessage.textContent =
-        "ADDING MEETING TO GOOGLE CALENDAR...";
+        "SENDING REQUEST FOR APPROVAL...";
 
-
-    confirmButton.disabled =
-        true;
-
+    confirmButton.disabled = true;
 
     try {
-
 
         const response =
             await fetch(
                 CALENDAR_API,
                 {
-
-                    method:
-                        "POST",
-
+                    method: "POST",
                     headers: {
-
                         "Content-Type":
                             "text/plain;charset=utf-8"
-
                     },
-
-                    body:
-                        JSON.stringify({
-
-                            action:
-                                "book",
-
-                            date:
-                                dateInput.value,
-
-                            start:
-                                selectedSlot,
-
-                            duration:
-                                Number(
-                                    durationInput.value
-                                ),
-
-                            name:
-                                name,
-
-                            email:
-                                email,
-
-                            title:
-                                title,
-
-                            message:
-                                message
-
-                        })
-
+                    body: JSON.stringify({
+                        action: "request",
+                        date: dateInput.value,
+                        start: selectedSlot,
+                        duration: Number(durationInput.value),
+                        name: name,
+                        email: email,
+                        reason: reason,
+                        website: honeypotInput
+                            ? honeypotInput.value
+                            : ""
+                    })
                 }
             );
-
 
         const data =
             await response.json();
 
-
         if (!data.success) {
-
-
             throw new Error(
                 data.error ||
-                "Unable to create meeting."
+                "Unable to submit your request."
             );
-
-
         }
 
-
         bookingMessage.textContent =
-            "BOOKED! THE MEETING HAS BEEN ADDED TO THE CALENDAR.";
+            "REQUEST SENT. YOU'LL HEAR BACK AFTER DREW REVIEWS IT.";
 
+        setTimeout(function() {
 
-        setTimeout(
-            function() {
+            bookingModal.classList.remove("active");
+            selectedMeeting.style.display = "none";
+            selectedSlot = null;
+            nameInput.value = "";
+            emailInput.value = "";
+            reasonInput.value = "";
+            loadAvailability();
 
-
-                bookingModal.classList.remove(
-                    "active"
-                );
-
-
-                selectedMeeting.style.display =
-                    "none";
-
-
-                selectedSlot =
-                    null;
-
-
-                loadAvailability();
-
-
-            },
-            1800
-        );
-
+        }, 2200);
 
     } catch (error) {
 
-
-        console.error(
-            error
-        );
-
+        console.error(error);
 
         bookingMessage.textContent =
             error.message ||
             "SOMETHING WENT WRONG.";
 
-
     } finally {
-
-
-        confirmButton.disabled =
-            false;
-
-
+        confirmButton.disabled = false;
     }
+}
 
+
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 
@@ -2159,48 +1779,20 @@ FORMAT TIME
 ============================================================
 */
 
+function formatTime(time) {
 
-function formatTime(
-    time
-) {
+    const parts = time.split(":");
+    const hour = Number(parts[0]);
+    const minute = Number(parts[1]);
 
-
-    const parts =
-        time.split(
-            ":"
-        );
-
-
-    const hour =
-        Number(
-            parts[0]
-        );
-
-
-    const minute =
-        Number(
-            parts[1]
-        );
-
-
-    const suffix =
-        hour >= 12
-            ? "PM"
-            : "AM";
-
-
-    const displayHour =
-        hour % 12 || 12;
-
+    const suffix = hour >= 12 ? "PM" : "AM";
+    const displayHour = hour % 12 || 12;
 
     return (
-
         `${displayHour}:` +
         `${String(minute).padStart(2, "0")} ` +
         suffix
-
     );
-
 }
 
 
@@ -2210,37 +1802,20 @@ FORMAT DATE
 ============================================================
 */
 
-
-function formatDate(
-    dateString
-) {
-
+function formatDate(dateString) {
 
     const date =
-        new Date(
-            `${dateString}T12:00:00`
-        );
-
+        new Date(`${dateString}T12:00:00`);
 
     return date.toLocaleDateString(
         "en-US",
         {
-
-            weekday:
-                "long",
-
-            month:
-                "long",
-
-            day:
-                "numeric",
-
-            year:
-                "numeric"
-
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric"
         }
     );
-
 }
 
 
@@ -2250,20 +1825,12 @@ FOOTER YEAR
 ============================================================
 */
 
-
 const yearElement =
-    document.getElementById(
-        "year"
-    );
-
+    document.getElementById("year");
 
 if (yearElement) {
-
-
     yearElement.textContent =
         new Date().getFullYear();
-
-
 }
 
 
@@ -2273,4 +1840,3 @@ if (yearElement) {
 </body>
 
 </html>
-```
