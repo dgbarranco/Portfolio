@@ -4,7 +4,6 @@
 
 <head>
 
-
 <meta charset="UTF-8">
 
 <meta
@@ -44,9 +43,6 @@
     rel="stylesheet"
 >
 
-
-<!-- CSS -->
-
 <link
     rel="stylesheet"
     href="style.css"
@@ -59,18 +55,9 @@
 
 <style>
 
-
 /* ===================================== */
 /* MARQUEE OVERRIDE */
 /* ===================================== */
-
-/*
-    The marquee on the main portfolio uses simple
-    Roboto typography.
-
-    This overrides any bold styling that may already
-    exist in style.css.
-*/
 
 .marquee,
 .marquee-track,
@@ -244,7 +231,6 @@
 
 
 .calendar-field input,
-
 .calendar-field select {
 
     width: 100%;
@@ -269,7 +255,6 @@
 
 
 .calendar-field input:focus,
-
 .calendar-field select:focus {
 
     background: rgba(255, 255, 255, 0.8);
@@ -577,7 +562,6 @@
 
 
 .booking-form-group input,
-
 .booking-form-group textarea {
 
     width: 100%;
@@ -597,6 +581,8 @@
     color: #111;
 
     outline: none;
+
+    box-sizing: border-box;
 
 }
 
@@ -736,15 +722,11 @@
 
 </style>
 
-
 </head>
+
 
 <body>
 
-
-<!-- ===================================== -->
-<!-- BACKGROUND -->
-<!-- ===================================== -->
 
 <div class="noise"></div>
 
@@ -767,8 +749,6 @@
     </div>
 
 
-    <!-- MARQUEE -->
-
     <div class="marquee-section">
 
         <div class="marquee">
@@ -790,84 +770,50 @@
     </div>
 
 
-    <!-- NAVIGATION -->
-
     <nav class="main-nav">
 
-
         <a href="index.html">
-
             <span>00.</span>
-
             HOME
-
         </a>
 
-
         <div class="nav-divider"></div>
-
 
         <a href="projects.html">
-
             <span>01.</span>
-
             CURRENTLY
-
         </a>
 
-
         <div class="nav-divider"></div>
-
 
         <a href="writing.html">
-
             <span>02.</span>
-
             PROJECTS
-
         </a>
 
-
         <div class="nav-divider"></div>
-
 
         <a href="leadership.html">
-
             <span>03.</span>
-
             PUBLISHING
-
         </a>
 
-
         <div class="nav-divider"></div>
-
 
         <a href="currently.html">
-
             <span>04.</span>
-
             BLOG
-
         </a>
-
 
         <div class="nav-divider"></div>
 
-
         <a href="contact.html">
-
             <span>05.</span>
-
             CONTACT
-
         </a>
-
 
     </nav>
 
-
-    <!-- IDENTITY -->
 
     <div class="identity-line">
 
@@ -894,197 +840,102 @@
 <main>
 
 
-    <section
-        class="calendar-section"
-        style="background: #FFF7C7;"
-    >
+<section
+    class="calendar-section"
+    style="background: #FFF7C7;"
+>
 
 
-        <!-- ================================= -->
-        <!-- LEFT -->
-        <!-- ================================= -->
-
-        <div class="calendar-left">
+    <div class="calendar-left">
 
 
-            <div class="section-label">
+        <div class="section-label">
 
-                <span>06</span>
+            <span>06</span>
 
-                SCHEDULE
-
-            </div>
-
-
-            <h2>
-
-                LET'S<br>
-
-                <span>MEET.</span>
-
-            </h2>
-
-
-            <p class="calendar-description">
-
-                Find a time that works for both of us.
-                My availability is automatically pulled
-                from my Google Calendar, so only times when
-                I'm actually free will appear here.
-
-            </p>
-
+            SCHEDULE
 
         </div>
 
 
-        <!-- ================================= -->
-        <!-- RIGHT -->
-        <!-- ================================= -->
+        <h2>
 
-        <div class="calendar-content">
+            LET'S<br>
 
+            <span>MEET.</span>
 
-            <p class="calendar-intro">
-
-                SELECT A DATE AND MEETING LENGTH BELOW.
-                AVAILABLE TIMES WILL APPEAR AUTOMATICALLY.
-
-            </p>
+        </h2>
 
 
-            <!-- DATE + DURATION -->
+        <p class="calendar-description">
 
-            <div class="calendar-controls">
+            Find a time that works for both of us.
+            My availability is automatically pulled
+            from my Google Calendar, so only times when
+            I'm actually free will appear here.
+
+        </p>
 
 
-                <div class="calendar-field">
+    </div>
 
-                    <label for="meeting-date">
 
-                        PREFERRED DATE
+    <div class="calendar-content">
 
-                    </label>
 
-                    <input
-                        type="date"
-                        id="meeting-date"
+        <p class="calendar-intro">
+
+            SELECT A DATE AND MEETING LENGTH BELOW.
+            AVAILABLE TIMES WILL APPEAR AUTOMATICALLY.
+
+        </p>
+
+
+        <div class="calendar-controls">
+
+
+            <div class="calendar-field">
+
+                <label for="meeting-date">
+                    PREFERRED DATE
+                </label>
+
+                <input
+                    type="date"
+                    id="meeting-date"
+                >
+
+            </div>
+
+
+            <div class="calendar-field">
+
+                <label for="meeting-duration">
+                    DURATION
+                </label>
+
+                <select id="meeting-duration">
+
+                    <option value="30">
+                        30 MINUTES
+                    </option>
+
+                    <option value="45">
+                        45 MINUTES
+                    </option>
+
+                    <option
+                        value="60"
+                        selected
                     >
+                        60 MINUTES
+                    </option>
 
-                </div>
+                    <option value="90">
+                        90 MINUTES
+                    </option>
 
-
-                <div class="calendar-field">
-
-                    <label for="meeting-duration">
-
-                        DURATION
-
-                    </label>
-
-                    <select id="meeting-duration">
-
-                        <option value="30">
-                            30 MINUTES
-                        </option>
-
-                        <option value="45">
-                            45 MINUTES
-                        </option>
-
-                        <option
-                            value="60"
-                            selected
-                        >
-                            60 MINUTES
-                        </option>
-
-                        <option value="90">
-                            90 MINUTES
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- AVAILABLE TIMES -->
-
-            <div class="availability-header">
-
-
-                <div class="availability-title">
-
-                    AVAILABLE TIMES
-
-                </div>
-
-
-                <div
-                    class="calendar-status"
-                    id="calendar-status"
-                >
-
-                    SELECT A DATE
-
-                </div>
-
-
-            </div>
-
-
-            <div
-                class="time-slots"
-                id="time-slots"
-            >
-
-                <div class="no-times">
-
-                    SELECT A DATE TO SEE<br>
-
-                    AVAILABLE MEETING TIMES.
-
-                </div>
-
-            </div>
-
-
-            <!-- SELECTED TIME -->
-
-            <div
-                class="selected-meeting"
-                id="selected-meeting"
-            >
-
-
-                <div class="selected-label">
-
-                    SELECTED TIME
-
-                </div>
-
-
-                <div
-                    class="selected-time"
-                    id="selected-time"
-                >
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="continue-button"
-                    id="continue-button"
-                >
-
-                    CONTINUE →
-
-                </button>
-
+                </select>
 
             </div>
 
@@ -1092,7 +943,84 @@
         </div>
 
 
-    </section>
+        <div class="availability-header">
+
+
+            <div class="availability-title">
+
+                AVAILABLE TIMES
+
+            </div>
+
+
+            <div
+                class="calendar-status"
+                id="calendar-status"
+            >
+
+                SELECT A DATE
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="time-slots"
+            id="time-slots"
+        >
+
+            <div class="no-times">
+
+                SELECT A DATE TO SEE<br>
+
+                AVAILABLE MEETING TIMES.
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="selected-meeting"
+            id="selected-meeting"
+        >
+
+
+            <div class="selected-label">
+
+                SELECTED TIME
+
+            </div>
+
+
+            <div
+                class="selected-time"
+                id="selected-time"
+            >
+
+            </div>
+
+
+            <button
+                type="button"
+                class="continue-button"
+                id="continue-button"
+            >
+
+                CONTINUE →
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
 
 
 </main>
@@ -1122,7 +1050,9 @@
 
         <p id="modal-selected-time">
 
-            Confirm your information below. Your request will be sent for approval rather than automatically booked.
+            Confirm your information below.
+            Your request will be sent for approval
+            rather than automatically booked.
 
         </p>
 
@@ -1144,6 +1074,7 @@
                 id="guest-name"
                 placeholder="Your name"
                 autocomplete="name"
+                maxlength="120"
             >
 
 
@@ -1167,51 +1098,53 @@
                 id="guest-email"
                 placeholder="you@example.com"
                 autocomplete="email"
+                maxlength="320"
             >
 
 
         </div>
 
 
-        <!-- MEETING TITLE -->
+        <!-- REASON -->
 
         <div class="booking-form-group">
 
 
-            <label for="meeting-title">
+            <label for="meeting-reason">
 
-                MEETING TITLE
-
-            </label>
-
-
-            <input
-                type="text"
-                id="meeting-title"
-                placeholder="Meeting with Drew"
-            >
-
-
-        </div>
-
-
-        <!-- OPTIONAL MESSAGE -->
-
-        <div class="booking-form-group">
-
-
-            <label for="meeting-message">
-
-                MESSAGE — OPTIONAL
+                REASON FOR MEETING
 
             </label>
 
 
             <textarea
-                id="meeting-message"
-                placeholder="Anything you'd like me to know?"
+                id="meeting-reason"
+                placeholder="What would you like to meet about?"
+                maxlength="2000"
             ></textarea>
 
+
+        </div>
+
+
+        <!-- HONEYPOT -->
+
+        <div
+            style="position:absolute;left:-9999px;"
+            aria-hidden="true"
+        >
+
+            <label for="website">
+                Website
+            </label>
+
+            <input
+                type="text"
+                id="website"
+                name="website"
+                tabindex="-1"
+                autocomplete="off"
+            >
 
         </div>
 
@@ -1238,7 +1171,7 @@
                 id="confirm-button"
             >
 
-                BOOK IT →
+                SEND REQUEST →
 
             </button>
 
@@ -1292,10 +1225,6 @@
 </footer>
 
 
-<!-- ===================================== -->
-<!-- EXISTING SITE SCRIPT -->
-<!-- ===================================== -->
-
 <script src="script.js"></script>
 
 
@@ -1311,11 +1240,13 @@
 GOOGLE CALENDAR BACKEND
 ============================================================
 
-The browser never receives Google Calendar credentials or
-Twilio credentials. Those stay inside the Google Apps Script
-backend, stored in Script Properties.
+IMPORTANT:
 
-Paste the deployed Apps Script Web App URL below.
+Replace the URL below with your deployed Google Apps Script
+Web App URL.
+
+Do NOT put Google Calendar credentials, Gmail credentials,
+or any private API credentials in this file.
 */
 
 const CALENDAR_API =
@@ -1417,10 +1348,12 @@ dateInput.addEventListener(
     loadAvailability
 );
 
+
 durationInput.addEventListener(
     "change",
     loadAvailability
 );
+
 
 continueButton.addEventListener(
     "click",
@@ -1442,23 +1375,30 @@ continueButton.addEventListener(
     }
 );
 
+
 cancelButton.addEventListener(
     "click",
     function() {
+
         bookingModal.classList.remove("active");
+
     }
 );
+
 
 bookingModal.addEventListener(
     "click",
     function(event) {
 
         if (event.target === bookingModal) {
+
             bookingModal.classList.remove("active");
+
         }
 
     }
 );
+
 
 confirmButton.addEventListener(
     "click",
@@ -1475,7 +1415,9 @@ LOAD AVAILABILITY
 async function loadAvailability() {
 
     selectedSlot = null;
+
     selectedMeeting.style.display = "none";
+
 
     if (!dateInput.value) {
 
@@ -1490,7 +1432,9 @@ async function loadAvailability() {
             "SELECT A DATE";
 
         return;
+
     }
+
 
     if (CALENDAR_API.includes("PASTE_YOUR_GOOGLE")) {
 
@@ -1505,16 +1449,20 @@ async function loadAvailability() {
             "NOT CONNECTED";
 
         return;
+
     }
+
 
     calendarStatus.textContent =
         "CHECKING CALENDARS...";
+
 
     timeSlots.innerHTML = `
         <div class="no-times">
             CHECKING AVAILABILITY...
         </div>
     `;
+
 
     try {
 
@@ -1524,6 +1472,7 @@ async function loadAvailability() {
                 date: dateInput.value,
                 duration: durationInput.value
             });
+
 
         const response =
             await fetch(
@@ -1536,24 +1485,34 @@ async function loadAvailability() {
                 }
             );
 
+
         const data =
             await response.json();
 
+
         if (!data.success) {
+
             throw new Error(
                 data.error ||
                 "Unable to load availability."
             );
+
         }
 
-        renderTimes(data.availableTimes || []);
+
+        renderTimes(
+            data.availableTimes || []
+        );
+
 
         calendarStatus.textContent =
             `${(data.availableTimes || []).length} TIME(S) AVAILABLE`;
 
+
     } catch (error) {
 
         console.error(error);
+
 
         timeSlots.innerHTML = `
             <div class="no-times">
@@ -1562,9 +1521,12 @@ async function loadAvailability() {
             </div>
         `;
 
+
         calendarStatus.textContent =
             "CALENDAR ERROR";
+
     }
+
 }
 
 
@@ -1586,9 +1548,12 @@ function renderTimes(times) {
         `;
 
         return;
+
     }
 
+
     timeSlots.innerHTML = "";
+
 
     times.forEach(function(time) {
 
@@ -1596,19 +1561,31 @@ function renderTimes(times) {
             document.createElement("button");
 
         button.type = "button";
-        button.className = "time-slot";
-        button.textContent = formatTime(time);
+
+        button.className =
+            "time-slot";
+
+        button.textContent =
+            formatTime(time);
+
 
         button.addEventListener(
             "click",
             function() {
-                selectTime(time, button);
+
+                selectTime(
+                    time,
+                    button
+                );
+
             }
         );
+
 
         timeSlots.appendChild(button);
 
     });
+
 }
 
 
@@ -1620,22 +1597,31 @@ SELECT TIME
 
 function selectTime(time, button) {
 
-    selectedSlot = time;
+    selectedSlot =
+        time;
+
 
     document
         .querySelectorAll(".time-slot")
         .forEach(function(slot) {
+
             slot.classList.remove("selected");
+
         });
 
+
     button.classList.add("selected");
+
 
     selectedTime.textContent =
         `${formatDate(dateInput.value)} · ` +
         `${formatTime(time)} · ` +
         `${durationInput.value} MIN`;
 
-    selectedMeeting.style.display = "block";
+
+    selectedMeeting.style.display =
+        "block";
+
 }
 
 
@@ -1656,52 +1642,91 @@ async function submitMeetingRequest() {
     const reason =
         reasonInput.value.trim();
 
+
     if (!name) {
+
         bookingMessage.textContent =
             "PLEASE ENTER YOUR NAME.";
+
         return;
+
     }
+
 
     if (!email) {
+
         bookingMessage.textContent =
             "PLEASE ENTER YOUR EMAIL.";
+
         return;
+
     }
+
 
     if (!isValidEmail(email)) {
+
         bookingMessage.textContent =
             "PLEASE ENTER A VALID EMAIL.";
+
         return;
+
     }
+
 
     if (!reason) {
+
         bookingMessage.textContent =
             "PLEASE TELL ME THE REASON FOR THE MEETING.";
+
         return;
+
     }
+
 
     if (!selectedSlot || !dateInput.value) {
+
         bookingMessage.textContent =
             "PLEASE SELECT A DATE AND TIME.";
+
         return;
+
     }
 
-    if (honeypotInput && honeypotInput.value.trim()) {
+
+    if (
+        honeypotInput &&
+        honeypotInput.value.trim()
+    ) {
+
         bookingMessage.textContent =
             "REQUEST REJECTED.";
+
         return;
+
     }
 
-    if (CALENDAR_API.includes("PASTE_YOUR_GOOGLE")) {
+
+    if (
+        CALENDAR_API.includes(
+            "PASTE_YOUR_GOOGLE"
+        )
+    ) {
+
         bookingMessage.textContent =
             "CALENDAR CONNECTION IS NOT CONFIGURED YET.";
+
         return;
+
     }
+
 
     bookingMessage.textContent =
         "SENDING REQUEST FOR APPROVAL...";
 
-    confirmButton.disabled = true;
+
+    confirmButton.disabled =
+        true;
+
 
     try {
 
@@ -1710,66 +1735,123 @@ async function submitMeetingRequest() {
                 CALENDAR_API,
                 {
                     method: "POST",
+
                     headers: {
                         "Content-Type":
                             "text/plain;charset=utf-8"
                     },
+
                     body: JSON.stringify({
+
                         action: "request",
-                        date: dateInput.value,
-                        start: selectedSlot,
-                        duration: Number(durationInput.value),
-                        name: name,
-                        email: email,
-                        reason: reason,
-                        website: honeypotInput
-                            ? honeypotInput.value
-                            : ""
+
+                        date:
+                            dateInput.value,
+
+                        start:
+                            selectedSlot,
+
+                        duration:
+                            Number(
+                                durationInput.value
+                            ),
+
+                        name:
+                            name,
+
+                        email:
+                            email,
+
+                        reason:
+                            reason,
+
+                        website:
+                            honeypotInput
+                                ? honeypotInput.value
+                                : ""
+
                     })
+
                 }
             );
+
 
         const data =
             await response.json();
 
+
         if (!data.success) {
+
             throw new Error(
                 data.error ||
                 "Unable to submit your request."
             );
+
         }
+
 
         bookingMessage.textContent =
             "REQUEST SENT. YOU'LL HEAR BACK AFTER DREW REVIEWS IT.";
 
+
         setTimeout(function() {
 
-            bookingModal.classList.remove("active");
-            selectedMeeting.style.display = "none";
-            selectedSlot = null;
-            nameInput.value = "";
-            emailInput.value = "";
-            reasonInput.value = "";
+            bookingModal.classList.remove(
+                "active"
+            );
+
+            selectedMeeting.style.display =
+                "none";
+
+            selectedSlot =
+                null;
+
+            nameInput.value =
+                "";
+
+            emailInput.value =
+                "";
+
+            reasonInput.value =
+                "";
+
             loadAvailability();
 
         }, 2200);
+
 
     } catch (error) {
 
         console.error(error);
 
+
         bookingMessage.textContent =
             error.message ||
             "SOMETHING WENT WRONG.";
 
+
     } finally {
-        confirmButton.disabled = false;
+
+        confirmButton.disabled =
+            false;
+
     }
+
 }
 
 
+/*
+============================================================
+EMAIL VALIDATION
+============================================================
+*/
+
 function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+        email
+    );
+
 }
 
 
@@ -1781,18 +1863,32 @@ FORMAT TIME
 
 function formatTime(time) {
 
-    const parts = time.split(":");
-    const hour = Number(parts[0]);
-    const minute = Number(parts[1]);
+    const parts =
+        time.split(":");
 
-    const suffix = hour >= 12 ? "PM" : "AM";
-    const displayHour = hour % 12 || 12;
+    const hour =
+        Number(parts[0]);
+
+    const minute =
+        Number(parts[1]);
+
+
+    const suffix =
+        hour >= 12
+            ? "PM"
+            : "AM";
+
+
+    const displayHour =
+        hour % 12 || 12;
+
 
     return (
         `${displayHour}:` +
         `${String(minute).padStart(2, "0")} ` +
         suffix
     );
+
 }
 
 
@@ -1805,7 +1901,10 @@ FORMAT DATE
 function formatDate(dateString) {
 
     const date =
-        new Date(`${dateString}T12:00:00`);
+        new Date(
+            `${dateString}T12:00:00`
+        );
+
 
     return date.toLocaleDateString(
         "en-US",
@@ -1816,6 +1915,7 @@ function formatDate(dateString) {
             year: "numeric"
         }
     );
+
 }
 
 
@@ -1828,11 +1928,13 @@ FOOTER YEAR
 const yearElement =
     document.getElementById("year");
 
+
 if (yearElement) {
+
     yearElement.textContent =
         new Date().getFullYear();
-}
 
+}
 
 </script>
 
