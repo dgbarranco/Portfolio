@@ -583,16 +583,13 @@ button {
 
     gap: 40px;
 
-    align-items: start;
+    align-items: stretch;
 }
 
 
 .about-photo {
     width: 100%;
     max-width: 220px;
-
-    aspect-ratio:
-        4 / 5;
 
     overflow: hidden;
 
@@ -720,14 +717,15 @@ button {
 .about-photo {
 
     width: 100%;
-
-    aspect-ratio:
-        3 / 5;
+    height: 100%;
+    min-height: 0;
 
     overflow: hidden;
 
     border-radius:
         24px;
+
+    justify-self: end;
 
 }
 
