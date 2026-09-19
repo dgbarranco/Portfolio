@@ -152,7 +152,7 @@
     width: 34px;
     height: 34px;
     border: 1px solid #111;
-    border-radius: 7px;
+    border-radius: 14px;
     background: transparent;
     color: #111;
     cursor: pointer;
@@ -227,6 +227,20 @@
     cursor: not-allowed;
 }
 
+.date-picker-day.available {
+    background: #C5DFFC;
+}
+
+.date-picker-day.checking {
+    background: rgba(197, 223, 252, 0.22);
+    opacity: 0.55;
+}
+
+.date-picker-day.unavailable {
+    background: rgba(0, 0, 0, 0.035);
+}
+
+
 .date-picker-day.empty {
     cursor: default;
 }
@@ -247,6 +261,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
 
 .calendar-field-wide {
     grid-column: 1 / -1;
@@ -271,7 +286,7 @@
     width: 100%;
     border: 1px solid #111;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.45);
+    background: #C5DFFC;
     padding: 13px 14px;
     font-family: "DM Mono", monospace;
     font-size: 13px;
@@ -281,8 +296,8 @@
 
 .calendar-field input:focus,
 .calendar-field select:focus {
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+    background: #C5DFFC;
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.12);
 }
 
 
@@ -366,9 +381,9 @@
 
 .time-slot {
     border: 1px solid #111;
-    border-radius: 8px;
+    border-radius: 18px;
     padding: 14px 8px;
-    background: rgba(255, 255, 255, 0.3);
+    background: #C5DFFC;
     color: #111;
     cursor: pointer;
     font-family: "DM Mono", monospace;
@@ -393,7 +408,7 @@
 .no-times {
     grid-column: 1 / -1;
     border: 1px dashed rgba(0, 0, 0, 0.4);
-    border-radius: 8px;
+    border-radius: 18px;
     padding: 25px 15px;
     text-align: center;
     font-family: "DM Mono", monospace;
@@ -425,7 +440,7 @@
 .continue-button {
     width: 100%;
     border: 1px solid #111;
-    border-radius: 8px;
+    border-radius: 18px;
     padding: 14px;
     background: #111;
     color: #FFF7C7;
@@ -438,6 +453,44 @@
 .continue-button:hover {
     background: transparent;
     color: #111;
+}
+
+.confirmation-panel {
+    display: none;
+    margin-top: 28px;
+    padding: 26px;
+    border: 1px solid #111;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.32);
+}
+
+.confirmation-panel.active {
+    display: block;
+}
+
+.confirmation-panel h3 {
+    font-family: "Unbounded", sans-serif;
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1;
+    margin: 0 0 12px;
+}
+
+.confirmation-panel > p {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    line-height: 1.7;
+    margin: 0 0 20px;
+}
+
+.confirmation-summary {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.confirmation-panel .booking-actions {
+    margin-top: 0;
 }
 
 .booking-modal {
@@ -517,7 +570,7 @@
 
 .booking-actions button {
     border: 1px solid #111;
-    border-radius: 8px;
+    border-radius: 18px;
     padding: 13px;
     font-family: "DM Mono", monospace;
     font-size: 11px;
@@ -790,71 +843,72 @@
 
         </div>
 
+        <div
+            class="confirmation-panel"
+            id="confirmation-panel"
+        >
+
+            <h3>
+                CONFIRM<br>
+                REQUEST.
+            </h3>
+
+            <p>
+                Your meeting request is ready to send.
+                Drew will review it before anything is booked.
+            </p>
+
+            <div
+                class="confirmation-summary"
+                id="modal-selected-time"
+            ></div>
+
+            <div
+                style="position:absolute;left:-9999px;"
+                aria-hidden="true"
+            >
+                <label for="website">Website</label>
+                <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabindex="-1"
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="booking-actions">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    id="cancel-button"
+                >
+                    CANCEL
+                </button>
+
+                <button
+                    type="button"
+                    class="confirm-button"
+                    id="confirm-button"
+                >
+                    SEND REQUEST →
+                </button>
+
+            </div>
+
+            <div
+                class="booking-message"
+                id="booking-message"
+            ></div>
+
+        </div>
+
     </div>
 
 </section>
 
 </main>
-
-<div
-    class="booking-modal"
-    id="booking-modal"
->
-
-    <div class="booking-modal-content">
-
-        <h3>
-            CONFIRM<br>
-            REQUEST.
-        </h3>
-
-        <p id="modal-selected-time">
-            Your meeting request is ready to send.
-            Drew will review it before anything is booked.
-        </p>
-
-        <div
-            style="position:absolute;left:-9999px;"
-            aria-hidden="true"
-        >
-            <label for="website">Website</label>
-            <input
-                type="text"
-                id="website"
-                name="website"
-                tabindex="-1"
-                autocomplete="off"
-            >
-        </div>
-
-        <div class="booking-actions">
-
-            <button
-                type="button"
-                class="cancel-button"
-                id="cancel-button"
-            >
-                CANCEL
-            </button>
-
-            <button
-                type="button"
-                class="confirm-button"
-                id="confirm-button"
-            >
-                SEND REQUEST →
-            </button>
-
-        </div>
-
-        <div
-            class="booking-message"
-            id="booking-message"
-        ></div>
-
-    </div>
-
-</div>
 
 <footer>
 
@@ -904,8 +958,8 @@ const selectedTime =
 const continueButton =
     document.getElementById("continue-button");
 
-const bookingModal =
-    document.getElementById("booking-modal");
+const confirmationPanel =
+    document.getElementById("confirmation-panel");
 
 const cancelButton =
     document.getElementById("cancel-button");
@@ -964,6 +1018,9 @@ let calendarViewDate = new Date(
     1
 );
 
+const monthAvailabilityCache = new Map();
+let monthAvailabilityRequestId = 0;
+
 function toDateString(date) {
     return (
         date.getFullYear() +
@@ -993,6 +1050,9 @@ function renderDateCalendar() {
 
     const year = calendarViewDate.getFullYear();
     const month = calendarViewDate.getMonth();
+    const monthKey = `${year}-${String(month + 1).padStart(2, "0")}`;
+    const availabilityKey = `${monthKey}-${durationInput.value}`;
+    const availability = monthAvailabilityCache.get(availabilityKey);
 
     calendarMonth.textContent =
         calendarViewDate.toLocaleDateString(
@@ -1046,26 +1106,36 @@ function renderDateCalendar() {
             date.getDay() === 0 ||
             date.getDay() === 6;
 
-        const isBookable =
+        const isInWindow =
             isWithinBookingWindow(date) &&
             !isWeekend;
 
-        if (!isBookable) {
-            button.disabled = true;
-        }
+        const dateKey = toDateString(date);
+        const isSelected = dateInput.value === dateKey;
+        const isAvailable =
+            availability &&
+            Object.prototype.hasOwnProperty.call(availability, dateKey) &&
+            availability[dateKey] === true;
 
         if (isSameDay(date, today)) {
             button.classList.add("today");
         }
 
-        if (
-            dateInput.value &&
-            dateInput.value === toDateString(date)
-        ) {
+        if (isSelected) {
             button.classList.add("selected");
         }
 
-        if (isBookable) {
+        if (!isInWindow) {
+            button.disabled = true;
+        } else if (!availability) {
+            button.disabled = true;
+            button.classList.add("checking");
+            button.setAttribute("aria-label", `${button.getAttribute("aria-label")} — checking availability`);
+        } else if (!isAvailable) {
+            button.disabled = true;
+            button.classList.add("unavailable");
+        } else {
+            button.classList.add("available");
             button.addEventListener(
                 "click",
                 function() {
@@ -1096,6 +1166,157 @@ function renderDateCalendar() {
 
     calendarNext.disabled =
         calendarViewDate >= lastMonth;
+
+    if (!availability) {
+        calendarStatus.textContent = "CHECKING AVAILABLE DATES...";
+        loadMonthAvailability(year, month);
+    }
+}
+
+async function loadMonthAvailability(year, month) {
+
+    const availabilityKey =
+        `${year}-${String(month + 1).padStart(2, "0")}-${durationInput.value}`;
+
+    if (monthAvailabilityCache.has(availabilityKey)) {
+        renderDateCalendar();
+        return;
+    }
+
+    const requestId = ++monthAvailabilityRequestId;
+    const results = {};
+    const dates = [];
+    const daysInMonth =
+        new Date(year, month + 1, 0).getDate();
+
+    for (let dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
+        const date = new Date(year, month, dayNumber);
+
+        if (
+            !isWithinBookingWindow(date) ||
+            date.getDay() === 0 ||
+            date.getDay() === 6
+        ) {
+            continue;
+        }
+
+        dates.push(toDateString(date));
+    }
+
+    try {
+        // Keep requests small enough that Apps Script is not flooded.
+        for (let i = 0; i < dates.length; i += 5) {
+            const batch = dates.slice(i, i + 5);
+
+            await Promise.all(
+                batch.map(async function(dateString) {
+                    const params = new URLSearchParams({
+                        action: "availability",
+                        date: dateString,
+                        duration: durationInput.value
+                    });
+
+                    const response = await fetch(
+                        `${CALENDAR_API}?${params.toString()}`,
+                        {
+                            method: "GET",
+                            redirect: "follow",
+                            cache: "no-store",
+                            headers: { "Accept": "application/json" }
+                        }
+                    );
+
+                    if (!response.ok) {
+                        throw new Error(`Calendar server returned HTTP ${response.status}.`);
+                    }
+
+                    const data = await response.json();
+                    const slots = Array.isArray(data.slots)
+                        ? data.slots
+                        : Array.isArray(data.availableTimes)
+                            ? data.availableTimes
+                            : null;
+
+                    if (data.ok === false || data.success === false || slots === null) {
+                        throw new Error(data.error || "The calendar did not return available times.");
+                    }
+
+                    results[dateString] = slots.length > 0;
+                })
+            );
+        }
+
+        if (requestId !== monthAvailabilityRequestId) {
+            return;
+        }
+
+        monthAvailabilityCache.set(availabilityKey, results);
+        renderDateCalendar();
+
+        if (!dateInput.value) {
+            calendarStatus.textContent = "SELECT AN AVAILABLE DATE";
+        }
+
+    } catch (error) {
+        console.error("Month availability error:", error);
+
+        if (requestId !== monthAvailabilityRequestId) {
+            return;
+        }
+
+        // Keep the calendar usable if a month lookup fails.
+        monthAvailabilityCache.set(availabilityKey, null);
+        renderDateCalendarWithoutMonthCheck();
+        calendarStatus.textContent = "CALENDAR ERROR — SELECT A DATE TO RETRY";
+    }
+}
+
+function renderDateCalendarWithoutMonthCheck() {
+    const year = calendarViewDate.getFullYear();
+    const month = calendarViewDate.getMonth();
+
+    calendarDays.innerHTML = "";
+
+    const firstDay = new Date(year, month, 1);
+    const daysInMonth =
+        new Date(year, month + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay.getDay(); i++) {
+        const empty = document.createElement("div");
+        empty.className = "date-picker-day empty";
+        calendarDays.appendChild(empty);
+    }
+
+    for (let dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
+        const date = new Date(year, month, dayNumber);
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "date-picker-day";
+        button.textContent = dayNumber;
+
+        const inWindow =
+            isWithinBookingWindow(date) &&
+            date.getDay() !== 0 &&
+            date.getDay() !== 6;
+
+        if (!inWindow) {
+            button.disabled = true;
+        } else {
+            button.addEventListener("click", function() {
+                selectDate(date);
+            });
+        }
+
+        if (isSameDay(date, today)) {
+            button.classList.add("today");
+        }
+
+        if (dateInput.value === toDateString(date)) {
+            button.classList.add("selected");
+        }
+
+        calendarDays.appendChild(button);
+    }
 }
 
 function selectDate(date) {
@@ -1142,7 +1363,21 @@ calendarNext.addEventListener(
 
 durationInput.addEventListener(
     "change",
-    loadAvailability
+    function() {
+        selectedSlot = null;
+        selectedMeeting.style.display = "none";
+        confirmationPanel.classList.remove("active");
+        timeSlots.innerHTML = `
+            <div class="no-times">
+                SELECT A DATE TO SEE<br>
+                AVAILABLE MEETING TIMES.
+            </div>
+        `;
+        renderDateCalendar();
+        if (dateInput.value) {
+            loadAvailability();
+        }
+    }
 );
 
 renderDateCalendar();
@@ -1180,24 +1415,18 @@ continueButton.addEventListener(
 
         bookingMessage.textContent = "";
 
-        bookingModal.classList.add("active");
+        confirmationPanel.classList.add("active");
+        confirmationPanel.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
     }
 );
 
 cancelButton.addEventListener(
     "click",
     function() {
-        bookingModal.classList.remove("active");
-    }
-);
-
-bookingModal.addEventListener(
-    "click",
-    function(event) {
-
-        if (event.target === bookingModal) {
-            bookingModal.classList.remove("active");
-        }
+        confirmationPanel.classList.remove("active");
     }
 );
 
@@ -1460,7 +1689,7 @@ async function submitMeetingRequest() {
         setTimeout(
             function() {
 
-                bookingModal.classList.remove("active");
+                confirmationPanel.classList.remove("active");
 
                 selectedMeeting.style.display = "none";
 
