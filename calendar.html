@@ -127,6 +127,18 @@
     gap: 8px;
 }
 
+.calendar-field-wide {
+    grid-column: 1 / -1;
+}
+
+.calendar-field textarea {
+    min-height: 110px;
+    resize: vertical;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
 .calendar-field label {
     font-family: "DM Mono", monospace;
     font-size: 11px;
@@ -481,6 +493,37 @@
         <div class="calendar-controls">
 
             <div class="calendar-field">
+                <label for="guest-name">NAME</label>
+                <input
+                    type="text"
+                    id="guest-name"
+                    placeholder="Your name"
+                    autocomplete="name"
+                    maxlength="120"
+                >
+            </div>
+
+            <div class="calendar-field">
+                <label for="guest-email">EMAIL</label>
+                <input
+                    type="email"
+                    id="guest-email"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    maxlength="320"
+                >
+            </div>
+
+            <div class="calendar-field calendar-field-wide">
+                <label for="meeting-reason">REASON FOR MEETING</label>
+                <textarea
+                    id="meeting-reason"
+                    placeholder="What would you like to meet about?"
+                    maxlength="2000"
+                ></textarea>
+            </div>
+
+            <div class="calendar-field">
                 <label for="meeting-date">PREFERRED DATE</label>
                 <input type="date" id="meeting-date">
             </div>
@@ -560,46 +603,14 @@
     <div class="booking-modal-content">
 
         <h3>
-            ONE LAST<br>
-            THING.
+            CONFIRM<br>
+            REQUEST.
         </h3>
 
         <p id="modal-selected-time">
-            Confirm your information below.
-            Your request will be sent for approval
-            rather than automatically booked.
+            Your meeting request is ready to send.
+            Drew will review it before anything is booked.
         </p>
-
-        <div class="booking-form-group">
-            <label for="guest-name">NAME</label>
-            <input
-                type="text"
-                id="guest-name"
-                placeholder="Your name"
-                autocomplete="name"
-                maxlength="120"
-            >
-        </div>
-
-        <div class="booking-form-group">
-            <label for="guest-email">EMAIL</label>
-            <input
-                type="email"
-                id="guest-email"
-                placeholder="you@example.com"
-                autocomplete="email"
-                maxlength="320"
-            >
-        </div>
-
-        <div class="booking-form-group">
-            <label for="meeting-reason">REASON FOR MEETING</label>
-            <textarea
-                id="meeting-reason"
-                placeholder="What would you like to meet about?"
-                maxlength="2000"
-            ></textarea>
-        </div>
 
         <div
             style="position:absolute;left:-9999px;"
@@ -746,6 +757,24 @@ continueButton.addEventListener(
             return;
         }
 
+        if (!nameInput.value.trim()) {
+            nameInput.focus();
+            calendarStatus.textContent = "ENTER YOUR NAME";
+            return;
+        }
+
+        if (!emailInput.value.trim() || !isValidEmail(emailInput.value.trim())) {
+            emailInput.focus();
+            calendarStatus.textContent = "ENTER A VALID EMAIL";
+            return;
+        }
+
+        if (!reasonInput.value.trim()) {
+            reasonInput.focus();
+            calendarStatus.textContent = "ENTER A REASON FOR THE MEETING";
+            return;
+        }
+
         modalSelectedTime.textContent =
             `${formatDate(dateInput.value)} at ` +
             `${formatTime(selectedSlot)} for ` +
@@ -849,20 +878,24 @@ async function loadAvailability() {
         const data =
             await response.json();
 
-        if (!data.ok) {
+        const slots =
+            Array.isArray(data.slots)
+                ? data.slots
+                : Array.isArray(data.availableTimes)
+                    ? data.availableTimes
+                    : null;
 
+        if (data.ok === false || data.success === false || slots === null) {
             throw new Error(
                 data.error ||
                 "Unable to load availability."
             );
         }
 
-        renderTimes(
-            data.slots || []
-        );
+        renderTimes(slots);
 
         calendarStatus.textContent =
-            `${(data.slots || []).length} TIME(S) AVAILABLE`;
+            `${slots.length} TIME(S) AVAILABLE`;
 
     } catch (error) {
 
@@ -1013,38 +1046,33 @@ async function submitMeetingRequest() {
 
     try {
 
+        const requestBody = new URLSearchParams();
+        requestBody.set("action", "request");
+        requestBody.set("date", dateInput.value);
+        requestBody.set("start", selectedSlot);
+        requestBody.set("duration", durationInput.value);
+        requestBody.set("name", name);
+        requestBody.set("email", email);
+        requestBody.set("reason", reason);
+        requestBody.set(
+            "website",
+            honeypotInput ? honeypotInput.value : ""
+        );
+
         const response =
             await fetch(
                 CALENDAR_API,
                 {
                     method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-                    },
-                    body:
-                        JSON.stringify({
-                            action: "request",
-                            date: dateInput.value,
-                            start: selectedSlot,
-                            duration:
-                                Number(durationInput.value),
-                            name: name,
-                            email: email,
-                            reason: reason,
-                            website:
-                                honeypotInput
-                                    ? honeypotInput.value
-                                    : ""
-                        })
+                    body: requestBody
                 }
             );
 
         const data =
             await response.json();
 
-        if (!data.ok) {
-
+        if (data.ok === false || data.success === false ||
+            (data.ok !== true && data.success !== true)) {
             throw new Error(
                 data.error ||
                 "Unable to submit your request."
