@@ -194,8 +194,8 @@
     aspect-ratio: 1 / 1;
     min-height: 38px;
     border: 1px solid transparent;
-    border-radius: 7px;
-    background: transparent;
+    border-radius: 12px;
+    background: rgba(197, 223, 252, 0.42);
     color: #111;
     cursor: pointer;
     font-family: "DM Mono", monospace;
@@ -247,7 +247,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-}
 
 .calendar-field-wide {
     grid-column: 1 / -1;
@@ -294,7 +293,7 @@
 }
 
 .calendar-field textarea {
-    background: #6FA8DC;
+    background: #C5DFFC;
     color: #111;
     border: 1px solid #111;
     min-height: 120px;
@@ -306,7 +305,7 @@
 }
 
 .calendar-field textarea:focus {
-    background: #6FA8DC;
+    background: #C5DFFC;
     box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.12);
 }
 
@@ -314,13 +313,13 @@
     border: 1px solid #111;
     border-radius: 18px;
     padding: 15px 10px;
-    background: #6FA8DC;
+    background: #C5DFFC;
     color: #111;
     font-weight: 500;
 }
 
 .time-slot:hover {
-    background: #4F8FC9;
+    background: #A9CFF5;
     color: #111;
     transform: translateY(-2px);
 }
@@ -589,66 +588,40 @@
 <header class="site-header">
 
     <div class="logo-container">
-        <img
-            src="assets/drew-logo.png"
-            alt="Drew"
-            class="drew-logo"
-        >
+        <a href="index.html">
+            <img src="assets/drew-logo.png" alt="Drew" class="drew-logo">
+        </a>
     </div>
 
     <div class="marquee-section">
         <div class="marquee">
             <div class="marquee-track">
-                <span>
-                    ✰✰✰ HELLO WORLD! ✰✰✰ Drew’s Portfolio site ✰✰✰
-                </span>
-                <span>
-                    ✰✰✰ HELLO WORLD! ✰✰✰ Drew’s Portfolio site ✰✰✰
-                </span>
+                <div class="marquee-content">
+                    <span>✰✰✰ HELLO WORLD! ✰✰✰ Drew’s Portfolio site ✰✰✰</span>
+                    <span>✰✰✰ HELLO WORLD! ✰✰✰ Drew’s Portfolio site ✰✰✰</span>
+                </div>
+                <div class="marquee-content">
+                    <span>✰✰✰ HELLO WORLD! ✰✰✰ Drew’s Portfolio site ✰✰✰</span>
+                    <span>✰✰✰ HELLO WORLD! ✰✰✰ Drew’s Portfolio site ✰✰✰</span>
+                </div>
             </div>
         </div>
     </div>
 
     <nav class="main-nav">
-
-        <a href="index.html">
-            <span>00.</span>
-            ABOUT DREW
-        </a>
-
+        <a href="index.html"><span>00.</span>ABOUT DREW</a>
         <div class="nav-divider"></div>
-
-        <a href="curr.html">
-            <span>01.</span>
-            CURRENTLY
-        </a>
-
+        <a href="curr.html"><span>01.</span>CURRENTLY</a>
         <div class="nav-divider"></div>
-
-        <a href="projects.html">
-            <span>02.</span>
-            PROJECTS
-        </a>
-
+        <a href="projects.html"><span>02.</span>PROJECTS</a>
         <div class="nav-divider"></div>
-
-        <a href="blog.html">
-            <span>03.</span>
-            BLOG
-        </a>
-
+        <a href="blog.html"><span>03.</span>BLOG</a>
         <div class="nav-divider"></div>
-
-        <a href="contact.html">
-            <span>04.</span>
-            CONTACT
-        </a>
-
+        <a href="contact.html"><span>04.</span>CONTACT</a>
     </nav>
 
-
     <div class="identity-line">
-        <span>Software Engineer</span>
+        <span>Software Engineering</span>
         <b>×</b>
         <span>Product Management</span>
         <b>×</b>
@@ -902,6 +875,10 @@
 <!-- CALENDAR SCRIPT -->
 
 <script>
+
+(function () {
+
+    "use strict";
 
 const CALENDAR_API =
     "https://script.google.com/macros/s/AKfycbz2PEhPeruxhb7OS_MU80BfqEYxNO7cPIPyhtQbRdoCff5cN8Jnka0Xv3gaNamDRF2G/exec";
@@ -1568,6 +1545,8 @@ if (yearElement) {
         new Date().getFullYear();
 }
 
+
+})();
 </script>
 
 </body>
