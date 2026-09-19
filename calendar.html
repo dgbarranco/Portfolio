@@ -18,7 +18,6 @@
 
 <title>Drew — Schedule a Meeting</title>
 
-
 <!-- FONTS -->
 
 <link
@@ -48,1027 +47,531 @@
     href="style.css"
 >
 
-
-<!-- ===================================== -->
-<!-- CALENDAR PAGE CSS -->
-<!-- ===================================== -->
-
 <style>
-
-/* ===================================== */
-/* MARQUEE OVERRIDE */
-/* ===================================== */
-
 .marquee,
 .marquee-track,
 .marquee-track span {
-
     font-family: "Roboto", sans-serif !important;
-
     font-weight: 400 !important;
-
 }
-
-
-/* ===================================== */
-/* CALENDAR SECTION */
-/* ===================================== */
 
 .calendar-section {
-
     background: #FFF7C7;
-
     border-radius: 35px;
-
     padding: 70px 7%;
-
     margin: 0 auto;
-
     width: 90%;
-
     display: grid;
-
     grid-template-columns: 0.8fr 1.2fr;
-
     gap: 70px;
-
 }
-
-
-/* ===================================== */
-/* LEFT SIDE */
-/* ===================================== */
 
 .calendar-left {
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: flex-start;
-
 }
-
 
 .calendar-left .section-label {
-
     font-family: "DM Mono", monospace;
-
     font-size: 14px;
-
     letter-spacing: 0.05em;
-
     margin-bottom: 30px;
-
 }
-
 
 .calendar-left .section-label span {
-
     margin-right: 15px;
-
 }
-
 
 .calendar-left h2 {
-
     font-family: "Unbounded", sans-serif;
-
     font-size: clamp(45px, 6vw, 85px);
-
     line-height: 0.95;
-
     letter-spacing: -0.06em;
-
     margin: 0;
-
 }
-
 
 .calendar-left h2 span {
-
     display: inline-block;
-
 }
-
 
 .calendar-description {
-
     font-family: "DM Mono", monospace;
-
     font-size: 13px;
-
     line-height: 1.8;
-
     max-width: 420px;
-
     margin-top: 35px;
-
 }
-
-
-/* ===================================== */
-/* RIGHT SIDE */
-/* ===================================== */
 
 .calendar-content {
-
     width: 100%;
-
 }
-
 
 .calendar-intro {
-
     font-family: "DM Mono", monospace;
-
     font-size: 13px;
-
     line-height: 1.7;
-
     margin-bottom: 30px;
-
 }
-
-
-/* ===================================== */
-/* CONTROLS */
-/* ===================================== */
 
 .calendar-controls {
-
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 15px;
-
     margin-bottom: 30px;
-
 }
-
 
 .calendar-field {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 8px;
-
 }
-
 
 .calendar-field label {
-
     font-family: "DM Mono", monospace;
-
     font-size: 11px;
-
     letter-spacing: 0.08em;
-
 }
-
 
 .calendar-field input,
 .calendar-field select {
-
     width: 100%;
-
     border: 1px solid #111;
-
     border-radius: 8px;
-
     background: rgba(255, 255, 255, 0.45);
-
     padding: 13px 14px;
-
     font-family: "DM Mono", monospace;
-
     font-size: 13px;
-
     color: #111;
-
     outline: none;
-
 }
-
 
 .calendar-field input:focus,
 .calendar-field select:focus {
-
     background: rgba(255, 255, 255, 0.8);
-
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
-
 }
-
-
-/* ===================================== */
-/* AVAILABILITY HEADER */
-/* ===================================== */
 
 .availability-header {
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 20px;
-
     margin-bottom: 15px;
-
 }
-
 
 .availability-title {
-
     font-family: "DM Mono", monospace;
-
     font-size: 12px;
-
     letter-spacing: 0.08em;
-
 }
-
 
 .calendar-status {
-
     font-family: "DM Mono", monospace;
-
     font-size: 10px;
-
     color: #666;
-
     text-align: right;
-
 }
-
-
-/* ===================================== */
-/* TIME SLOTS */
-/* ===================================== */
 
 .time-slots {
-
     display: grid;
-
     grid-template-columns: repeat(3, 1fr);
-
     gap: 10px;
-
 }
 
-
 .time-slot {
-
     border: 1px solid #111;
-
     border-radius: 8px;
-
     padding: 14px 8px;
-
     background: rgba(255, 255, 255, 0.3);
-
     color: #111;
-
     cursor: pointer;
-
     font-family: "DM Mono", monospace;
-
     font-size: 12px;
-
     transition:
         background 0.2s ease,
         color 0.2s ease,
         transform 0.2s ease;
-
 }
-
 
 .time-slot:hover {
-
     background: #111;
-
     color: #FFF7C7;
-
     transform: translateY(-2px);
-
 }
-
 
 .time-slot.selected {
-
     background: #111;
-
     color: #FFF7C7;
-
 }
-
 
 .no-times {
-
     grid-column: 1 / -1;
-
     border: 1px dashed rgba(0, 0, 0, 0.4);
-
     border-radius: 8px;
-
     padding: 25px 15px;
-
     text-align: center;
-
     font-family: "DM Mono", monospace;
-
     font-size: 12px;
-
     line-height: 1.7;
-
 }
-
-
-/* ===================================== */
-/* SELECTED MEETING */
-/* ===================================== */
 
 .selected-meeting {
-
     display: none;
-
     margin-top: 25px;
-
     padding-top: 20px;
-
     border-top: 1px solid rgba(0, 0, 0, 0.35);
-
 }
-
 
 .selected-label {
-
     font-family: "DM Mono", monospace;
-
     font-size: 10px;
-
     letter-spacing: 0.08em;
-
     margin-bottom: 7px;
-
 }
-
 
 .selected-time {
-
     font-family: "Space Grotesk", sans-serif;
-
     font-size: 20px;
-
     font-weight: 600;
-
     margin-bottom: 15px;
-
 }
-
 
 .continue-button {
-
     width: 100%;
-
     border: 1px solid #111;
-
     border-radius: 8px;
-
     padding: 14px;
-
     background: #111;
-
     color: #FFF7C7;
-
     cursor: pointer;
-
     font-family: "DM Mono", monospace;
-
     font-size: 12px;
-
     transition: all 0.2s ease;
-
 }
-
 
 .continue-button:hover {
-
     background: transparent;
-
     color: #111;
-
 }
-
-
-/* ===================================== */
-/* BOOKING MODAL */
-/* ===================================== */
 
 .booking-modal {
-
     position: fixed;
-
     inset: 0;
-
     background: rgba(0, 0, 0, 0.45);
-
     display: none;
-
     align-items: center;
-
     justify-content: center;
-
     padding: 20px;
-
     z-index: 9999;
-
 }
-
 
 .booking-modal.active {
-
     display: flex;
-
 }
-
 
 .booking-modal-content {
-
     width: min(520px, 100%);
-
     background: #FFF7C7;
-
     border: 1px solid #111;
-
     border-radius: 25px;
-
     padding: 40px;
-
 }
-
 
 .booking-modal-content h3 {
-
     font-family: "Unbounded", sans-serif;
-
     font-size: 30px;
-
     line-height: 1;
-
     margin: 0 0 15px;
-
 }
-
 
 .booking-modal-content > p {
-
     font-family: "DM Mono", monospace;
-
     font-size: 11px;
-
     line-height: 1.7;
-
     margin-bottom: 25px;
-
 }
-
 
 .booking-form-group {
-
     margin-bottom: 15px;
-
 }
-
 
 .booking-form-group label {
-
     display: block;
-
     font-family: "DM Mono", monospace;
-
     font-size: 10px;
-
     letter-spacing: 0.08em;
-
     margin-bottom: 7px;
-
 }
-
 
 .booking-form-group input,
 .booking-form-group textarea {
-
     width: 100%;
-
     border: 1px solid #111;
-
     border-radius: 8px;
-
     background: rgba(255, 255, 255, 0.45);
-
     padding: 12px;
-
     font-family: "DM Mono", monospace;
-
     font-size: 12px;
-
     color: #111;
-
     outline: none;
-
     box-sizing: border-box;
-
 }
-
 
 .booking-form-group textarea {
-
     min-height: 90px;
-
     resize: vertical;
-
 }
-
 
 .booking-actions {
-
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 10px;
-
     margin-top: 20px;
-
 }
-
 
 .booking-actions button {
-
     border: 1px solid #111;
-
     border-radius: 8px;
-
     padding: 13px;
-
     font-family: "DM Mono", monospace;
-
     font-size: 11px;
-
     cursor: pointer;
-
 }
-
 
 .cancel-button {
-
     background: transparent;
-
     color: #111;
-
 }
-
 
 .confirm-button {
-
     background: #111;
-
     color: #FFF7C7;
-
 }
-
 
 .booking-actions button:disabled {
-
     opacity: 0.55;
-
     cursor: not-allowed;
-
 }
-
 
 .booking-message {
-
     font-family: "DM Mono", monospace;
-
     font-size: 11px;
-
     line-height: 1.6;
-
     margin-top: 15px;
-
 }
-
-
-/* ===================================== */
-/* RESPONSIVE */
-/* ===================================== */
 
 @media (max-width: 900px) {
-
     .calendar-section {
-
         grid-template-columns: 1fr;
-
         gap: 45px;
-
         padding: 55px 7%;
-
     }
-
 }
-
 
 @media (max-width: 600px) {
-
     .calendar-section {
-
         width: 94%;
-
         border-radius: 25px;
-
         padding: 40px 6%;
-
     }
-
 
     .calendar-controls {
-
         grid-template-columns: 1fr;
-
     }
-
 
     .time-slots {
-
         grid-template-columns: repeat(2, 1fr);
-
     }
-
 
     .booking-modal-content {
-
         padding: 28px;
-
     }
-
 }
-
 </style>
 
 </head>
 
-
 <body>
-
 
 <div class="noise"></div>
 
-
-<!-- ===================================== -->
-<!-- HEADER -->
-<!-- ===================================== -->
-
 <header class="site-header">
 
-
     <div class="logo-container">
-
         <img
             src="assets/drew-logo.png"
             alt="Drew"
             class="drew-logo"
         >
-
     </div>
-
 
     <div class="marquee-section">
-
         <div class="marquee">
-
             <div class="marquee-track">
-
                 <span>
                     ✰✰✰ HELLO WORLD! ✰✰✰ Drew’s Portfolio site ✰✰✰
                 </span>
-
                 <span>
                     ✰✰✰ HELLO WORLD! ✰✰✰ Drew’s Portfolio site ✰✰✰
                 </span>
-
             </div>
-
         </div>
-
     </div>
-
 
     <nav class="main-nav">
-
-        <a href="index.html">
-            <span>00.</span>
-            HOME
-        </a>
-
+        <a href="index.html"><span>00.</span> HOME</a>
         <div class="nav-divider"></div>
-
-        <a href="projects.html">
-            <span>01.</span>
-            CURRENTLY
-        </a>
-
+        <a href="projects.html"><span>01.</span> CURRENTLY</a>
         <div class="nav-divider"></div>
-
-        <a href="writing.html">
-            <span>02.</span>
-            PROJECTS
-        </a>
-
+        <a href="writing.html"><span>02.</span> PROJECTS</a>
         <div class="nav-divider"></div>
-
-        <a href="leadership.html">
-            <span>03.</span>
-            PUBLISHING
-        </a>
-
+        <a href="leadership.html"><span>03.</span> PUBLISHING</a>
         <div class="nav-divider"></div>
-
-        <a href="currently.html">
-            <span>04.</span>
-            BLOG
-        </a>
-
+        <a href="currently.html"><span>04.</span> BLOG</a>
         <div class="nav-divider"></div>
-
-        <a href="contact.html">
-            <span>05.</span>
-            CONTACT
-        </a>
-
+        <a href="contact.html"><span>05.</span> CONTACT</a>
     </nav>
 
-
     <div class="identity-line">
-
         <span>Software Engineer</span>
-
         <b>×</b>
-
         <span>Product Management</span>
-
         <b>×</b>
-
         <span>Technology Law</span>
-
     </div>
-
 
 </header>
 
-
-<!-- ===================================== -->
-<!-- CALENDAR -->
-<!-- ===================================== -->
-
 <main>
-
 
 <section
     class="calendar-section"
     style="background: #FFF7C7;"
 >
 
-
     <div class="calendar-left">
 
-
         <div class="section-label">
-
             <span>06</span>
-
             SCHEDULE
-
         </div>
 
-
         <h2>
-
             LET'S<br>
-
             <span>MEET.</span>
-
         </h2>
 
-
         <p class="calendar-description">
-
             Find a time that works for both of us.
             My availability is automatically pulled
             from my Google Calendar, so only times when
             I'm actually free will appear here.
-
         </p>
-
 
     </div>
 
-
     <div class="calendar-content">
 
-
         <p class="calendar-intro">
-
             SELECT A DATE AND MEETING LENGTH BELOW.
             AVAILABLE TIMES WILL APPEAR AUTOMATICALLY.
-
         </p>
-
 
         <div class="calendar-controls">
 
-
             <div class="calendar-field">
-
-                <label for="meeting-date">
-                    PREFERRED DATE
-                </label>
-
-                <input
-                    type="date"
-                    id="meeting-date"
-                >
-
+                <label for="meeting-date">PREFERRED DATE</label>
+                <input type="date" id="meeting-date">
             </div>
 
-
             <div class="calendar-field">
-
-                <label for="meeting-duration">
-                    DURATION
-                </label>
-
+                <label for="meeting-duration">DURATION</label>
                 <select id="meeting-duration">
-
-                    <option value="30">
-                        30 MINUTES
-                    </option>
-
-                    <option value="45">
-                        45 MINUTES
-                    </option>
-
-                    <option
-                        value="60"
-                        selected
-                    >
-                        60 MINUTES
-                    </option>
-
-                    <option value="90">
-                        90 MINUTES
-                    </option>
-
+                    <option value="30">30 MINUTES</option>
+                    <option value="45">45 MINUTES</option>
+                    <option value="60" selected>60 MINUTES</option>
+                    <option value="90">90 MINUTES</option>
                 </select>
-
             </div>
-
 
         </div>
 
-
         <div class="availability-header">
 
-
             <div class="availability-title">
-
                 AVAILABLE TIMES
-
             </div>
-
 
             <div
                 class="calendar-status"
                 id="calendar-status"
             >
-
                 SELECT A DATE
-
             </div>
 
-
         </div>
-
 
         <div
             class="time-slots"
             id="time-slots"
         >
-
             <div class="no-times">
-
                 SELECT A DATE TO SEE<br>
-
                 AVAILABLE MEETING TIMES.
-
             </div>
-
         </div>
-
 
         <div
             class="selected-meeting"
             id="selected-meeting"
         >
 
-
             <div class="selected-label">
-
                 SELECTED TIME
-
             </div>
-
 
             <div
                 class="selected-time"
                 id="selected-time"
-            >
-
-            </div>
-
+            ></div>
 
             <button
                 type="button"
                 class="continue-button"
                 id="continue-button"
             >
-
                 CONTINUE →
-
             </button>
-
 
         </div>
 
-
     </div>
-
 
 </section>
 
-
 </main>
-
-
-<!-- ===================================== -->
-<!-- BOOKING MODAL -->
-<!-- ===================================== -->
 
 <div
     class="booking-modal"
     id="booking-modal"
 >
 
-
     <div class="booking-modal-content">
 
-
         <h3>
-
             ONE LAST<br>
-
             THING.
-
         </h3>
 
-
         <p id="modal-selected-time">
-
             Confirm your information below.
             Your request will be sent for approval
             rather than automatically booked.
-
         </p>
 
-
-        <!-- NAME -->
-
         <div class="booking-form-group">
-
-
-            <label for="guest-name">
-
-                NAME
-
-            </label>
-
-
+            <label for="guest-name">NAME</label>
             <input
                 type="text"
                 id="guest-name"
@@ -1076,23 +579,10 @@
                 autocomplete="name"
                 maxlength="120"
             >
-
-
         </div>
 
-
-        <!-- EMAIL -->
-
         <div class="booking-form-group">
-
-
-            <label for="guest-email">
-
-                EMAIL
-
-            </label>
-
-
+            <label for="guest-email">EMAIL</label>
             <input
                 type="email"
                 id="guest-email"
@@ -1100,44 +590,22 @@
                 autocomplete="email"
                 maxlength="320"
             >
-
-
         </div>
 
-
-        <!-- REASON -->
-
         <div class="booking-form-group">
-
-
-            <label for="meeting-reason">
-
-                REASON FOR MEETING
-
-            </label>
-
-
+            <label for="meeting-reason">REASON FOR MEETING</label>
             <textarea
                 id="meeting-reason"
                 placeholder="What would you like to meet about?"
                 maxlength="2000"
             ></textarea>
-
-
         </div>
-
-
-        <!-- HONEYPOT -->
 
         <div
             style="position:absolute;left:-9999px;"
             aria-hidden="true"
         >
-
-            <label for="website">
-                Website
-            </label>
-
+            <label for="website">Website</label>
             <input
                 type="text"
                 id="website"
@@ -1145,119 +613,59 @@
                 tabindex="-1"
                 autocomplete="off"
             >
-
         </div>
 
-
-        <!-- ACTIONS -->
-
         <div class="booking-actions">
-
 
             <button
                 type="button"
                 class="cancel-button"
                 id="cancel-button"
             >
-
                 CANCEL
-
             </button>
-
 
             <button
                 type="button"
                 class="confirm-button"
                 id="confirm-button"
             >
-
                 SEND REQUEST →
-
             </button>
 
-
         </div>
-
 
         <div
             class="booking-message"
             id="booking-message"
         ></div>
 
-
     </div>
-
 
 </div>
 
-
-<!-- ===================================== -->
-<!-- FOOTER -->
-<!-- ===================================== -->
-
 <footer>
 
-
     <div>
-
         ©
-
         <span id="year"></span>
-
         DREW BARRANCO LANDA
-
     </div>
-
 
     <div class="footer-links">
-
-
-        <a href="index.html">
-
-            ↑ HOME
-
-        </a>
-
-
+        <a href="index.html">↑ HOME</a>
     </div>
-
 
 </footer>
 
-
 <script src="script.js"></script>
 
-
-<!-- ===================================== -->
 <!-- CALENDAR SCRIPT -->
-<!-- ===================================== -->
 
 <script>
 
-/*
-============================================================
-GOOGLE CALENDAR BACKEND
-============================================================
-
-Replace the URL below with your deployed Google Apps Script
-Web App URL.
-
-IMPORTANT:
-There are NO Google Calendar IDs or private credentials
-in this file.
-
-Only the public Apps Script Web App URL belongs here.
-*/
-
 const CALENDAR_API =
     "https://script.google.com/macros/s/AKfycbz2PEhPeruxhb7OS_MU80BfqEYxNO7cPIPyhtQbRdoCff5cN8Jnka0Xv3gaNamDRF2G/exec";
-
-
-/*
-============================================================
-ELEMENTS
-============================================================
-*/
 
 const dateInput =
     document.getElementById("meeting-date");
@@ -1307,57 +715,28 @@ const reasonInput =
 const honeypotInput =
     document.getElementById("website");
 
-
-/*
-============================================================
-STATE
-============================================================
-*/
-
 let selectedSlot = null;
 
-
-/*
-============================================================
-MINIMUM DATE
-============================================================
-*/
-
-const today =
-    new Date();
+const today = new Date();
 
 const todayString =
     today.getFullYear() +
     "-" +
-    String(
-        today.getMonth() + 1
-    ).padStart(2, "0") +
+    String(today.getMonth() + 1).padStart(2, "0") +
     "-" +
-    String(
-        today.getDate()
-    ).padStart(2, "0");
+    String(today.getDate()).padStart(2, "0");
 
-dateInput.min =
-    todayString;
-
-
-/*
-============================================================
-EVENT LISTENERS
-============================================================
-*/
+dateInput.min = todayString;
 
 dateInput.addEventListener(
     "change",
     loadAvailability
 );
 
-
 durationInput.addEventListener(
     "change",
     loadAvailability
 );
-
 
 continueButton.addEventListener(
     "click",
@@ -1374,60 +753,37 @@ continueButton.addEventListener(
 
         bookingMessage.textContent = "";
 
-        bookingModal.classList.add(
-            "active"
-        );
+        bookingModal.classList.add("active");
     }
 );
-
 
 cancelButton.addEventListener(
     "click",
     function() {
-
-        bookingModal.classList.remove(
-            "active"
-        );
+        bookingModal.classList.remove("active");
     }
 );
-
 
 bookingModal.addEventListener(
     "click",
     function(event) {
 
-        if (
-            event.target ===
-            bookingModal
-        ) {
-
-            bookingModal.classList.remove(
-                "active"
-            );
+        if (event.target === bookingModal) {
+            bookingModal.classList.remove("active");
         }
     }
 );
-
 
 confirmButton.addEventListener(
     "click",
     submitMeetingRequest
 );
 
-
-/*
-============================================================
-LOAD AVAILABILITY
-============================================================
-*/
-
 async function loadAvailability() {
 
     selectedSlot = null;
 
-    selectedMeeting.style.display =
-        "none";
-
+    selectedMeeting.style.display = "none";
 
     if (!dateInput.value) {
 
@@ -1438,12 +794,10 @@ async function loadAvailability() {
             </div>
         `;
 
-        calendarStatus.textContent =
-            "SELECT A DATE";
+        calendarStatus.textContent = "SELECT A DATE";
 
         return;
     }
-
 
     if (
         CALENDAR_API.includes(
@@ -1458,16 +812,13 @@ async function loadAvailability() {
             </div>
         `;
 
-        calendarStatus.textContent =
-            "NOT CONNECTED";
+        calendarStatus.textContent = "NOT CONNECTED";
 
         return;
     }
 
-
     calendarStatus.textContent =
         "CHECKING CALENDARS...";
-
 
     timeSlots.innerHTML = `
         <div class="no-times">
@@ -1475,43 +826,30 @@ async function loadAvailability() {
         </div>
     `;
 
-
     try {
 
         const params =
             new URLSearchParams({
-
-                action:
-                    "availability",
-
-                date:
-                    dateInput.value,
-
-                duration:
-                    durationInput.value
-
+                action: "availability",
+                date: dateInput.value,
+                duration: durationInput.value
             });
-
 
         const response =
             await fetch(
                 `${CALENDAR_API}?${params.toString()}`,
                 {
                     method: "GET",
-
                     headers: {
-                        "Accept":
-                            "application/json"
+                        "Accept": "application/json"
                     }
                 }
             );
 
-
         const data =
             await response.json();
 
-
-        if (!data.success) {
+        if (!data.ok) {
 
             throw new Error(
                 data.error ||
@@ -1519,20 +857,16 @@ async function loadAvailability() {
             );
         }
 
-
         renderTimes(
-            data.availableTimes || []
+            data.slots || []
         );
 
-
         calendarStatus.textContent =
-            `${(data.availableTimes || []).length} TIME(S) AVAILABLE`;
-
+            `${(data.slots || []).length} TIME(S) AVAILABLE`;
 
     } catch (error) {
 
         console.error(error);
-
 
         timeSlots.innerHTML = `
             <div class="no-times">
@@ -1541,18 +875,10 @@ async function loadAvailability() {
             </div>
         `;
 
-
         calendarStatus.textContent =
             "CALENDAR ERROR";
     }
 }
-
-
-/*
-============================================================
-RENDER TIMES
-============================================================
-*/
 
 function renderTimes(times) {
 
@@ -1568,196 +894,122 @@ function renderTimes(times) {
         return;
     }
 
-
     timeSlots.innerHTML = "";
-
 
     times.forEach(
         function(time) {
 
             const button =
-                document.createElement(
-                    "button"
-                );
+                document.createElement("button");
 
+            button.type = "button";
 
-            button.type =
-                "button";
-
-
-            button.className =
-                "time-slot";
-
+            button.className = "time-slot";
 
             button.textContent =
                 formatTime(time);
 
-
             button.addEventListener(
                 "click",
                 function() {
-
-                    selectTime(
-                        time,
-                        button
-                    );
+                    selectTime(time, button);
                 }
             );
 
-
-            timeSlots.appendChild(
-                button
-            );
+            timeSlots.appendChild(button);
         }
     );
 }
-
-
-/*
-============================================================
-SELECT TIME
-============================================================
-*/
 
 function selectTime(
     time,
     button
 ) {
 
-    selectedSlot =
-        time;
-
+    selectedSlot = time;
 
     document
-        .querySelectorAll(
-            ".time-slot"
-        )
+        .querySelectorAll(".time-slot")
         .forEach(
             function(slot) {
-
-                slot.classList.remove(
-                    "selected"
-                );
+                slot.classList.remove("selected");
             }
         );
 
-
-    button.classList.add(
-        "selected"
-    );
-
+    button.classList.add("selected");
 
     selectedTime.textContent =
         `${formatDate(dateInput.value)} · ` +
         `${formatTime(time)} · ` +
         `${durationInput.value} MIN`;
 
-
-    selectedMeeting.style.display =
-        "block";
+    selectedMeeting.style.display = "block";
 }
-
-
-/*
-============================================================
-SUBMIT MEETING REQUEST
-============================================================
-*/
 
 async function submitMeetingRequest() {
 
     const name =
         nameInput.value.trim();
 
-
     const email =
         emailInput.value.trim();
-
 
     const reason =
         reasonInput.value.trim();
 
-
     if (!name) {
-
         bookingMessage.textContent =
             "PLEASE ENTER YOUR NAME.";
-
         return;
     }
-
 
     if (!email) {
-
         bookingMessage.textContent =
             "PLEASE ENTER YOUR EMAIL.";
-
         return;
     }
-
 
     if (!isValidEmail(email)) {
-
         bookingMessage.textContent =
             "PLEASE ENTER A VALID EMAIL.";
-
         return;
     }
-
 
     if (!reason) {
-
         bookingMessage.textContent =
             "PLEASE TELL ME THE REASON FOR THE MEETING.";
-
         return;
     }
 
-
-    if (
-        !selectedSlot ||
-        !dateInput.value
-    ) {
-
+    if (!selectedSlot || !dateInput.value) {
         bookingMessage.textContent =
             "PLEASE SELECT A DATE AND TIME.";
-
         return;
     }
-
 
     if (
         honeypotInput &&
         honeypotInput.value.trim()
     ) {
-
         bookingMessage.textContent =
             "REQUEST REJECTED.";
-
         return;
     }
-
 
     if (
         CALENDAR_API.includes(
             "PASTE_YOUR_GOOGLE"
         )
     ) {
-
         bookingMessage.textContent =
             "CALENDAR CONNECTION IS NOT CONFIGURED YET.";
-
         return;
     }
-
 
     bookingMessage.textContent =
         "SENDING REQUEST FOR APPROVAL...";
 
-
-    confirmButton.disabled =
-        true;
-
+    confirmButton.disabled = true;
 
     try {
 
@@ -1765,40 +1017,21 @@ async function submitMeetingRequest() {
             await fetch(
                 CALENDAR_API,
                 {
-                    method:
-                        "POST",
-
+                    method: "POST",
                     headers: {
                         "Content-Type":
                             "text/plain;charset=utf-8"
                     },
-
                     body:
                         JSON.stringify({
-
-                            action:
-                                "request",
-
-                            date:
-                                dateInput.value,
-
-                            start:
-                                selectedSlot,
-
+                            action: "request",
+                            date: dateInput.value,
+                            start: selectedSlot,
                             duration:
-                                Number(
-                                    durationInput.value
-                                ),
-
-                            name:
-                                name,
-
-                            email:
-                                email,
-
-                            reason:
-                                reason,
-
+                                Number(durationInput.value),
+                            name: name,
+                            email: email,
+                            reason: reason,
                             website:
                                 honeypotInput
                                     ? honeypotInput.value
@@ -1807,12 +1040,10 @@ async function submitMeetingRequest() {
                 }
             );
 
-
         const data =
             await response.json();
 
-
-        if (!data.success) {
+        if (!data.ok) {
 
             throw new Error(
                 data.error ||
@@ -1820,42 +1051,23 @@ async function submitMeetingRequest() {
             );
         }
 
-
         bookingMessage.textContent =
             "REQUEST SENT. YOU'LL HEAR BACK AFTER DREW REVIEWS IT.";
-
 
         setTimeout(
             function() {
 
-                bookingModal.classList.remove(
-                    "active"
-                );
+                bookingModal.classList.remove("active");
 
+                selectedMeeting.style.display = "none";
 
-                selectedMeeting.style.display =
-                    "none";
+                selectedSlot = null;
 
+                nameInput.value = "";
+                emailInput.value = "";
+                reasonInput.value = "";
 
-                selectedSlot =
-                    null;
-
-
-                nameInput.value =
-                    "";
-
-
-                emailInput.value =
-                    "";
-
-
-                reasonInput.value =
-                    "";
-
-
-                bookingMessage.textContent =
-                    "";
-
+                bookingMessage.textContent = "";
 
                 loadAvailability();
 
@@ -1863,71 +1075,41 @@ async function submitMeetingRequest() {
             2200
         );
 
-
     } catch (error) {
 
         console.error(error);
-
 
         bookingMessage.textContent =
             error.message ||
             "SOMETHING WENT WRONG.";
 
-
     } finally {
 
-        confirmButton.disabled =
-            false;
+        confirmButton.disabled = false;
     }
 }
 
+function isValidEmail(email) {
 
-/*
-============================================================
-EMAIL VALIDATION
-============================================================
-*/
-
-function isValidEmail(
-    email
-) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(email);
+    return /^[^\s@]+\.[^\s@]+$/.test(email) &&
+           /^[^\s@]+@[^\s@]+$/.test(email);
 }
 
+function formatTime(time) {
 
-/*
-============================================================
-FORMAT TIME
-============================================================
-*/
+    const parts = time.split(":");
 
-function formatTime(
-    time
-) {
+    const hour = Number(parts[0]);
 
-    const parts =
-        time.split(":");
-
-
-    const hour =
-        Number(parts[0]);
-
-
-    const minute =
-        Number(parts[1]);
-
+    const minute = Number(parts[1]);
 
     const suffix =
         hour >= 12
             ? "PM"
             : "AM";
 
-
     const displayHour =
         hour % 12 || 12;
-
 
     return (
         `${displayHour}:` +
@@ -1936,58 +1118,31 @@ function formatTime(
     );
 }
 
-
-/*
-============================================================
-FORMAT DATE
-============================================================
-*/
-
-function formatDate(
-    dateString
-) {
+function formatDate(dateString) {
 
     const date =
-        new Date(
-            `${dateString}T12:00:00`
-        );
-
+        new Date(`${dateString}T12:00:00`);
 
     return date.toLocaleDateString(
         "en-US",
         {
-            weekday:
-                "long",
-
-            month:
-                "long",
-
-            day:
-                "numeric",
-
-            year:
-                "numeric"
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric"
         }
     );
 }
 
-
-/*
-============================================================
-FOOTER YEAR
-============================================================
-*/
-
 const yearElement =
-    document.getElementById(
-        "year"
-    );
-
+    document.getElementById("year");
 
 if (yearElement) {
-
     yearElement.textContent =
         new Date().getFullYear();
 }
 
 </script>
+
+</body>
+</html>
