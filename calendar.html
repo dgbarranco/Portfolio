@@ -116,9 +116,131 @@
 
 .calendar-controls {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.35fr 0.65fr;
     gap: 15px;
     margin-bottom: 30px;
+}
+
+.date-picker {
+    border: 1px solid #111;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.32);
+    padding: 18px;
+}
+
+.date-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.date-picker-month {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.date-picker-nav {
+    display: flex;
+    gap: 7px;
+}
+
+.date-picker-nav button {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #111;
+    border-radius: 7px;
+    background: transparent;
+    color: #111;
+    cursor: pointer;
+    font-family: "DM Mono", monospace;
+    font-size: 15px;
+    line-height: 1;
+}
+
+.date-picker-nav button:hover:not(:disabled) {
+    background: #111;
+    color: #FFF7C7;
+}
+
+.date-picker-nav button:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+.date-picker-weekdays,
+.date-picker-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.date-picker-weekdays {
+    margin-bottom: 5px;
+}
+
+.date-picker-weekdays span {
+    text-align: center;
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    color: #666;
+    padding: 5px 0;
+}
+
+.date-picker-day {
+    aspect-ratio: 1 / 1;
+    min-height: 38px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: transparent;
+    color: #111;
+    cursor: pointer;
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    transition: all 0.15s ease;
+}
+
+.date-picker-day:hover:not(:disabled) {
+    border-color: #111;
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.date-picker-day.selected {
+    background: #111;
+    color: #FFF7C7;
+    border-color: #111;
+}
+
+.date-picker-day.today {
+    border-color: rgba(0, 0, 0, 0.45);
+}
+
+.date-picker-day.today.selected {
+    border-color: #111;
+}
+
+.date-picker-day:disabled {
+    color: rgba(0, 0, 0, 0.22);
+    cursor: not-allowed;
+}
+
+.date-picker-day.empty {
+    cursor: default;
+}
+
+.selected-date-label {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    line-height: 1.6;
+    margin-top: 12px;
+    color: #555;
+}
+
+.calendar-field select {
+    height: 100%;
 }
 
 .calendar-field {
@@ -392,6 +514,10 @@
         grid-template-columns: 1fr;
     }
 
+    .date-picker-day {
+        min-height: 34px;
+    }
+
     .time-slots {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -524,8 +650,34 @@
             </div>
 
             <div class="calendar-field">
-                <label for="meeting-date">PREFERRED DATE</label>
-                <input type="date" id="meeting-date">
+                <label>PREFERRED DATE</label>
+
+                <div class="date-picker" id="date-picker">
+                    <div class="date-picker-header">
+                        <div class="date-picker-month" id="calendar-month"></div>
+
+                        <div class="date-picker-nav">
+                            <button type="button" id="calendar-prev" aria-label="Previous month">←</button>
+                            <button type="button" id="calendar-next" aria-label="Next month">→</button>
+                        </div>
+                    </div>
+
+                    <div class="date-picker-weekdays" aria-hidden="true">
+                        <span>SUN</span>
+                        <span>MON</span>
+                        <span>TUE</span>
+                        <span>WED</span>
+                        <span>THU</span>
+                        <span>FRI</span>
+                        <span>SAT</span>
+                    </div>
+
+                    <div class="date-picker-days" id="calendar-days"></div>
+
+                    <div class="selected-date-label" id="selected-date-label">SELECT A DATE</div>
+                </div>
+
+                <input type="hidden" id="meeting-date">
             </div>
 
             <div class="calendar-field">
@@ -728,26 +880,218 @@ const honeypotInput =
 
 let selectedSlot = null;
 
+const calendarMonth =
+    document.getElementById("calendar-month");
+
+const calendarDays =
+    document.getElementById("calendar-days");
+
+const calendarPrev =
+    document.getElementById("calendar-prev");
+
+const calendarNext =
+    document.getElementById("calendar-next");
+
+const selectedDateLabel =
+    document.getElementById("selected-date-label");
+
 const today = new Date();
+today.setHours(0, 0, 0, 0);
 
-const todayString =
-    today.getFullYear() +
-    "-" +
-    String(today.getMonth() + 1).padStart(2, "0") +
-    "-" +
-    String(today.getDate()).padStart(2, "0");
+const bookingStartDate = new Date(today);
 
-dateInput.min = todayString;
+const bookingEndDate = new Date(today);
+bookingEndDate.setDate(
+    bookingEndDate.getDate() + 90
+);
 
-dateInput.addEventListener(
-    "change",
-    loadAvailability
+let calendarViewDate = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    1
+);
+
+function toDateString(date) {
+    return (
+        date.getFullYear() +
+        "-" +
+        String(date.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(date.getDate()).padStart(2, "0")
+    );
+}
+
+function isSameDay(first, second) {
+    return (
+        first.getFullYear() === second.getFullYear() &&
+        first.getMonth() === second.getMonth() &&
+        first.getDate() === second.getDate()
+    );
+}
+
+function isWithinBookingWindow(date) {
+    return (
+        date >= bookingStartDate &&
+        date <= bookingEndDate
+    );
+}
+
+function renderDateCalendar() {
+
+    const year = calendarViewDate.getFullYear();
+    const month = calendarViewDate.getMonth();
+
+    calendarMonth.textContent =
+        calendarViewDate.toLocaleDateString(
+            "en-US",
+            {
+                month: "long",
+                year: "numeric"
+            }
+        ).toUpperCase();
+
+    calendarDays.innerHTML = "";
+
+    const firstDay = new Date(year, month, 1);
+    const daysInMonth =
+        new Date(year, month + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay.getDay(); i++) {
+        const empty = document.createElement("div");
+        empty.className = "date-picker-day empty";
+        calendarDays.appendChild(empty);
+    }
+
+    for (let dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
+
+        const date = new Date(
+            year,
+            month,
+            dayNumber
+        );
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+        button.className = "date-picker-day";
+        button.textContent = dayNumber;
+        button.setAttribute(
+            "aria-label",
+            date.toLocaleDateString(
+                "en-US",
+                {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric"
+                }
+            )
+        );
+
+        const isWeekend =
+            date.getDay() === 0 ||
+            date.getDay() === 6;
+
+        const isBookable =
+            isWithinBookingWindow(date) &&
+            !isWeekend;
+
+        if (!isBookable) {
+            button.disabled = true;
+        }
+
+        if (isSameDay(date, today)) {
+            button.classList.add("today");
+        }
+
+        if (
+            dateInput.value &&
+            dateInput.value === toDateString(date)
+        ) {
+            button.classList.add("selected");
+        }
+
+        if (isBookable) {
+            button.addEventListener(
+                "click",
+                function() {
+                    selectDate(date);
+                }
+            );
+        }
+
+        calendarDays.appendChild(button);
+    }
+
+    const firstMonth =
+        new Date(
+            bookingStartDate.getFullYear(),
+            bookingStartDate.getMonth(),
+            1
+        );
+
+    const lastMonth =
+        new Date(
+            bookingEndDate.getFullYear(),
+            bookingEndDate.getMonth(),
+            1
+        );
+
+    calendarPrev.disabled =
+        calendarViewDate <= firstMonth;
+
+    calendarNext.disabled =
+        calendarViewDate >= lastMonth;
+}
+
+function selectDate(date) {
+
+    dateInput.value = toDateString(date);
+
+    selectedDateLabel.textContent =
+        formatDate(dateInput.value).toUpperCase();
+
+    renderDateCalendar();
+    loadAvailability();
+}
+
+calendarPrev.addEventListener(
+    "click",
+    function() {
+        if (calendarPrev.disabled) return;
+
+        calendarViewDate = new Date(
+            calendarViewDate.getFullYear(),
+            calendarViewDate.getMonth() - 1,
+            1
+        );
+
+        renderDateCalendar();
+    }
+);
+
+calendarNext.addEventListener(
+    "click",
+    function() {
+        if (calendarNext.disabled) return;
+
+        calendarViewDate = new Date(
+            calendarViewDate.getFullYear(),
+            calendarViewDate.getMonth() + 1,
+            1
+        );
+
+        renderDateCalendar();
+    }
 );
 
 durationInput.addEventListener(
     "change",
     loadAvailability
 );
+
+renderDateCalendar();
 
 continueButton.addEventListener(
     "click",
