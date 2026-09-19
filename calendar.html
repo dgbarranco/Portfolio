@@ -1234,19 +1234,19 @@
 
 <script>
 
-
 /*
 ============================================================
 GOOGLE CALENDAR BACKEND
 ============================================================
 
-IMPORTANT:
-
 Replace the URL below with your deployed Google Apps Script
 Web App URL.
 
-Do NOT put Google Calendar credentials, Gmail credentials,
-or any private API credentials in this file.
+IMPORTANT:
+There are NO Google Calendar IDs or private credentials
+in this file.
+
+Only the public Apps Script Web App URL belongs here.
 */
 
 const CALENDAR_API =
@@ -1329,9 +1329,13 @@ const today =
 const todayString =
     today.getFullYear() +
     "-" +
-    String(today.getMonth() + 1).padStart(2, "0") +
+    String(
+        today.getMonth() + 1
+    ).padStart(2, "0") +
     "-" +
-    String(today.getDate()).padStart(2, "0");
+    String(
+        today.getDate()
+    ).padStart(2, "0");
 
 dateInput.min =
     todayString;
@@ -1370,8 +1374,9 @@ continueButton.addEventListener(
 
         bookingMessage.textContent = "";
 
-        bookingModal.classList.add("active");
-
+        bookingModal.classList.add(
+            "active"
+        );
     }
 );
 
@@ -1380,8 +1385,9 @@ cancelButton.addEventListener(
     "click",
     function() {
 
-        bookingModal.classList.remove("active");
-
+        bookingModal.classList.remove(
+            "active"
+        );
     }
 );
 
@@ -1390,12 +1396,15 @@ bookingModal.addEventListener(
     "click",
     function(event) {
 
-        if (event.target === bookingModal) {
+        if (
+            event.target ===
+            bookingModal
+        ) {
 
-            bookingModal.classList.remove("active");
-
+            bookingModal.classList.remove(
+                "active"
+            );
         }
-
     }
 );
 
@@ -1416,7 +1425,8 @@ async function loadAvailability() {
 
     selectedSlot = null;
 
-    selectedMeeting.style.display = "none";
+    selectedMeeting.style.display =
+        "none";
 
 
     if (!dateInput.value) {
@@ -1432,11 +1442,14 @@ async function loadAvailability() {
             "SELECT A DATE";
 
         return;
-
     }
 
 
-    if (CALENDAR_API.includes("PASTE_YOUR_GOOGLE")) {
+    if (
+        CALENDAR_API.includes(
+            "PASTE_YOUR_GOOGLE"
+        )
+    ) {
 
         timeSlots.innerHTML = `
             <div class="no-times">
@@ -1449,7 +1462,6 @@ async function loadAvailability() {
             "NOT CONNECTED";
 
         return;
-
     }
 
 
@@ -1468,9 +1480,16 @@ async function loadAvailability() {
 
         const params =
             new URLSearchParams({
-                action: "availability",
-                date: dateInput.value,
-                duration: durationInput.value
+
+                action:
+                    "availability",
+
+                date:
+                    dateInput.value,
+
+                duration:
+                    durationInput.value
+
             });
 
 
@@ -1479,8 +1498,10 @@ async function loadAvailability() {
                 `${CALENDAR_API}?${params.toString()}`,
                 {
                     method: "GET",
+
                     headers: {
-                        "Accept": "application/json"
+                        "Accept":
+                            "application/json"
                     }
                 }
             );
@@ -1496,7 +1517,6 @@ async function loadAvailability() {
                 data.error ||
                 "Unable to load availability."
             );
-
         }
 
 
@@ -1524,9 +1544,7 @@ async function loadAvailability() {
 
         calendarStatus.textContent =
             "CALENDAR ERROR";
-
     }
-
 }
 
 
@@ -1548,44 +1566,50 @@ function renderTimes(times) {
         `;
 
         return;
-
     }
 
 
     timeSlots.innerHTML = "";
 
 
-    times.forEach(function(time) {
+    times.forEach(
+        function(time) {
 
-        const button =
-            document.createElement("button");
-
-        button.type = "button";
-
-        button.className =
-            "time-slot";
-
-        button.textContent =
-            formatTime(time);
-
-
-        button.addEventListener(
-            "click",
-            function() {
-
-                selectTime(
-                    time,
-                    button
+            const button =
+                document.createElement(
+                    "button"
                 );
 
-            }
-        );
+
+            button.type =
+                "button";
 
 
-        timeSlots.appendChild(button);
+            button.className =
+                "time-slot";
 
-    });
 
+            button.textContent =
+                formatTime(time);
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    selectTime(
+                        time,
+                        button
+                    );
+                }
+            );
+
+
+            timeSlots.appendChild(
+                button
+            );
+        }
+    );
 }
 
 
@@ -1595,22 +1619,32 @@ SELECT TIME
 ============================================================
 */
 
-function selectTime(time, button) {
+function selectTime(
+    time,
+    button
+) {
 
     selectedSlot =
         time;
 
 
     document
-        .querySelectorAll(".time-slot")
-        .forEach(function(slot) {
+        .querySelectorAll(
+            ".time-slot"
+        )
+        .forEach(
+            function(slot) {
 
-            slot.classList.remove("selected");
+                slot.classList.remove(
+                    "selected"
+                );
+            }
+        );
 
-        });
 
-
-    button.classList.add("selected");
+    button.classList.add(
+        "selected"
+    );
 
 
     selectedTime.textContent =
@@ -1621,7 +1655,6 @@ function selectTime(time, button) {
 
     selectedMeeting.style.display =
         "block";
-
 }
 
 
@@ -1636,8 +1669,10 @@ async function submitMeetingRequest() {
     const name =
         nameInput.value.trim();
 
+
     const email =
         emailInput.value.trim();
+
 
     const reason =
         reasonInput.value.trim();
@@ -1649,7 +1684,6 @@ async function submitMeetingRequest() {
             "PLEASE ENTER YOUR NAME.";
 
         return;
-
     }
 
 
@@ -1659,7 +1693,6 @@ async function submitMeetingRequest() {
             "PLEASE ENTER YOUR EMAIL.";
 
         return;
-
     }
 
 
@@ -1669,7 +1702,6 @@ async function submitMeetingRequest() {
             "PLEASE ENTER A VALID EMAIL.";
 
         return;
-
     }
 
 
@@ -1679,17 +1711,18 @@ async function submitMeetingRequest() {
             "PLEASE TELL ME THE REASON FOR THE MEETING.";
 
         return;
-
     }
 
 
-    if (!selectedSlot || !dateInput.value) {
+    if (
+        !selectedSlot ||
+        !dateInput.value
+    ) {
 
         bookingMessage.textContent =
             "PLEASE SELECT A DATE AND TIME.";
 
         return;
-
     }
 
 
@@ -1702,7 +1735,6 @@ async function submitMeetingRequest() {
             "REQUEST REJECTED.";
 
         return;
-
     }
 
 
@@ -1716,7 +1748,6 @@ async function submitMeetingRequest() {
             "CALENDAR CONNECTION IS NOT CONFIGURED YET.";
 
         return;
-
     }
 
 
@@ -1734,44 +1765,45 @@ async function submitMeetingRequest() {
             await fetch(
                 CALENDAR_API,
                 {
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
                         "Content-Type":
                             "text/plain;charset=utf-8"
                     },
 
-                    body: JSON.stringify({
+                    body:
+                        JSON.stringify({
 
-                        action: "request",
+                            action:
+                                "request",
 
-                        date:
-                            dateInput.value,
+                            date:
+                                dateInput.value,
 
-                        start:
-                            selectedSlot,
+                            start:
+                                selectedSlot,
 
-                        duration:
-                            Number(
-                                durationInput.value
-                            ),
+                            duration:
+                                Number(
+                                    durationInput.value
+                                ),
 
-                        name:
-                            name,
+                            name:
+                                name,
 
-                        email:
-                            email,
+                            email:
+                                email,
 
-                        reason:
-                            reason,
+                            reason:
+                                reason,
 
-                        website:
-                            honeypotInput
-                                ? honeypotInput.value
-                                : ""
-
-                    })
-
+                            website:
+                                honeypotInput
+                                    ? honeypotInput.value
+                                    : ""
+                        })
                 }
             );
 
@@ -1786,7 +1818,6 @@ async function submitMeetingRequest() {
                 data.error ||
                 "Unable to submit your request."
             );
-
         }
 
 
@@ -1794,30 +1825,43 @@ async function submitMeetingRequest() {
             "REQUEST SENT. YOU'LL HEAR BACK AFTER DREW REVIEWS IT.";
 
 
-        setTimeout(function() {
+        setTimeout(
+            function() {
 
-            bookingModal.classList.remove(
-                "active"
-            );
+                bookingModal.classList.remove(
+                    "active"
+                );
 
-            selectedMeeting.style.display =
-                "none";
 
-            selectedSlot =
-                null;
+                selectedMeeting.style.display =
+                    "none";
 
-            nameInput.value =
-                "";
 
-            emailInput.value =
-                "";
+                selectedSlot =
+                    null;
 
-            reasonInput.value =
-                "";
 
-            loadAvailability();
+                nameInput.value =
+                    "";
 
-        }, 2200);
+
+                emailInput.value =
+                    "";
+
+
+                reasonInput.value =
+                    "";
+
+
+                bookingMessage.textContent =
+                    "";
+
+
+                loadAvailability();
+
+            },
+            2200
+        );
 
 
     } catch (error) {
@@ -1834,9 +1878,7 @@ async function submitMeetingRequest() {
 
         confirmButton.disabled =
             false;
-
     }
-
 }
 
 
@@ -1846,12 +1888,12 @@ EMAIL VALIDATION
 ============================================================
 */
 
-function isValidEmail(email) {
+function isValidEmail(
+    email
+) {
 
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-        email
-    );
-
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
 }
 
 
@@ -1861,13 +1903,17 @@ FORMAT TIME
 ============================================================
 */
 
-function formatTime(time) {
+function formatTime(
+    time
+) {
 
     const parts =
         time.split(":");
 
+
     const hour =
         Number(parts[0]);
+
 
     const minute =
         Number(parts[1]);
@@ -1888,7 +1934,6 @@ function formatTime(time) {
         `${String(minute).padStart(2, "0")} ` +
         suffix
     );
-
 }
 
 
@@ -1898,7 +1943,9 @@ FORMAT DATE
 ============================================================
 */
 
-function formatDate(dateString) {
+function formatDate(
+    dateString
+) {
 
     const date =
         new Date(
@@ -1909,13 +1956,19 @@ function formatDate(dateString) {
     return date.toLocaleDateString(
         "en-US",
         {
-            weekday: "long",
-            month: "long",
-            day: "numeric",
-            year: "numeric"
+            weekday:
+                "long",
+
+            month:
+                "long",
+
+            day:
+                "numeric",
+
+            year:
+                "numeric"
         }
     );
-
 }
 
 
@@ -1926,19 +1979,15 @@ FOOTER YEAR
 */
 
 const yearElement =
-    document.getElementById("year");
+    document.getElementById(
+        "year"
+    );
 
 
 if (yearElement) {
 
     yearElement.textContent =
         new Date().getFullYear();
-
 }
 
 </script>
-
-
-</body>
-
-</html>
