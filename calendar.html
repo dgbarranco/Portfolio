@@ -2357,39 +2357,23 @@ async function submitMeetingRequest() {
 
         }
 
-        bookingMessage.textContent =
-            "REQUEST SENT. YOU'LL HEAR BACK AFTER DREW REVIEWS IT.";
+     /*
+    REQUEST SUBMITTED SUCCESSFULLY
 
-        setTimeout(
-            function () {
+    Redirect the visitor to the confirmation page.
+    The request is pending Drew's approval and
+    is not yet a confirmed calendar booking.
+*/
 
-                confirmationPanel.classList.remove(
-                    "active"
-                );
+const confirmationParams = new URLSearchParams({
+    date: dateInput.value,
+    time: formatTime(selectedSlot),
+    duration: String(durationInput.value),
+    name: name
+});
 
-                selectedMeeting.style.display =
-                    "none";
-
-                selectedSlot =
-                    null;
-
-                nameInput.value =
-                    "";
-
-                emailInput.value =
-                    "";
-
-                reasonInput.value =
-                    "";
-
-                bookingMessage.textContent =
-                    "";
-
-                loadAvailability();
-
-            },
-            2200
-        );
+window.location.href =
+    `confirmation.html?${confirmationParams.toString()}`;
 
     } catch (error) {
 
