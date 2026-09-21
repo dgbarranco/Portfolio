@@ -1459,8 +1459,8 @@ async function loadMonthAvailability(
 ) {
 
     const availabilityKey =
-        `${year}-${String(month + 1).padStart(2, "0")}-${durationInput.value}`;
-
+    `${year}-${String(month + 1).padStart(2, "0")}-${durationInput.value}`;
+    
     if (
         monthAvailabilityCache.has(
             availabilityKey
